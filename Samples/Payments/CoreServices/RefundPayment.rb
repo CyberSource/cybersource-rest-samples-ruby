@@ -1,6 +1,6 @@
 require 'cybersource_rest_client'
 require_relative 'ProcessPayment.rb'
-require_relative '../../../Data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 # * This is a sample code to call RefundApi,
 # * Refund a Payment
@@ -9,6 +9,7 @@ require_relative '../../../Data/Configuration.rb'
 public
 class RefundPayment
   def main
+    puts "\n[BEGIN] REQUEST & RESPONSE OF: #{self.class.name}"
     config = MerchantConfiguration.new.merchantConfigProp()
     request = CyberSource::RefundPaymentRequest.new
     api_client = CyberSource::ApiClient.new
@@ -16,7 +17,7 @@ class RefundPayment
 
     # Calling CreatePayment Sample code 
     capture_flag = true
-    response = CreatePayment.new.main(capture_flag)
+    response = ProcessPayment.new.main(capture_flag)
     resp = JSON.parse(response)
     id = resp['id']
 
@@ -30,11 +31,28 @@ class RefundPayment
     amount_details.currency ="USD"
     order_information.amount_details = amount_details
     request.order_information = order_information
-
-    data, status_code, headers = api_instance.refund_payment(request, id)
-    puts data, status_code, headers
+    puts "\nAPI REQUEST BODY:"
+    request_body = api_client.object_to_hash(request)
+    puts api_client.maskPayload(request_body.to_json)
+    response_body, response_code, response_headers = api_instance.refund_payment(request, id)
+    puts "\nAPI REQUEST HEADERS:"
+    puts api_client.request_headers
+    puts "\nAPI RESPONSE CODE:"
+    puts response_code
+    puts "\nAPI RESPONSE HEADERS:"
+    puts response_headers
+    puts "\nAPI RESPONSE BODY:"
+    puts response_body
   rescue StandardError => err
-    puts err.message
+    if (err.respond_to? :response_headers) || (err.respond_to? :response_body) || (err.respond_to? :code)
+      puts "\nAPI REQUEST HEADERS:"
+      puts api_client.request_headers
+      puts "\nAPI RESPONSE CODE: \n#{err.code}", "\nAPI RESPONSE HEADERS: \n#{err.response_headers}", "\nAPI RESPONSE BODY: \n#{err.response_body}"
+    else
+      puts err.message
+    end
+  ensure
+    puts "\n[END] REQUEST & RESPONSE OF: #{self.class.name}"
   end
   if __FILE__ == $0
     RefundPayment.new.main
