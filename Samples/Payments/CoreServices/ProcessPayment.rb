@@ -1,17 +1,19 @@
 require 'cybersource_rest_client'
-require_relative '../../../Data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 # * This is a sample code to call PaymentApi,
 # * for Core Services - Process Payment
 # * createPayment method will create a new payment
 
 public
-class CreatePayment
+class ProcessPayment
   def main(capture_flag)
+    puts "\n[BEGIN] REQUEST & RESPONSE OF: #{self.class.name}"
     config = MerchantConfiguration.new.merchantConfigProp()
     request = CyberSource::CreatePaymentRequest.new
     api_client = CyberSource::ApiClient.new
     api_instance = CyberSource::PaymentsApi.new(api_client, config)
+    
     client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
     client_reference_information.code = "test_payment"
     request.client_reference_information = client_reference_information
@@ -71,13 +73,31 @@ class CreatePayment
     card_information.type = "002"
     payment_information.card = card_information
     request.payment_information = payment_information
-    data, status_code, headers = api_instance.create_payment(request)
-    puts data, status_code, headers
-    data
+    puts "\nAPI REQUEST BODY:"
+    request_body = api_client.object_to_hash(request)
+    puts api_client.maskPayload(request_body.to_json)
+    response_body, response_code, response_headers = api_instance.create_payment(request)
+    puts "\nAPI REQUEST HEADERS:"
+    puts api_client.request_headers
+    puts "\nAPI RESPONSE CODE:"
+    puts response_code
+    puts "\nAPI RESPONSE HEADERS:"
+    puts response_headers
+    puts "\nAPI RESPONSE BODY:"
+    puts response_body
+    response_body
   rescue StandardError => err
-    puts err.message
+    if (err.respond_to? :response_headers) || (err.respond_to? :response_body) || (err.respond_to? :code)
+      puts "\nAPI REQUEST HEADERS:"
+      puts api_client.request_headers
+      puts "\nAPI RESPONSE CODE: \n#{err.code}", "\nAPI RESPONSE HEADERS: \n#{err.response_headers}", "\nAPI RESPONSE BODY: \n#{err.response_body}"
+    else
+      puts err.message
+    end
+  ensure
+    puts "\n[END] REQUEST & RESPONSE OF: #{self.class.name}"
   end
   if __FILE__ == $0
-    CreatePayment.new.main(false)
+    ProcessPayment.new.main(false)
   end
 end
