@@ -1,0 +1,85 @@
+{
+	"title":"RoadRunner",
+	"version":"1.0",
+	"roads": [{
+		"uniqueName": "Process a Payment",
+		"description": "This has to be a detailed explanation of the test, and what it accomplishes",
+		"sampleClassName": {
+			"node" : "Payments.CoreServices.ProcessPayment"
+		},
+		"assertions": {
+			"httpStatus" : "201",
+			"expectedValues" :[
+				{
+					"field" : "status",
+					"value" : "AUTHORIZED"
+				},
+				{
+					"field" : "processorInformation.responseCode",
+					"value" : "100"
+				},
+				{
+					"field" : "orderInformation.amountDetails.authorizedAmount",
+					"value" : "102.21"
+				}
+			],
+			"requiredFields" : [ "id", "reconciliationId"]
+		},
+		"before": {
+			"TBD" : "TBD"
+		},
+		"after": {
+			"TBD" : "TBD"
+		},
+		"input": {
+			"TBD" : "TBD"
+		},
+		"useSavedInput": {
+			"TBD" : "TBD"
+		},
+		"saveOutput": {
+			"TBD" : "TBD"
+		},
+		"previousTest": {
+			"TBD" : "TBD"
+		}
+	},{
+		"uniqueName": "Process a Payment",
+		"description": "This has to be a detailed explanation of the test, and what it accomplishes",
+		"sampleClassName": {
+			"node" : "Payments.CoreServices.RefundPayment"
+		},
+		"assertions": {
+			"httpStatus" : "201",
+			"expectedValues" :[
+				{
+					"field" : "status",
+					"value" : "PENDING"
+				},
+				{
+					"field" : "refundAmountDetails.refundAmount",
+					"value" : "102.22"
+				}
+			],
+			"requiredFields" : [ "id", "reconciliationId"]
+		},
+		"before": {
+			"TBD" : "TBD"
+		},
+		"after": {
+			"TBD" : "TBD"
+		},
+		"input": {
+			"TBD" : "TBD"
+		},
+		"useSavedInput": {
+			"TBD" : "TBD"
+		},
+		"saveOutput": {
+			"TBD" : "TBD"
+		},
+		"previousTest": {
+			"TBD" : "TBD"
+		}
+	}]
+}
