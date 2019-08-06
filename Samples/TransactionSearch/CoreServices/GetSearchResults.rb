@@ -4,7 +4,7 @@ require_relative '../../../data/Configuration.rb'
 public
 class GetSearchResults
   def main()
-	  id = "ee523a24-dec0-4db6-9efa-375f05b5e161"
+	  id = "efa74d1a-9765-4d2c-968c-72c7261b3b27"
     config = MerchantConfiguration.new.merchantConfigProp()
     api_client = CyberSource::ApiClient.new
 

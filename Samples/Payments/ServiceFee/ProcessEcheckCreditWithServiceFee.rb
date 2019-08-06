@@ -23,6 +23,7 @@ class ProcessEcheckCreditWithServiceFee
     bill_to_information.administrative_area = "CA"
     bill_to_information.first_name = "John"
     bill_to_information.phone_number = "4158880000"
+    bill_to_information.company = "ABC Company"
     bill_to_information.email = "test@cybs.com"	
 
     amount_information = CyberSource::Ptsv2paymentsOrderInformationAmountDetails.new

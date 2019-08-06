@@ -28,6 +28,7 @@ class ProcessCreditWithServiceFee
     bill_to_information.first_name = "John"
     bill_to_information.phone_number = "4158880000"
     bill_to_information.email = "test@cybs.com"
+    bill_to_information.company = "ABC Company"
     order_information.bill_to = bill_to_information
     request.order_information = order_information
 
