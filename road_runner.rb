@@ -4,7 +4,6 @@ require 'test/unit'
 json_data = File.read("executor.json")
 execution_order_data = JSON.parse(json_data)
 
-# if the entire class path of key is known.
 def find(hash_response,key)
 	key_split = key.split(".")
 	for split in key_split
@@ -18,11 +17,15 @@ AssertionData = Struct.new :expected, :actual, :message
 
 TEST_DATA = []
 global_map = {}
+i = 0
 
 # Execute the roads and build the test data
 for road in execution_order_data["Execution Order"]
 
-	# populate test data / data regarding the fields missing to be passed as input
+	# to give unique test name for roads with same unique name
+	i = i + 1;
+
+	# populate test data / data regarding the fields missing to be passed as input / exceptions
 	data = []
 
 	# get the fully qualified file name
@@ -87,15 +90,19 @@ for road in execution_order_data["Execution Order"]
 
 			# Store the response values into global map which will be used for subsequent requests
 			for field in stored_fields
-				unless find(hash_response,field).nil?
-					global_map.store(unique_name + field, find(hash_response,field))
+				value = find(hash_response,field)
+				unless value.nil?
+					global_map.store(unique_name + field, value)
 				end
 			end
-		
-			data.push(AssertionData.new(road["Assertions"]["httpStatus"], (http_status.nil?) ? http_status : http_status.to_s, "Actual value of \"httpStatus\" field doesn't match Expected value in the response."))
+
+			unless road["Assertions"]["httpStatus"].empty?
+				data.push(AssertionData.new(road["Assertions"]["httpStatus"], (http_status.nil?) ? http_status : http_status.to_s, "Actual value of \"httpStatus\" field doesn't match Expected value in the response."))
+			end
 
 			for required_field in road["Assertions"]["requiredFields"]
-				data.push(AssertionData.new(hash_response.has_key?(required_field), true, required_field + " - is a required field, but not present in the response."))
+				actual_value = find(hash_response,required_field)
+				data.push(AssertionData.new(!actual_value.nil?, true, required_field + " - is a required field, but not present in the response."))
 			end
 
 			for expected_value in road["Assertions"]["expectedValues"]
@@ -111,8 +118,10 @@ for road in execution_order_data["Execution Order"]
 		data.push(AssertionData.new(true, false, class_name + " sample code wasn't found. " + err.message))
 	ensure
 		# Ruby test cases work only if the dynamic test case name starts with 'test'
-		# Populate the test data
-		TEST_DATA.push(TestData.new("test_" + class_name.downcase, data))
+		# Populate the test data, only if validations are mentioned or exceptions occur or dependent fields are missing
+		if(data.length > 0)
+			TEST_DATA.push(TestData.new("test_" + i.to_s + "_" + class_name.downcase, data))
+		end
 	end
 end
 
