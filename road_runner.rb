@@ -99,7 +99,7 @@ Class.new Test::Unit::TestCase do
 
 					for required_field in road["Assertions"]["requiredFields"]
 						actual_value = find(hash_response,required_field)
-						assert_equal(!actual_value.nil?, true, required_field + " - is a required field, but not present in the response.")
+						assert_equal(true, !actual_value.nil?, required_field + " - is a required field, but not present in the response.")
 					end
 
 					for expected_value in road["Assertions"]["expectedValues"]
