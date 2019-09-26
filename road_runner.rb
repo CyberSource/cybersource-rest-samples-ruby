@@ -6,8 +6,12 @@ ROADS = JSON.parse(json_data)
 
 def find(hash_response,key)
 	key_split = key.split(".")
-	for split in key_split
-		hash_response = hash_response[split]
+	for s in key_split
+		if s.include? "["
+			hash_response = hash_response[s.split("[").first][0]
+		else
+			hash_response = hash_response[s]
+		end
 	end
 	return hash_response
 end
@@ -52,6 +56,12 @@ Class.new Test::Unit::TestCase do
 
 				# define a variable to determine if sample code can be called.
 				call_sample_code = true
+				
+				if unique_name.include? "Token_Management"
+				    input_fields.push("93B32398-AD51-4CC2-A682-EA3E93614EB1")
+				elsif unique_name.include? "GetReportDefinition"
+				    input_fields.push("TransactionRequestClass")
+				end
 
 				# Check if the required fields are in the global map
 				for field in dependent_fields
@@ -62,6 +72,10 @@ Class.new Test::Unit::TestCase do
 						# as dependent input fields are missing, sample code cannot be called
 						call_sample_code = false
 					end
+				end
+				
+				if unique_name.include? "Retrieve" or unique_name.include? "Delete"	
+            				sleep 15
 				end
 
 				if call_sample_code
