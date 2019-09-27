@@ -74,8 +74,10 @@ Class.new Test::Unit::TestCase do
 					end
 				end
 				
-				if unique_name.include? "Retrieve" or unique_name.include? "Delete"	
-            				sleep 15
+				if !dependent_sample_code.empty?
+					if unique_name.include? "Retrieve" or unique_name.include? "Delete"
+		    				sleep 15
+					end
 				end
 
 				if call_sample_code
