@@ -14,7 +14,7 @@ class DownloadFileWithFileIdentifier
 
         data, status_code, headers = api_instance.get_file(file_id, opts)
 
-        puts data, status_code, headers
+        return data, status_code, headers
     rescue StandardError => err
         puts err.message
     end
