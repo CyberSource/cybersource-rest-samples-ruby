@@ -96,7 +96,7 @@ Class.new Test::Unit::TestCase do
 						response, http_status = instance.run()
 					end
 
-					if !response.nil? and !response.empty?
+					if !response.nil? and !response.empty? and !http_status.nil? and http_status.to_s.eql? "200"
 						# Convert the Json response to hash
 						hash_response = JSON.parse(response)
 
@@ -128,7 +128,7 @@ Class.new Test::Unit::TestCase do
 							end
 						end
 					else
-						assert_equal(true, false, "Sample code execution failed as response returned is null/empty")
+						assert_equal(true, false, "Sample code execution failed as response returned is null/empty.")
 					end
 				end
 
