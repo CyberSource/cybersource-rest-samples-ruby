@@ -143,4 +143,3 @@ Class.new Test::Unit::TestCase do
 		end
 	end
 end
-
