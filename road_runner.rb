@@ -1,7 +1,7 @@
 require 'json'
 require 'test/unit'
 
-json_data = File.read("executor2.json")
+json_data = File.read("executor.json")
 ROADS = JSON.parse(json_data)
 
 def find(hash_response,key)
@@ -96,7 +96,7 @@ Class.new Test::Unit::TestCase do
 						response, http_status = instance.run()
 					end
 
-					if !response.nil? and !response.empty?
+					if !response.nil? and !response.empty? and !http_status.nil? and http_status.to_s.eql? "200"
 						# Convert the Json response to hash
 						hash_response = JSON.parse(response)
 
@@ -128,7 +128,7 @@ Class.new Test::Unit::TestCase do
 							end
 						end
 					else
-						assert_equal(true, false, "Sample code execution failed as response returned is null")
+						assert_equal(true, false, "Sample code execution failed as response returned is null/empty.")
 					end
 				end
 
@@ -143,4 +143,3 @@ Class.new Test::Unit::TestCase do
 		end
 	end
 end
-
