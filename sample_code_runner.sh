@@ -13,7 +13,7 @@ do
   else
    printf '\n\n**** RUNNING - %s ****\n' "$p"
    printf '\n\n**** START RUNNING - %s ****\n' "$p" >> output.log
-   ruby $p >> output.log
+   ruby "$p" >> output.log
    printf '\n\n**** END RUNNING - %s ****\n' "$p" >> output.log
    sleep 3s
    FILECOUNT=$((FILECOUNT+1))
