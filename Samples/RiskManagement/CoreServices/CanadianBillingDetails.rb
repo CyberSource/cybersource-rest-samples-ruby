@@ -26,7 +26,7 @@ class CanadianBillingDetails
         line_items1 = CyberSource::Riskv1addressverificationsOrderInformationLineItems.new
         line_items1.unit_price = "120.50"
         line_items1.quantity = 3
-        line_items1.product_s_k_u = "9966223"
+        line_items1.product_sku = "9966223"
         line_items1.product_name = "headset"
         line_items1.product_code = "electronic"
         line_items << line_items1

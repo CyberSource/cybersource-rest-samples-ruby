@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../../ata/Configuration.rb'
+require_relative '../../../Data/Configuration.rb'
 
 public
 class RemoveFromHistory
