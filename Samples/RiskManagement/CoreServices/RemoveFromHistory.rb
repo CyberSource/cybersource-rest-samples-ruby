@@ -19,7 +19,7 @@ class RemoveFromHistory
 
         data, status_code, headers = api_instance.fraud_update(id, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
     rescue StandardError => err
         puts err.message
     end

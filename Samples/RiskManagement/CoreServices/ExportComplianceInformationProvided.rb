@@ -61,7 +61,7 @@ class ExportComplianceInformationProvided
 
         data, status_code, headers = api_instance.validate_export_compliance(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
     rescue StandardError => err
         puts err.message
     end

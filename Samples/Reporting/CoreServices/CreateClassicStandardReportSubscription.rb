@@ -16,7 +16,7 @@ class CreateClassicStandardReportSubscription
 
         data, status_code, headers = api_instance.create_standard_or_classic_subscription(request_obj, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
     rescue StandardError => err
         puts err.message
     end

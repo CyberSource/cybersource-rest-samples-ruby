@@ -62,7 +62,7 @@ class MultipleLineItems
 
         data, status_code, headers = api_instance.verify_customer_address(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
     rescue StandardError => err
         puts err.message
     end
