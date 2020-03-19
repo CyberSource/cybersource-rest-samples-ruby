@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class CustomerMatchDeniedPartiesList
+class ValidateExportCompliance
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -54,6 +54,6 @@ class CustomerMatchDeniedPartiesList
     end
     if __FILE__ == $0
 
-        CustomerMatchDeniedPartiesList.new.run()
+        ValidateExportCompliance.new.run()
     end
 end
