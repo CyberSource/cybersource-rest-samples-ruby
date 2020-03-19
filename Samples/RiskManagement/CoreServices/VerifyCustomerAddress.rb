@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class VerboseRequestWithAllFields
+class VerifyCustomerAddress
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -60,6 +60,6 @@ class VerboseRequestWithAllFields
     end
     if __FILE__ == $0
 
-        VerboseRequestWithAllFields.new.run()
+        VerifyCustomerAddress.new.run()
     end
 end
