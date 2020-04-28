@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class remove_from_history
+class Remove_from_history
     def run(id)
         request_obj = CyberSource::FraudMarkingActionRequest.new
         risk_information = CyberSource::Riskv1decisionsidmarkingRiskInformation.new
@@ -19,13 +19,14 @@ class remove_from_history
 
         data, status_code, headers = api_instance.fraud_update(id, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        id = "5825489395116729903003"
+        id = "5880752617506443004004"
 
-        remove_from_history.new.run(id)
+        Remove_from_history.new.run(id)
     end
 end

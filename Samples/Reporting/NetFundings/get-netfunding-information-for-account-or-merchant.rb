@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_netfunding_information_for_account_or_merchant
+class Get_netfunding_information_for_account_or_merchant
     def run()
         start_time = "2019-08-01T00:00:00Z"
         end_time = "2019-09-01T23:59:59Z"
@@ -16,11 +16,12 @@ class get_netfunding_information_for_account_or_merchant
 
         data, status_code, headers = api_instance.get_net_funding_details(start_time, end_time, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_netfunding_information_for_account_or_merchant.new.run()
+        Get_netfunding_information_for_account_or_merchant.new.run()
     end
 end

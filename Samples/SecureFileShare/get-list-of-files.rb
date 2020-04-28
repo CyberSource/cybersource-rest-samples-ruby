@@ -2,10 +2,10 @@ require 'cybersource_rest_client'
 require_relative '../../data/Configuration.rb'
 
 public
-class get_list_of_files
+class Get_list_of_files
     def run()
-        start_date = "2018-10-20"
-        end_date = "2018-10-30"
+        start_date = "2020-03-20"
+        end_date = "2020-03-30"
 
         opts = {}
         opts[:"organization_id"] = "testrest"
@@ -16,11 +16,12 @@ class get_list_of_files
 
         data, status_code, headers = api_instance.get_file_detail(start_date, end_date, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_list_of_files.new.run()
+        Get_list_of_files.new.run()
     end
 end

@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../data/Configuration.rb'
 
 public
-class get_individual_batch_file
+class Get_individual_batch_file
     def run(id)
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
@@ -10,13 +10,14 @@ class get_individual_batch_file
 
         data, status_code, headers = api_instance.get_transaction_batch_id(id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         id = "20190110"
 
-        get_individual_batch_file.new.run(id)
+        Get_individual_batch_file.new.run(id)
     end
 end

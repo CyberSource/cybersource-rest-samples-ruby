@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class create_adhoc_report
+class Create_adhoc_report
     def run()
         request_obj = CyberSource::CreateAdhocReportRequest.new
         request_obj.report_definition_name = "TransactionRequestClass"
@@ -15,10 +15,10 @@ class create_adhoc_report
         request_obj.report_mime_type = "application/xml"
         request_obj.report_name = "testrest_v2"
         request_obj.timezone = "GMT"
-        request_obj.report_start_time = Time.new("2018-09-01T12:30:00.000+05:30")
-        request_obj.report_end_time = Time.new("2018-09-02T12:30:00.000+05:30")
+        request_obj.report_start_time = "2020-03-01T12:00:00.000Z"
+        request_obj.report_end_time = "2020-03-02T12:00:00.000Z"
         report_preferences = CyberSource::Reportingv3reportsReportPreferences.new
-        report_preferences.signed_amounts = TRUE
+        report_preferences.signed_amounts = true
         report_preferences.field_name_convention = "SOAPI"
         request_obj.report_preferences = report_preferences
 
@@ -32,11 +32,12 @@ class create_adhoc_report
 
         data, status_code, headers = api_instance.create_report(request_obj, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        create_adhoc_report.new.run()
+        Create_adhoc_report.new.run()
     end
 end

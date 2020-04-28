@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class level_iii_data
+class Level_iii_data
     def run(flag)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -12,7 +12,8 @@ class level_iii_data
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         if flag == true
-	    processing_information.capture = true
+            processing_information.capture = true
+        end
         processing_information.commerce_indicator = "internet"
         processing_information.purchase_level = "3"
         request_obj.processing_information = processing_information
@@ -50,8 +51,8 @@ class level_iii_data
         line_items1.quantity = 10
         line_items1.unit_price = "10.00"
         line_items1.total_amount = "100"
-        line_items1.amount_includes_tax = FALSE
-        line_items1.discount_applied = FALSE
+        line_items1.amount_includes_tax = false
+        line_items1.discount_applied = false
         line_items << line_items1
 
         order_information.line_items = line_items
@@ -66,12 +67,12 @@ class level_iii_data
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        level_iii_data.new.run(false)
+        Level_iii_data.new.run(false)
     end
 end

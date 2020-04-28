@@ -1,11 +1,11 @@
 require 'cybersource_rest_client'
-require_relative './Payments/service-fees-with-credit-card-transaction.rb'
+require_relative '../Payments/service-fees-with-credit-card-transaction.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class capture_payment_service_fee
+class Capture_payment_service_fee
     def run()
-        id = (JSON.parse(service_fees_with_credit_card_transaction.new.run(false)))['id']
+        id = (JSON.parse(Service_fees_with_credit_card_transaction.new.run(false)))['id']
         request_obj = CyberSource::CapturePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
@@ -33,11 +33,12 @@ class capture_payment_service_fee
 
         data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        capture_payment_service_fee.new.run()
+        Capture_payment_service_fee.new.run()
     end
 end

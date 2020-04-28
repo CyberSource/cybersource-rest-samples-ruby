@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../data/Configuration.rb'
 
 public
-class get_transaction_details_for_given_batch_id
+class Get_transaction_details_for_given_batch_id
     def run(id)
         download_file_path = "resource//BatchDetailsReport"
 
@@ -15,8 +15,6 @@ class get_transaction_details_for_given_batch_id
         api_instance = CyberSource::TransactionBatchesApi.new(api_client, config)
 
         data, status_code, headers = api_instance.get_transaction_batch_details(id, opts)
-
-        return data, status_code, headers
 
         # START : FILE DOWNLOAD FUNCTIONALITY
         if data != nil
@@ -32,16 +30,18 @@ class get_transaction_details_for_given_batch_id
 
             file_handle = File.new(download_file_path, "w")
             file_handle.write(data)
-            f.close
+            file_handle.close
             puts "File downloaded at the following location : " + File.expand_path(download_file_path)
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
+
+        return data, status_code, headers
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         id = "20190110"
 
-        get_transaction_details_for_given_batch_id.new.run(id)
+        Get_transaction_details_for_given_batch_id.new.run(id)
     end
 end

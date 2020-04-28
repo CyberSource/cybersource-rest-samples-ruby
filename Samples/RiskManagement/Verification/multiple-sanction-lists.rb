@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class multiple_sanction_lists
+class Multiple_sanction_lists
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -75,11 +75,12 @@ class multiple_sanction_lists
 
         data, status_code, headers = api_instance.validate_export_compliance(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        multiple_sanction_lists.new.run()
+        Multiple_sanction_lists.new.run()
     end
 end

@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_report_definition
+class Get_report_definition
     def run()
         report_definition_name = "AcquirerExceptionDetailClass"
         opts = {}
@@ -14,11 +14,12 @@ class get_report_definition
 
         data, status_code, headers = api_instance.get_resource_info_by_report_definition(report_definition_name, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_report_definition.new.run()
+        Get_report_definition.new.run()
     end
 end

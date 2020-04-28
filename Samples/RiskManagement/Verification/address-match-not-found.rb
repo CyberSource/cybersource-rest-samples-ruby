@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class address_match_not_found
+class Address_match_not_found
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -27,11 +27,12 @@ class address_match_not_found
 
         data, status_code, headers = api_instance.verify_customer_address(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        address_match_not_found.new.run()
+        Address_match_not_found.new.run()
     end
 end

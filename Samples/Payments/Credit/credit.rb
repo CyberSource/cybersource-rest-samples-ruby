@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class credit
+class Credit
     def run()
         request_obj = CyberSource::CreateCreditRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -42,12 +42,12 @@ class credit
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        credit.new.run()
+        Credit.new.run()
     end
 end

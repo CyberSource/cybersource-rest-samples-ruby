@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class partial_authorization
+class Partial_authorization
     def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -51,12 +51,12 @@ class partial_authorization
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        partial_authorization.new.run()
+        Partial_authorization.new.run()
     end
 end

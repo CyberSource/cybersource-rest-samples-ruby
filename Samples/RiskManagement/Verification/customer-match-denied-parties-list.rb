@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class customer_match_denied_parties_list
+class Customer_match_denied_parties_list
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -48,11 +48,12 @@ class customer_match_denied_parties_list
 
         data, status_code, headers = api_instance.validate_export_compliance(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        customer_match_denied_parties_list.new.run()
+        Customer_match_denied_parties_list.new.run()
     end
 end

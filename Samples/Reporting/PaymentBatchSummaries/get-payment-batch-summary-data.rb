@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_payment_batch_summary_data
+class Get_payment_batch_summary_data
     def run()
         start_time = "2019-05-01T12:00:00Z"
         end_time = "2019-08-30T12:00:00Z"
@@ -16,11 +16,12 @@ class get_payment_batch_summary_data
 
         data, status_code, headers = api_instance.get_payment_batch_summary(start_time, end_time, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_payment_batch_summary_data.new.run()
+        Get_payment_batch_summary_data.new.run()
     end
 end

@@ -2,10 +2,10 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_notification_of_changes
+class Get_notification_of_changes
     def run()
-        start_time = "2019-09-01T12:00:00Z"
-        end_time = "2019-09-10T12:00:00Z"
+        start_time = "2020-03-01T12:00:00Z"
+        end_time = "2020-03-10T12:00:00Z"
 
         opts = {}
 
@@ -15,11 +15,12 @@ class get_notification_of_changes
 
         data, status_code, headers = api_instance.get_notification_of_change_report(start_time, end_time)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_notification_of_changes.new.run()
+        Get_notification_of_changes.new.run()
     end
 end

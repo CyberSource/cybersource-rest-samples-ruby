@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class export_compliance_information_provided
+class Export_compliance_information_provided
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -61,11 +61,12 @@ class export_compliance_information_provided
 
         data, status_code, headers = api_instance.validate_export_compliance(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        export_compliance_information_provided.new.run()
+        Export_compliance_information_provided.new.run()
     end
 end

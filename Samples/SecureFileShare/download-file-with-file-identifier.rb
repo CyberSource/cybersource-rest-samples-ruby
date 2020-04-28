@@ -3,7 +3,7 @@ require_relative '../../data/Configuration.rb'
 require 'csv'
 
 public
-class download_file_with_file_identifier
+class Download_file_with_file_identifier
     def run(file_id)
         download_file_path = "resource//DownloadedFileWithFileID"
 
@@ -15,8 +15,6 @@ class download_file_with_file_identifier
         api_instance = CyberSource::SecureFileShareApi.new(api_client, config)
 
         data, status_code, headers = api_instance.get_file(file_id, opts)
-
-        return data, status_code, headers
 
         # START : FILE DOWNLOAD FUNCTIONALITY
         if data != nil
@@ -32,16 +30,18 @@ class download_file_with_file_identifier
 
             file_handle = File.new(download_file_path, "w")
             file_handle.write(data)
-            f.close
+            file_handle.close
             puts "File downloaded at the following location : " + File.expand_path(download_file_path)
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
+
+        return data, status_code, headers
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        file_id = "QmF0Y2hGaWxlc0RldGFpbFJlcG9ydC5jc3YtMjAxOS0wOS0zMA=="
+        file_id = "VFJSXzEzODMtYTIwZjUyNDgtNWNlYy0yN2QzLWUwNTMtYTI1ODhlMGFkZjMxLnhtbC0yMDIwLTAzLTMw"
 
-        download_file_with_file_identifier.new.run(file_id)
+        Download_file_with_file_identifier.new.run(file_id)
     end
 end

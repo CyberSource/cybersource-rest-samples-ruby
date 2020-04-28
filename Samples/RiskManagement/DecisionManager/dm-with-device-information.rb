@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class dm_with_device_information
+class Dm_with_device_information
     def run()
         request_obj = CyberSource::CreateDecisionManagerCaseRequest.new
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
@@ -49,12 +49,12 @@ class dm_with_device_information
 
         data, status_code, headers = api_instance.create_decision_manager_case(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        dm_with_device_information.new.run()
+        Dm_with_device_information.new.run()
     end
 end

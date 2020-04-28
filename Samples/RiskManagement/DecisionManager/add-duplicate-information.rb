@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class add_duplicate_information
+class Add_duplicate_information
     def run(type)
         request_obj = CyberSource::AddNegativeListRequest.new
         order_information = CyberSource::Riskv1liststypeentriesOrderInformation.new
@@ -40,13 +40,14 @@ class add_duplicate_information
 
         data, status_code, headers = api_instance.add_negative(type, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         type = "positive"
 
-        add_duplicate_information.new.run(type)
+        Add_duplicate_information.new.run(type)
     end
 end

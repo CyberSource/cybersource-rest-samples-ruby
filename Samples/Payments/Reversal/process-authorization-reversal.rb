@@ -1,11 +1,11 @@
 require 'cybersource_rest_client'
-require_relative './Payments/simple-authorizationinternet.rb'
+require_relative '../Payments/simple-authorizationinternet.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class process_authorization_reversal
+class Process_authorization_reversal
     def run()
-        id = (JSON.parse(simple_authorizationinternet.new.run(false)))['id']
+        id = (JSON.parse(Simple_authorizationinternet.new.run(false)))['id']
         request_obj = CyberSource::AuthReversalRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsidreversalsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
@@ -24,11 +24,12 @@ class process_authorization_reversal
 
         data, status_code, headers = api_instance.auth_reversal(id, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        process_authorization_reversal.new.run()
+        Process_authorization_reversal.new.run()
     end
 end

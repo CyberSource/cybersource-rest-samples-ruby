@@ -3,9 +3,9 @@ require_relative '../Capture/capture-payment.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class void_capture
+class Void_capture
     def run()
-        id = (JSON.parse(capture_payment.new.run))['id']
+        id = (JSON.parse(Capture_payment.new.run))['id']
         request_obj = CyberSource::VoidCaptureRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsidreversalsClientReferenceInformation.new
         client_reference_information.code = "test_void"
@@ -17,11 +17,12 @@ class void_capture
 
         data, status_code, headers = api_instance.void_capture(request_obj, id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        void_capture.new.run()
+        Void_capture.new.run()
     end
 end

@@ -3,9 +3,9 @@ require_relative '../KeyGeneration/generate-key.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class flex_tokenize_card
+class Flex_tokenize_card
     def run()
-        key_generation_response = JSON.parse(generate_key.new.main)
+        key_generation_response = JSON.parse(Generate_key.new.run)
         public_key = key_generation_response['der']['publicKey']
 	
         request_obj = CyberSource::TokenizeRequest.new
@@ -25,14 +25,14 @@ class flex_tokenize_card
 
         token_verifier = CyberSource::TokenVerification.new
         is_token_verified = token_verifier.verifyToken(public_key, data)
-	print "Token Verification : ", is_token_verified, "\n"
+	    print "Token Verification : ", is_token_verified, "\n"
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        flex_tokenize_card.new.run()
+        Flex_tokenize_card.new.run()
     end
 end

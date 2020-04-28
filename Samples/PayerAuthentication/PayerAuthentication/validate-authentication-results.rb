@@ -2,10 +2,10 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class validate_authentication_results
+class Validate_authentication_results
     def run()
         request_obj = CyberSource::ValidateRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
         client_reference_information.code = "pavalidatecheck"
         request_obj.client_reference_information = client_reference_information
 
@@ -45,11 +45,12 @@ class validate_authentication_results
 
         data, status_code, headers = api_instance.validate_authentication_results(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        validate_authentication_results.new.run()
+        Validate_authentication_results.new.run()
     end
 end

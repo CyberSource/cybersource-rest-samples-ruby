@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class digital_payments_applepay
+class Digital_payments_applepay
     def run(flag)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -12,7 +12,8 @@ class digital_payments_applepay
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         if flag == true
-	    processing_information.capture = true
+            processing_information.capture = true
+        end
         processing_information.commerce_indicator = "internet"
         processing_information.payment_solution = "001"
         request_obj.processing_information = processing_information
@@ -52,12 +53,12 @@ class digital_payments_applepay
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        digital_payments_applepay.new.run()
+        Digital_payments_applepay.new.run(false)
     end
 end

@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class create_payment_instrument_bank_account
+class Create_payment_instrument_bank_account
     def run(profileid)
         request_obj = CyberSource::CreatePaymentInstrumentRequest.new
         bank_account = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBankAccount.new
@@ -41,9 +41,9 @@ class create_payment_instrument_bank_account
         request_obj.bill_to = bill_to
 
         processing_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation.new
-        processing_information.bill_payment_program_enabled = TRUE
+        processing_information.bill_payment_program_enabled = true
         bank_transfer_options = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformationBankTransferOptions.new
-        bank_transfer_options.se_c_code = "WEB"
+        bank_transfer_options.sec_code = "WEB"
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information
 
@@ -66,13 +66,14 @@ class create_payment_instrument_bank_account
 
         data, status_code, headers = api_instance.create_payment_instrument(profileid, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
 
-        create_payment_instrument_bank_account.new.run(profileid)
+        Create_payment_instrument_bank_account.new.run(profileid)
     end
 end

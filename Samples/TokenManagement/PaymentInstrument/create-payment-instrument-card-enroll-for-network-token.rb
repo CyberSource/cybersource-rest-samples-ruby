@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class create_payment_instrument_card_enroll_for_network_token
+class Create_payment_instrument_card_enroll_for_network_token
     def run(profileid)
         request_obj = CyberSource::CreatePaymentInstrumentRequest.new
         card = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedCard.new
@@ -34,7 +34,7 @@ class create_payment_instrument_card_enroll_for_network_token
         request_obj.bill_to = bill_to
 
         processing_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation.new
-        processing_information.bill_payment_program_enabled = TRUE
+        processing_information.bill_payment_program_enabled = true
         request_obj.processing_information = processing_information
 
         instrument_identifier = CyberSource::Tmsv1paymentinstrumentsInstrumentIdentifier.new
@@ -49,13 +49,14 @@ class create_payment_instrument_card_enroll_for_network_token
 
         data, status_code, headers = api_instance.create_payment_instrument(profileid, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
 
-        create_payment_instrument_card_enroll_for_network_token.new.run(profileid)
+        Create_payment_instrument_card_enroll_for_network_token.new.run(profileid)
     end
 end

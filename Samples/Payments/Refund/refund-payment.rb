@@ -3,9 +3,9 @@ require_relative '../Payments/simple-authorizationinternet.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class refund_payment
+class Refund_payment
     def run()
-        id = (JSON.parse(simple_authorizationinternet.new.run(true)))['id']
+        id = (JSON.parse(Simple_authorizationinternet.new.run(true)))['id']
         request_obj = CyberSource::RefundPaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
@@ -24,11 +24,12 @@ class refund_payment
 
         data, status_code, headers = api_instance.refund_payment(request_obj, id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        refund_payment.new.run()
+        Refund_payment.new.run()
     end
 end

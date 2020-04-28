@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_all_subscriptions
+class Get_all_subscriptions
     def run()
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
@@ -10,11 +10,12 @@ class get_all_subscriptions
 
         data, status_code, headers = api_instance.get_all_subscriptions()
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_all_subscriptions.new.run()
+        Get_all_subscriptions.new.run()
     end
 end

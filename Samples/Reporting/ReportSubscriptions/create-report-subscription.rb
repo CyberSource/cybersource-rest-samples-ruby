@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class create_report_subscription
+class Create_report_subscription
     def run()
         request_obj = CyberSource::CreateReportSubscriptionRequest.new
         request_obj.report_definition_name = "TransactionRequestClass"
@@ -27,11 +27,12 @@ class create_report_subscription
 
         data, status_code, headers = api_instance.create_subscription(request_obj, opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        create_report_subscription.new.run()
+        Create_report_subscription.new.run()
     end
 end

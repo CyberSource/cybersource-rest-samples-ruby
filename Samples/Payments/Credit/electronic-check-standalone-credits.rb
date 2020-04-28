@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class electronic_check_standalone_credits
+class Electronic_check_standalone_credits
     def run()
         request_obj = CyberSource::CreateCreditRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -48,12 +48,12 @@ class electronic_check_standalone_credits
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        electronic_check_standalone_credits.new.run()
+        Electronic_check_standalone_credits.new.run()
     end
 end

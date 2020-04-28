@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class get_reporting_resource_information
+class Get_reporting_resource_information
     def run()
 
         opts = {}
@@ -14,11 +14,12 @@ class get_reporting_resource_information
 
         data, status_code, headers = api_instance.get_resource_v2_info(opts)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        get_reporting_resource_information.new.run()
+        Get_reporting_resource_information.new.run()
     end
 end

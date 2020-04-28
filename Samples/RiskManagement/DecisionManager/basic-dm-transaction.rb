@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class basic_dm_transaction
+class Basic_dm_transaction
     def run()
         request_obj = CyberSource::CreateDecisionManagerCaseRequest.new
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
@@ -41,11 +41,12 @@ class basic_dm_transaction
 
         data, status_code, headers = api_instance.create_decision_manager_case(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        basic_dm_transaction.new.run()
+        Basic_dm_transaction.new.run()
     end
 end

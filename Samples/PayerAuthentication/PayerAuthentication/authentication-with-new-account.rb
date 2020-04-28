@@ -2,10 +2,10 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class authentication-with-new-account
+class Authentication_with_new_account
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
         client_reference_information.code = "New Account"
         request_obj.client_reference_information = client_reference_information
 
@@ -14,7 +14,7 @@ class authentication-with-new-account
         amount_details.currency = "USD"
         amount_details.total_amount = "10.99"
         order_information.amount_details = amount_details
-        bill_to = CyberSource::Riskv1authenticationexemptionsOrderInformationBillTo.new
+        bill_to = CyberSource::Riskv1authenticationsOrderInformationBillTo.new
         bill_to.address1 = "1 Market St"
         bill_to.address2 = "Address 2"
         bill_to.administrative_area = "CA"
@@ -28,8 +28,8 @@ class authentication-with-new-account
         order_information.bill_to = bill_to
         request_obj.order_information = order_information
 
-        payment_information = CyberSource::Riskv1authenticationexemptionsPaymentInformation.new
-        card = CyberSource::Riskv1authenticationexemptionsPaymentInformationCard.new
+        payment_information = CyberSource::Riskv1authenticationsPaymentInformation.new
+        card = CyberSource::Riskv1authenticationsPaymentInformationCard.new
         card.type = "001"
         card.expiration_month = "12"
         card.expiration_year = "2025"
@@ -42,12 +42,12 @@ class authentication-with-new-account
         request_obj.consumer_authentication_information = consumer_authentication_information
 
         risk_information = CyberSource::Riskv1authenticationsRiskInformation.new
-        buyer_history = CyberSource::Riskv1authenticationsRiskInformationBuyerHistory.new
-        customer_account = CyberSource::Riskv1authenticationsRiskInformationBuyerHistoryCustomerAccount.new
+        buyer_history = CyberSource::Ptsv2paymentsRiskInformationBuyerHistory.new
+        customer_account = CyberSource::Ptsv2paymentsRiskInformationBuyerHistoryCustomerAccount.new
         customer_account.creation_history = "NEW_ACCOUNT"
         buyer_history.customer_account = customer_account
-        account_history = CyberSource::Riskv1authenticationsRiskInformationBuyerHistoryAccountHistory.new
-        account_history.first_use_of_shipping_address = FALSE
+        account_history = CyberSource::Ptsv2paymentsRiskInformationBuyerHistoryAccountHistory.new
+        account_history.first_use_of_shipping_address = false
         buyer_history.account_history = account_history
         risk_information.buyer_history = buyer_history
         request_obj.risk_information = risk_information
@@ -58,11 +58,12 @@ class authentication-with-new-account
 
         data, status_code, headers = api_instance.check_payer_auth_enrollment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        authentication-with-new-account.new.run()
+        Authentication_with_new_account.new.run()
     end
 end

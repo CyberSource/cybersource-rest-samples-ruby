@@ -3,9 +3,9 @@ require_relative '../Capture/capture-payment.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class refund_capture
+class Refund_capture
     def run()
-        id = (JSON.parse(capture_payment.new.run))['id']
+        id = (JSON.parse(Capture_payment.new.run))['id']
         request_obj = CyberSource::RefundCaptureRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
@@ -24,11 +24,12 @@ class refund_capture
 
         data, status_code, headers = api_instance.refund_capture(request_obj, id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        refund_capture.new.run()
+        Refund_capture.new.run()
     end
 end

@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class verbose_request_with_all_fields
+class Verbose_request_with_all_fields
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -54,11 +54,12 @@ class verbose_request_with_all_fields
 
         data, status_code, headers = api_instance.verify_customer_address(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        verbose_request_with_all_fields.new.run()
+        Verbose_request_with_all_fields.new.run()
     end
 end

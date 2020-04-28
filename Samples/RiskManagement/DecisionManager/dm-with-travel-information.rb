@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class dm_with_travel_information
+class Dm_with_travel_information
     def run()
         request_obj = CyberSource::CreateDecisionManagerCaseRequest.new
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
@@ -36,8 +36,8 @@ class dm_with_travel_information
         request_obj.order_information = order_information
 
         travel_information = CyberSource::Riskv1decisionsTravelInformation.new
-        travel_information.complete_route = "SFO_JFK:JFK_BLR"
-        travel_information.departure_time = "2011_03_20 11:30pm GMT"
+        travel_information.complete_route = "SFO-JFK:JFK-BLR"
+        travel_information.departure_time = "2011-03-20 11:30pm GMT"
         travel_information.journey_type = "One way"
 
         legs = []
@@ -60,11 +60,12 @@ class dm_with_travel_information
 
         data, status_code, headers = api_instance.create_decision_manager_case(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        dm_with_travel_information.new.run()
+        Dm_with_travel_information.new.run()
     end
 end

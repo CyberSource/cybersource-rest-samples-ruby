@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class payment_network_tokenization
+class Payment_network_tokenization
     def run(flag)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -12,7 +12,8 @@ class payment_network_tokenization
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         if flag == true
-	    processing_information.capture = true
+            processing_information.capture = true
+        end
         processing_information.commerce_indicator = "internet"
         request_obj.processing_information = processing_information
 
@@ -54,12 +55,12 @@ class payment_network_tokenization
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        payment_network_tokenization.new.run()
+        Payment_network_tokenization.new.run(false)
     end
 end

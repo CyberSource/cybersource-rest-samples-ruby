@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class zero_dollar_authorization
+class Zero_dollar_authorization
     def run(flag)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -12,7 +12,8 @@ class zero_dollar_authorization
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         if flag == true
-	    processing_information.capture = true
+            processing_information.capture = true
+        end
         processing_information.commerce_indicator = "internet"
         request_obj.processing_information = processing_information
 
@@ -49,12 +50,12 @@ class zero_dollar_authorization
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-
-        zero_dollar_authorization.new.run()
+        Zero_dollar_authorization.new.run(false)
     end
 end

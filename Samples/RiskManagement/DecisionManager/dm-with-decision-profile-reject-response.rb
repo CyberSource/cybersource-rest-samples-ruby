@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class dm_with_decision_profile_reject_response
+class Dm_with_decision_profile_reject_response
     def run()
         request_obj = CyberSource::CreateDecisionManagerCaseRequest.new
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
@@ -36,7 +36,7 @@ class dm_with_decision_profile_reject_response
         request_obj.order_information = order_information
 
         risk_information = CyberSource::Riskv1decisionsRiskInformation.new
-        profile = CyberSource::Riskv1decisionsRiskInformationProfile.new
+        profile = CyberSource::Ptsv2paymentsRiskInformationProfile.new
         profile.name = "profile2"
         risk_information.profile = profile
         request_obj.risk_information = risk_information
@@ -47,11 +47,12 @@ class dm_with_decision_profile_reject_response
 
         data, status_code, headers = api_instance.create_decision_manager_case(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        dm_with_decision_profile_reject_response.new.run()
+        Dm_with_decision_profile_reject_response.new.run()
     end
 end

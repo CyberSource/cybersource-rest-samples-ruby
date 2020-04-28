@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class shipping_details_not_us_or_canada
+class Shipping_details_not_us_or_canada
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
         client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
@@ -54,11 +54,12 @@ class shipping_details_not_us_or_canada
 
         data, status_code, headers = api_instance.verify_customer_address(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        shipping_details_not_us_or_canada.new.run()
+        Shipping_details_not_us_or_canada.new.run()
     end
 end

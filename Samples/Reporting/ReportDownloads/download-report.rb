@@ -3,7 +3,7 @@ require_relative '../../../data/Configuration.rb'
 require 'csv'
 
 public
-class download_report
+class Download_report
     def run()
         download_file_path = "resource//DownloadedReport"
         report_date = "2020-03-03"
@@ -19,8 +19,6 @@ class download_report
 
         data, status_code, headers = api_instance.download_report(report_date, report_name, opts)
 
-        return data, status_code, headers
-
         # START : FILE DOWNLOAD FUNCTIONALITY
         if data != nil
             file_extension = headers['Content-Type']
@@ -35,14 +33,16 @@ class download_report
 
             file_handle = File.new(download_file_path, "w")
             file_handle.write(data)
-            f.close
+            file_handle.close
             puts "File downloaded at the following location : " + File.expand_path(download_file_path)
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
+
+        return data, status_code, headers
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        download_report.new.run()
+        Download_report.new.run()
     end
 end

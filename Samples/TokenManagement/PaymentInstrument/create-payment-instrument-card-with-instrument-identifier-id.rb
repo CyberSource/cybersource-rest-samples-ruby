@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class create_payment_instrument_card_with_instrument_identifier_id
+class Create_payment_instrument_card_with_instrument_identifier_id
     def run(profileid)
         request_obj = CyberSource::CreatePaymentInstrumentRequest.new
         card = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedCard.new
@@ -34,11 +34,11 @@ class create_payment_instrument_card_with_instrument_identifier_id
         request_obj.bill_to = bill_to
 
         processing_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation.new
-        processing_information.bill_payment_program_enabled = TRUE
+        processing_information.bill_payment_program_enabled = true
         request_obj.processing_information = processing_information
 
         instrument_identifier = CyberSource::Tmsv1paymentinstrumentsInstrumentIdentifier.new
-        instrument_identifier.id = "9000000000000000001003"
+        instrument_identifier.id = "7020000000001061135"
         request_obj.instrument_identifier = instrument_identifier
 
         config = MerchantConfiguration.new.merchantConfigProp()
@@ -47,13 +47,14 @@ class create_payment_instrument_card_with_instrument_identifier_id
 
         data, status_code, headers = api_instance.create_payment_instrument(profileid, request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
 
-        create_payment_instrument_card_with_instrument_identifier_id.new.run(profileid)
+        Create_payment_instrument_card_with_instrument_identifier_id.new.run(profileid)
     end
 end

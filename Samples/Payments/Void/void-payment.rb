@@ -3,9 +3,9 @@ require_relative '../Payments/simple-authorizationinternet.rb'
 require_relative '../../../data/Configuration.rb'
 
 public
-class void_payment
+class Void_payment
     def run()
-        id = (JSON.parse(simple_authorizationinternet.new.run(true)))['id']
+        id = (JSON.parse(Simple_authorizationinternet.new.run(true)))['id']
         request_obj = CyberSource::VoidPaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsidreversalsClientReferenceInformation.new
         client_reference_information.code = "test_void"
@@ -17,11 +17,12 @@ class void_payment
 
         data, status_code, headers = api_instance.void_payment(request_obj, id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        void_payment.new.run()
+        Void_payment.new.run()
     end
 end

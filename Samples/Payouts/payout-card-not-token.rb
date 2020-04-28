@@ -1,8 +1,8 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/Configuration.rb'
+require_relative '../../data/Configuration.rb'
 
 public
-class payout_card_not_token
+class Payout_card_not_token
     def run()
         request_obj = CyberSource::OctCreatePaymentRequest.new
         client_reference_information = CyberSource::PtsV2IncrementalAuthorizationPatch201ResponseClientReferenceInformation.new
@@ -70,11 +70,12 @@ class payout_card_not_token
 
         data, status_code, headers = api_instance.oct_create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        payout_card_not_token.new.run()
+        Payout_card_not_token.new.run()
     end
 end
