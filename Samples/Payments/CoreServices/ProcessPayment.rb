@@ -51,7 +51,6 @@ class CreatePayment
     bill_to_information.phone_number = "4158880000"
     bill_to_information.district = "MI"
     bill_to_information.building_number = "123"
-    bill_to_information.company = "Visa"
     bill_to_information.email = "test@cybs.com"
     order_information.bill_to = bill_to_information
     request.order_information = order_information

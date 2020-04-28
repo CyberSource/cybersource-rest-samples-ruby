@@ -37,7 +37,6 @@ class RefundEcheckPaymentWithServiceFee
     bill_to_information.phone_number = "4158880000"
     bill_to_information.district = "MI"
     bill_to_information.building_number = "123"
-    bill_to_information.company = "ABC Company"
     bill_to_information.email = "test@cybs.com"
 
     amount_details = CyberSource::Ptsv2paymentsOrderInformationAmountDetails.new

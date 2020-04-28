@@ -41,7 +41,7 @@ class DecisionProfileReject
     order_information.amount_details = amount_details
     order_information.bill_to = bill_to
 
-    profile_information = CyberSource::Riskv1decisionsRiskInformationProfile.new
+    profile_information = CyberSource::Ptsv2paymentsRiskInformationProfile.new
     profile_information.name = "profile2"
 
     risk_information = CyberSource::Riskv1decisionsRiskInformation.new
