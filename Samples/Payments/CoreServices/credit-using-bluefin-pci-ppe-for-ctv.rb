@@ -1,8 +1,8 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
-class credit_using_bluefin_pci_ppe_for_ctv
+class Credit_using_bluefin_pci_ppe_for_ctv
     def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -56,12 +56,13 @@ class credit_using_bluefin_pci_ppe_for_ctv
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
 
-        credit_using_bluefin_pci_ppe_for_ctv.new.run()
+        Credit_using_bluefin_pci_ppe_for_ctv.new.run()
     end
 end

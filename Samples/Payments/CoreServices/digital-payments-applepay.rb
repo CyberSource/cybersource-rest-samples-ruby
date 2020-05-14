@@ -1,8 +1,8 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
-class digital_payments_applepay
+class Digital_payments_applepay
     def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -49,12 +49,13 @@ class digital_payments_applepay
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
 
-        digital_payments_applepay.new.run()
+        Digital_payments_applepay.new.run()
     end
 end

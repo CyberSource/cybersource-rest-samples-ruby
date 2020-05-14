@@ -1,8 +1,8 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
-class service_fees_with_credit_card_transaction
+class Service_fees_with_credit_card_transaction
     def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -56,12 +56,13 @@ class service_fees_with_credit_card_transaction
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
 
-        service_fees_with_credit_card_transaction.new.run()
+        Service_fees_with_credit_card_transaction.new.run()
     end
 end

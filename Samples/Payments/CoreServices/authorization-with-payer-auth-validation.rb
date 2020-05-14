@@ -1,8 +1,8 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
-class authorization_with_payer_auth_validation
+class Authorization_with_payer_auth_validation
     def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -50,12 +50,13 @@ class authorization_with_payer_auth_validation
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
 
-        authorization_with_payer_auth_validation.new.run()
+        Authorization_with_payer_auth_validation.new.run()
     end
 end

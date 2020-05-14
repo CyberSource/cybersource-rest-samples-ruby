@@ -1,11 +1,11 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 require_relative './restaurant-authorization.rb'
 
 public
-class restaurant_capture_with_gratuity
+class Restaurant_capture_with_gratuity
     def run()
-        id = JSON.parse(restaurant_authorization.new.run())['id']
+        id = JSON.parse(Restaurant_authorization.new.run())['id']
         request_obj = CyberSource::CapturePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "1234567890"
@@ -33,12 +33,13 @@ class restaurant_capture_with_gratuity
 
         data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
-        return data, status_code, headers
+        puts status_code, headers, data
+        return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
 
-        restaurant_capture_with_gratuity.new.run()
+        Restaurant_capture_with_gratuity.new.run()
     end
 end
