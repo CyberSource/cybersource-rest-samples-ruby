@@ -1,10 +1,12 @@
 require 'cybersource_rest_client'
 require_relative '../../data/Configuration.rb'
+require_relative './authorization-using-swiped-track-data.rb'
 
 public
 class capture_of_authorization_that_used_swiped_track_data
     def run()
-        request_obj = CyberSource::CreatePaymentRequest.new
+        id = JSON.parse(authorization_using_swiped_track_data.new.run())['id']
+        request_obj = CyberSource::CapturePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "1234567890"
         partner = CyberSource::Ptsv2paymentsClientReferenceInformationPartner.new
@@ -21,9 +23,9 @@ class capture_of_authorization_that_used_swiped_track_data
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
-        api_instance = CyberSource::PaymentsApi.new(api_client, config)
+        api_instance = CyberSource::CaptureApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_payment(request_obj)
+        data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
         return data, status_code, headers
     rescue StandardError => err

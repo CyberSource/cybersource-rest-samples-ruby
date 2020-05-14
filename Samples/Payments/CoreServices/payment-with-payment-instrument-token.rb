@@ -11,7 +11,7 @@ class payment_with_payment_instrument_token
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
         customer = CyberSource::Ptsv2paymentsPaymentInformationCustomer.new
-        customer.customer_id = "7500BB199B4270EFE05340588D0AFCAD"
+        customer.customer_id = "A583044E29B4592DE05340588D0A9CB9"
         payment_information.customer = customer
         request_obj.payment_information = payment_information
 

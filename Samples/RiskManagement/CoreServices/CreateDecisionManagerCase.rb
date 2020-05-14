@@ -41,12 +41,12 @@ class CreateDecisionManagerCase
     order_information.amount_details = amount_details
     order_information.bill_to = bill_to
 
-    request = CyberSource::CreateDecisionManagerCaseRequest.new
+    request = CyberSource::CreateBundledDecisionManagerCaseRequest.new
     request.order_information = order_information
     request.payment_information = payment_information
     request.client_reference_information = client_reference_information
     
-    data, status_code, headers = api_instance.create_decision_manager_case(request)
+    data, status_code, headers = api_instance.create_bundled_decision_manager_case(request)
     puts data, status_code, headers
   rescue StandardError => err
     puts err.message

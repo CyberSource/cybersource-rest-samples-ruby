@@ -1,10 +1,12 @@
 require 'cybersource_rest_client'
 require_relative '../../data/Configuration.rb'
+require_relative './restaurant-authorization.rb'
 
 public
 class restaurant_capture_with_gratuity
     def run()
-        request_obj = CyberSource::CreatePaymentRequest.new
+        id = JSON.parse(restaurant_authorization.new.run())['id']
+        request_obj = CyberSource::CapturePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "1234567890"
         partner = CyberSource::Ptsv2paymentsClientReferenceInformationPartner.new
@@ -27,9 +29,9 @@ class restaurant_capture_with_gratuity
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
-        api_instance = CyberSource::PaymentsApi.new(api_client, config)
+        api_instance = CyberSource::CaptureApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_payment(request_obj)
+        data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
         return data, status_code, headers
     rescue StandardError => err
