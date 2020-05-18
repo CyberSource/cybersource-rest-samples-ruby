@@ -52,13 +52,13 @@ class DMwithBuyerInformation
     buyer_information.date_of_birth = "19980505"
     buyer_information.personal_identification = personal_identification
 
-    request = CyberSource::CreateBundledDecisionManagerCaseRequest.new
+    request = CyberSource::CreateDecisionManagerCaseRequest.new
     request.order_information = order_information
     request.payment_information = payment_information
     request.client_reference_information = client_reference_information
     request.buyer_information = buyer_information
     
-    data, status_code, headers = api_instance.create_bundled_decision_manager_case(request)
+    data, status_code, headers = api_instance.create_decision_manager_case(request)
     puts data, status_code, headers
   rescue StandardError => err
     puts err.message

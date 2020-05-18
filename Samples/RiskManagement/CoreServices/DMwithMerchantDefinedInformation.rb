@@ -51,13 +51,13 @@ class DMwithMerchantDefinedInformation
     merchant_defined_information << merchant_info1
     merchant_defined_information << merchant_info2
 
-    request = CyberSource::CreateBundledDecisionManagerCaseRequest.new
+    request = CyberSource::CreateDecisionManagerCaseRequest.new
     request.order_information = order_information
     request.payment_information = payment_information
     request.client_reference_information = client_reference_information
     request.merchant_defined_information = merchant_defined_information
     
-    data, status_code, headers = api_instance.create_bundled_decision_manager_case(request)
+    data, status_code, headers = api_instance.create_decision_manager_case(request)
     puts data, status_code, headers
   rescue StandardError => err
     puts err.message

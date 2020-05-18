@@ -8,7 +8,6 @@ class DownloadFileWithFileIdentifier
     config = MerchantConfiguration.new.merchantConfigProp()
     file_id = "dGVzdHJlc3Rfc3ViY3JpcHRpb25fdjI5ODktYTM3ZmI2ZjUtM2QzYi0wOGVhLWUwNTMtYTI1ODhlMGFkOTJjLnhtbC0yMDIwLTA0LTMw"
     api_client = CyberSource::ApiClient.new
-    # api_client.set_user_defined_accept_header('application/xml')
     api_instance = CyberSource::SecureFileShareApi.new(api_client, config)
     opts = {}
     opts[:'organization_id'] = "testrest"
