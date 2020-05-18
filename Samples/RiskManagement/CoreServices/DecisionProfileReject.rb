@@ -47,13 +47,13 @@ class DecisionProfileReject
     risk_information = CyberSource::Riskv1decisionsRiskInformation.new
     risk_information.profile = profile_information
 
-    request = CyberSource::CreateDecisionManagerCaseRequest.new
+    request = CyberSource::CreateBundledDecisionManagerCaseRequest.new
     request.order_information = order_information
     request.payment_information = payment_information
     request.client_reference_information = client_reference_information
     request.risk_information = risk_information
     
-    data, status_code, headers = api_instance.create_decision_manager_case(request)
+    data, status_code, headers = api_instance.create_bundled_decision_manager_case(request)
     puts data, status_code, headers
   rescue StandardError => err
     puts err.message

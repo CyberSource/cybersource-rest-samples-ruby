@@ -21,7 +21,7 @@ class CapturePaymentWithServiceFee
     request.client_reference_information = client_reference_information
 	
     amount_details = CyberSource::Ptsv2paymentsOrderInformationAmountDetails.new
-    amount_details.total_amount = "2325.00"
+    amount_details.total_amount = "225.00"
     amount_details.currency ="USD"
 	amount_details.service_fee_amount = "30"
 
