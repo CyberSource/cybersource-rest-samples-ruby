@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
 class Authorization_for_incremental_authorization_flow
@@ -74,8 +74,8 @@ class Authorization_for_incremental_authorization_flow
         travel_information = CyberSource::Ptsv2paymentsTravelInformation.new
         travel_information.duration = "3"
         lodging = CyberSource::Ptsv2paymentsTravelInformationLodging.new
-        lodging.check_in_date = "11062019"
-        lodging.check_out_date = "11092019"
+        lodging.check_in_date = "110620"
+        lodging.check_out_date = "110920"
 
         room = []
         room1 = CyberSource::Ptsv2paymentsTravelInformationLodgingRoom.new
@@ -89,7 +89,7 @@ class Authorization_for_incremental_authorization_flow
         room << room2
 
         lodging.room = room
-        lodging.smoking_preference = "yes"
+        lodging.smoking_preference = "Y"
         lodging.number_of_rooms = 1
         lodging.number_of_guests = 3
         lodging.room_bed_type = "king"
@@ -101,32 +101,32 @@ class Authorization_for_incremental_authorization_flow
         lodging.additional_discount_amount = "99.123456781"
         lodging.room_location = "seaview"
         lodging.special_program_code = "2"
-        lodging.total_tax_amount = "99.1234567891"
-        lodging.prepaid_cost = "9999999999.99"
-        lodging.food_and_beverage_cost = "9999999999.99"
-        lodging.room_tax_amount = "9999999999.99"
-        lodging.adjustment_amount = "9999999999.99"
-        lodging.phone_cost = "9999999999.99"
-        lodging.restaurant_cost = "9999999999.99"
-        lodging.room_service_cost = "9999999999.99"
-        lodging.mini_bar_cost = "9999999999.99"
-        lodging.laundry_cost = "9999999999.99"
-        lodging.miscellaneous_cost = "9999999999.99"
-        lodging.gift_shop_cost = "9999999999.99"
-        lodging.movie_cost = "9999999999.99"
-        lodging.health_club_cost = "9999999999.99"
-        lodging.valet_parking_cost = "9999999999.99"
-        lodging.cash_disbursement_cost = "9999999999.99"
-        lodging.non_room_cost = "9999999999.99"
-        lodging.business_center_cost = "9999999999.99"
-        lodging.lounge_bar_cost = "9999999999.99"
-        lodging.transportation_cost = "9999999999.99"
-        lodging.gratuity_amount = "9999999999.99"
-        lodging.conference_room_cost = "9999999999.99"
-        lodging.audio_visual_cost = "9999999999.99"
-        lodging.non_room_tax_amount = "9999999999.99"
-        lodging.early_check_out_cost = "9999999999.99"
-        lodging.internet_access_cost = "9999999999.99"
+        lodging.total_tax_amount = "99.123"
+        lodging.prepaid_cost = "9999.99"
+        lodging.food_and_beverage_cost = "9999.99"
+        lodging.room_tax_amount = "9999.99"
+        lodging.adjustment_amount = "9999.99"
+        lodging.phone_cost = "9999.99"
+        lodging.restaurant_cost = "9999.99"
+        lodging.room_service_cost = "9999.99"
+        lodging.mini_bar_cost = "9999.99"
+        lodging.laundry_cost = "9999.99"
+        lodging.miscellaneous_cost = "9999.99"
+        lodging.gift_shop_cost = "9999.99"
+        lodging.movie_cost = "9999.99"
+        lodging.health_club_cost = "9999.99"
+        lodging.valet_parking_cost = "9999.99"
+        lodging.cash_disbursement_cost = "9999.99"
+        lodging.non_room_cost = "9999.99"
+        lodging.business_center_cost = "9999.99"
+        lodging.lounge_bar_cost = "9999.99"
+        lodging.transportation_cost = "9999.99"
+        lodging.gratuity_amount = "9999.99"
+        lodging.conference_room_cost = "9999.99"
+        lodging.audio_visual_cost = "9999.99"
+        lodging.non_room_tax_amount = "9999.99"
+        lodging.early_check_out_cost = "9999.99"
+        lodging.internet_access_cost = "9999.99"
         travel_information.lodging = lodging
         request_obj.travel_information = travel_information
 
@@ -140,7 +140,8 @@ class Authorization_for_incremental_authorization_flow
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

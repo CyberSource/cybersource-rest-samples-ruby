@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
 class Create_invoice_without_sending_it
@@ -13,7 +13,7 @@ class Create_invoice_without_sending_it
         invoice_information = CyberSource::Invoicingv2invoicesInvoiceInformation.new
         invoice_information.invoice_number = "A123"
         invoice_information.description = "This is a test invoice"
-        invoice_information.due_date = Time.new("2019-07-11")
+        invoice_information.due_date = "2019-07-11"
         invoice_information.send_immediately = true
         invoice_information.allow_partial_payments = true
         invoice_information.delivery_mode = "none"
@@ -55,7 +55,8 @@ class Create_invoice_without_sending_it
 
         data, status_code, headers = api_instance.create_invoice(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

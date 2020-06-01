@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 require_relative '../Payments/authorization-for-timeout-reversal-flow.rb'
 
 public
@@ -9,7 +9,7 @@ class Timeout_reversal
         request_obj = CyberSource::MitReversalRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "164648184536668"
+        client_reference_information.transaction_id = "41638348314384843"
         request_obj.client_reference_information = client_reference_information
 
         reversal_information = CyberSource::Ptsv2paymentsidreversalsReversalInformation.new
@@ -25,7 +25,8 @@ class Timeout_reversal
 
         data, status_code, headers = api_instance.mit_reversal(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

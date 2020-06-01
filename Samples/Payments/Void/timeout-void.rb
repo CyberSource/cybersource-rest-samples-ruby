@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 require_relative '../Payments/authorization-capture-for-timeout-void-flow.rb'
 
 public
@@ -9,7 +9,7 @@ class Timeout_void
         request_obj = CyberSource::MitVoidRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "48597865325866"
+        client_reference_information.transaction_id = "718713511403634634"
         request_obj.client_reference_information = client_reference_information
 
         config = MerchantConfiguration.new.merchantConfigProp()
@@ -18,7 +18,8 @@ class Timeout_void
 
         data, status_code, headers = api_instance.mit_void(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

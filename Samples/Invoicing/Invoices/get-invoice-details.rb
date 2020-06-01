@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 require_relative './create-draft-invoice.rb'
 
 public
@@ -12,7 +12,8 @@ class Get_invoice_details
 
         data, status_code, headers = api_instance.get_invoice(id)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

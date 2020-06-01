@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
 class Updateinvoicesettings
@@ -22,7 +22,8 @@ class Updateinvoicesettings
 
         data, status_code, headers = api_instance.update_invoice_settings(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

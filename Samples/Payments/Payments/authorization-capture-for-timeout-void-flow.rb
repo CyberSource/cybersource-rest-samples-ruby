@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
 class Authorization_capture_for_timeout_void_flow
@@ -7,7 +7,7 @@ class Authorization_capture_for_timeout_void_flow
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "48597865325866"
+        client_reference_information.transaction_id = "718713511403634634"
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
@@ -46,7 +46,8 @@ class Authorization_capture_for_timeout_void_flow
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end

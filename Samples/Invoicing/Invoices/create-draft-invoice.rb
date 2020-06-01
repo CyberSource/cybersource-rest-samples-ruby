@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../data/Configuration.rb'
+require_relative '../../../data/Configuration.rb'
 
 public
 class Create_draft_invoice
@@ -12,7 +12,7 @@ class Create_draft_invoice
 
         invoice_information = CyberSource::Invoicingv2invoicesInvoiceInformation.new
         invoice_information.description = "This is a test invoice"
-        invoice_information.due_date = Time.new("2019-07-11")
+        invoice_information.due_date = "2019-07-11"
         invoice_information.send_immediately = false
         invoice_information.allow_partial_payments = true
         invoice_information.delivery_mode = "none"
@@ -54,7 +54,8 @@ class Create_draft_invoice
 
         data, status_code, headers = api_instance.create_invoice(request_obj)
 
-        return data, status_code, headers
+        puts data, status_code, headers
+        return data
     rescue StandardError => err
         puts err.message
     end
