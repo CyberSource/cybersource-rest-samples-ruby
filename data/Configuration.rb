@@ -42,4 +42,47 @@ class MerchantConfiguration
     configurationDictionary['logFilename'] = logFilename
     return configurationDictionary
   end
+
+  def alternativeMerchantConfigProp()
+    # Common Paramaters
+    merchantId='testrest_cpctv'
+    runEnvironment='cybersource.environment.sandbox'
+    timeout=1000 #In Milliseconds
+    authenticationType='http_signature'   
+    jsonFilePath='resource/request.json'
+    logSize=10485760
+    enableLog=true
+    logDirectory='../log'
+    logFilename='cybs'
+    # proxyAddress='userproxy.com'
+    # proxyPort=443
+    # HTTP Parameters
+    merchantKeyId='e547c3d3-16e4-444c-9313-2a08784b906a'
+    merchantSecretKey='JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo='
+    # JWT Parameters
+    keysDirectory='resource'
+    keyAlias='testrest_cpctv'
+    keyPass='testrest_cpctv'
+    keyFilename='testrest_cpctv'
+    
+    configurationDictionary={}
+    configurationDictionary['merchantID']=merchantId
+    configurationDictionary['runEnvironment']=runEnvironment
+    configurationDictionary['timeout']=timeout
+    configurationDictionary['authenticationType']=authenticationType
+    configurationDictionary['logDirectory']=logDirectory
+    configurationDictionary['jsonFilePath']=jsonFilePath
+    configurationDictionary['logSize']=logSize
+    configurationDictionary['enableLog']=enableLog
+    # configurationDictionary['proxyPort']=proxyPort
+    # configurationDictionary['proxyAddress']=proxyAddress
+    configurationDictionary['merchantsecretKey']=merchantSecretKey
+    configurationDictionary['merchantKeyId']=merchantKeyId
+    configurationDictionary['keysDirectory']=keysDirectory
+    configurationDictionary['keyAlias']=keyAlias
+    configurationDictionary['keyPass']=keyPass
+    configurationDictionary['keyFilename'] = keyFilename
+    configurationDictionary['logFilename'] = logFilename
+    return configurationDictionary
+  end
 end
