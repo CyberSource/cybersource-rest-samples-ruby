@@ -14,7 +14,6 @@ class Digital_payments_applepay
         if flag == true
             processing_information.capture = true
         end
-        processing_information.commerce_indicator = "internet"
         processing_information.payment_solution = "001"
         request_obj.processing_information = processing_information
 
@@ -37,7 +36,6 @@ class Digital_payments_applepay
         bill_to.first_name = "John"
         bill_to.last_name = "Deo"
         bill_to.address1 = "901 Metro Center Blvd"
-        bill_to.address2 = "Desk M3-5573"
         bill_to.locality = "Foster City"
         bill_to.administrative_area = "CA"
         bill_to.postal_code = "94404"

@@ -2,26 +2,17 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Simple_authorizationinternet
-    def run(flag)
+class Authorization_with_customer_token_id
+    def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
-        processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
-        processing_information.capture = false
-        if flag == true
-            processing_information.capture = true
-        end
-        request_obj.processing_information = processing_information
-
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
-        card = CyberSource::Ptsv2paymentsPaymentInformationCard.new
-        card.number = "4111111111111111"
-        card.expiration_month = "12"
-        card.expiration_year = "2031"
-        payment_information.card = card
+        customer = CyberSource::Ptsv2paymentsPaymentInformationCustomer.new
+        customer.id = "7500BB199B4270EFE05340588D0AFCAD"
+        payment_information.customer = customer
         request_obj.payment_information = payment_information
 
         order_information = CyberSource::Ptsv2paymentsOrderInformation.new
@@ -29,17 +20,6 @@ class Simple_authorizationinternet
         amount_details.total_amount = "102.21"
         amount_details.currency = "USD"
         order_information.amount_details = amount_details
-        bill_to = CyberSource::Ptsv2paymentsOrderInformationBillTo.new
-        bill_to.first_name = "John"
-        bill_to.last_name = "Doe"
-        bill_to.address1 = "1 Market St"
-        bill_to.locality = "san francisco"
-        bill_to.administrative_area = "CA"
-        bill_to.postal_code = "94105"
-        bill_to.country = "US"
-        bill_to.email = "test@cybs.com"
-        bill_to.phone_number = "4158880000"
-        order_information.bill_to = bill_to
         request_obj.order_information = order_information
 
         config = MerchantConfiguration.new.merchantConfigProp()
@@ -48,12 +28,14 @@ class Simple_authorizationinternet
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts data, status_code, headers
+        puts status_code, headers, data
+
         return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        Simple_authorizationinternet.new.run(false)
+
+        Authorization_with_customer_token_id.new.run()
     end
 end

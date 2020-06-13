@@ -14,7 +14,6 @@ class Digital_payment_googlepay
         if flag == true
             processing_information.capture = true
         end
-        processing_information.commerce_indicator = "internet"
         processing_information.payment_solution = "012"
         request_obj.processing_information = processing_information
 

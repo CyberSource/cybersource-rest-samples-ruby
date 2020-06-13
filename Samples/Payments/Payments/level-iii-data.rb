@@ -14,7 +14,6 @@ class Level_iii_data
         if flag == true
             processing_information.capture = true
         end
-        processing_information.commerce_indicator = "internet"
         processing_information.purchase_level = "3"
         request_obj.processing_information = processing_information
 
