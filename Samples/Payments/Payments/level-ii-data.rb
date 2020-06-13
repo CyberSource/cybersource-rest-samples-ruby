@@ -14,7 +14,6 @@ class Level_ii_data
         if flag == true
             processing_information.capture = true
         end
-        processing_information.commerce_indicator = "internet"
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new

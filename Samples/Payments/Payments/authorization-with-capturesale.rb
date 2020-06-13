@@ -2,18 +2,15 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Simple_authorizationinternet
-    def run(flag)
+class Authorization_with_capturesale
+    def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
-        processing_information.capture = false
-        if flag == true
-            processing_information.capture = true
-        end
+        processing_information.capture = true
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
@@ -48,12 +45,13 @@ class Simple_authorizationinternet
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts data, status_code, headers
+        puts status_code, headers, data
         return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        Simple_authorizationinternet.new.run(false)
+
+        Authorization_with_capturesale.new.run()
     end
 end

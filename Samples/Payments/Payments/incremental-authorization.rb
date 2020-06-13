@@ -8,11 +8,7 @@ class Incremental_authorization
         id = (JSON.parse(Authorization_for_incremental_authorization_flow.new.run()))['id']
         request_obj = CyberSource::IncrementAuthRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsidClientReferenceInformation.new
-        partner = CyberSource::Ptsv2paymentsidClientReferenceInformationPartner.new
-        partner.original_transaction_id = "12345"
-        partner.developer_id = "12345"
-        partner.solution_id = "12345"
-        client_reference_information.partner = partner
+        client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Ptsv2paymentsidProcessingInformation.new
@@ -25,16 +21,17 @@ class Incremental_authorization
 
         order_information = CyberSource::Ptsv2paymentsidOrderInformation.new
         amount_details = CyberSource::Ptsv2paymentsidOrderInformationAmountDetails.new
-        amount_details.additional_amount = "100"
+        amount_details.additional_amount = "22.49"
         amount_details.currency = "USD"
         order_information.amount_details = amount_details
         request_obj.order_information = order_information
 
         merchant_information = CyberSource::Ptsv2paymentsidMerchantInformation.new
+        merchant_information.transaction_local_date_time = "20191002080000"
         request_obj.merchant_information = merchant_information
 
         travel_information = CyberSource::Ptsv2paymentsidTravelInformation.new
-        travel_information.duration = "3"
+        travel_information.duration = "4"
         request_obj.travel_information = travel_information
 
         config = MerchantConfiguration.new.alternativeMerchantConfigProp()

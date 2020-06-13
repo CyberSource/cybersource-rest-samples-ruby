@@ -14,7 +14,6 @@ class Electronic_check_debits
         if flag == true
             processing_information.capture = true
         end
-        processing_information.commerce_indicator = "internet"
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
@@ -25,6 +24,9 @@ class Electronic_check_debits
         bank.account = account
         bank.routing_number = "071923284"
         payment_information.bank = bank
+        payment_type = CyberSource::Ptsv2paymentsPaymentInformationPaymentType.new
+        payment_type.name = "CHECK"
+        payment_information.payment_type = payment_type
         request_obj.payment_information = payment_information
 
         order_information = CyberSource::Ptsv2paymentsOrderInformation.new

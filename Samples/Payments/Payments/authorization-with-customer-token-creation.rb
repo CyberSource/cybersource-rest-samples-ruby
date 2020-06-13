@@ -2,18 +2,25 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Simple_authorizationinternet
-    def run(flag)
+class Authorization_with_customer_token_creation
+    def run()
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
+
+        action_list =  []
+        action_list << "TOKEN_CREATE"
+        processing_information.action_list = action_list
+
+        action_token_types =  []
+        action_token_types << "customer"
+        action_token_types << "paymentInstrument"
+        action_token_types << "shippingAddress"
+        processing_information.action_token_types = action_token_types
         processing_information.capture = false
-        if flag == true
-            processing_information.capture = true
-        end
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
@@ -21,6 +28,7 @@ class Simple_authorizationinternet
         card.number = "4111111111111111"
         card.expiration_month = "12"
         card.expiration_year = "2031"
+        card.security_code = "123"
         payment_information.card = card
         request_obj.payment_information = payment_information
 
@@ -40,6 +48,15 @@ class Simple_authorizationinternet
         bill_to.email = "test@cybs.com"
         bill_to.phone_number = "4158880000"
         order_information.bill_to = bill_to
+        ship_to = CyberSource::Ptsv2paymentsOrderInformationShipTo.new
+        ship_to.first_name = "John"
+        ship_to.last_name = "Doe"
+        ship_to.address1 = "1 Market St"
+        ship_to.locality = "san francisco"
+        ship_to.administrative_area = "CA"
+        ship_to.postal_code = "94105"
+        ship_to.country = "US"
+        order_information.ship_to = ship_to
         request_obj.order_information = order_information
 
         config = MerchantConfiguration.new.merchantConfigProp()
@@ -48,12 +65,14 @@ class Simple_authorizationinternet
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts data, status_code, headers
+        puts status_code, headers, data
+
         return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
-        Simple_authorizationinternet.new.run(false)
+
+        Authorization_with_customer_token_creation.new.run()
     end
 end
