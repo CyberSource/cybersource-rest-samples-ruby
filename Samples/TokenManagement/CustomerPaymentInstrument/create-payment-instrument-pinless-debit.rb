@@ -2,16 +2,20 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Create_payment_instrument_card_
+class Create_payment_instrument_pinless_debit
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-	customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
         card.type = "001"
+        card.issue_number = "01"
+        card.start_month = "01"
+        card.start_year = "2020"
+        card.use_as = "pinless debit"
         request_obj.card = card
 
         bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
@@ -44,6 +48,6 @@ class Create_payment_instrument_card_
         puts err.message
     end
     if __FILE__ == $0
-        Create_payment_instrument_card_.new.run()
+        Create_payment_instrument_pinless_debit.new.run()
     end
 end

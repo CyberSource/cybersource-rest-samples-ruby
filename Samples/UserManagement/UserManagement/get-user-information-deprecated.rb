@@ -6,8 +6,8 @@ class Get_user_information_deprecated
     def run()
 
         opts = {}
-        opts[:"organization_id"] = "testrest"
-        opts[:"permission_id"] = "CustomerProfileViewPermission"
+        opts[:"organization-id"] = "testrest"
+        opts[:"permission-id"] = "CustomerProfileViewPermission"
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new

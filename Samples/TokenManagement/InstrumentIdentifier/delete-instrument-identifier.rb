@@ -5,8 +5,9 @@ require_relative '../../../data/Configuration.rb'
 public
 class Delete_instrument_identifier
     def run()
-        profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
-	instrument_identifier_token_id = (JSON.parse(Create_instrument_identifier_card.new.run()))['id']
+        opts = {}
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        instrument_identifier_token_id = (JSON.parse(Create_instrument_identifier_card.new.run()))['id']
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)

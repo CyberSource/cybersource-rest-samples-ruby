@@ -2,11 +2,11 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Create_payment_instrument_bank_account_
+class Create_payment_instrument_bank_account
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-	customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
         bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount.new
         bank_account.type = "savings"
@@ -44,7 +44,7 @@ class Create_payment_instrument_bank_account_
 
         processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation.new
         bank_transfer_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions.new
-        bank_transfer_options.se_c_code = "WEB"
+        bank_transfer_options.sec_code = "WEB"
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information
 
@@ -65,6 +65,6 @@ class Create_payment_instrument_bank_account_
         puts err.message
     end
     if __FILE__ == $0
-        Create_payment_instrument_bank_account_.new.run()
+        Create_payment_instrument_bank_account.new.run()
     end
 end

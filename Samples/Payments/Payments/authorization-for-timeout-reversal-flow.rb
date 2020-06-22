@@ -3,11 +3,14 @@ require_relative '../../../data/Configuration.rb'
 
 public
 class Authorization_for_timeout_reversal_flow
+    attr_reader :timeoutReversalTransactionId
+
     def run()
+        @timeoutReversalTransactionId = rand(1000..1000000001)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "41638348314384843"
+        client_reference_information.transaction_id = @timeoutReversalTransactionId
         request_obj.client_reference_information = client_reference_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new

@@ -7,7 +7,7 @@ class Delete_customer
     def run()
         opts = {}
 	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-	customer_token_id = (JSON.parse(Create_customer.new.run())['id']
+	customer_token_id = (JSON.parse(Create_customer.new.run()))['id']
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::CustomerApi.new(api_client, config)

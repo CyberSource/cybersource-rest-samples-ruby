@@ -5,7 +5,7 @@ public
 class Create_payment_instrument_bank_account
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 	
         request_obj = CyberSource::PostPaymentInstrumentRequest.new
         bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount.new
@@ -44,7 +44,7 @@ class Create_payment_instrument_bank_account
 
         processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation.new
         bank_transfer_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions.new
-        bank_transfer_options.se_c_code = "WEB"
+        bank_transfer_options.sec_code = "WEB"
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information
 

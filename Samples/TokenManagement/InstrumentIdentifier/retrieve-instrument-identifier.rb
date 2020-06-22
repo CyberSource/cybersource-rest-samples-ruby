@@ -4,8 +4,10 @@ require_relative '../../../data/Configuration.rb'
 public
 class Retrieve_instrument_identifier
     def run()
-        profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
-	token_id = "7010000000016241111"
+        opts = {}
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+
+        token_id = "7010000000016241111"
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)

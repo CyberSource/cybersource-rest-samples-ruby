@@ -5,11 +5,13 @@ require_relative '../Payments/authorization-for-timeout-reversal-flow.rb'
 public
 class Timeout_reversal
     def run()
-        id = (JSON.parse(Authorization_for_timeout_reversal_flow.new.run()))['id']
+        auth_flow = Authorization_for_timeout_reversal_flow.new
+        id = (JSON.parse(auth_flow.run()))['id']
+        
         request_obj = CyberSource::MitReversalRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "41638348314384843"
+        client_reference_information.transaction_id = auth_flow.timeoutReversalTransactionId
         request_obj.client_reference_information = client_reference_information
 
         reversal_information = CyberSource::Ptsv2paymentsidreversalsReversalInformation.new

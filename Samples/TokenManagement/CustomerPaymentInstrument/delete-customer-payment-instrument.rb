@@ -6,9 +6,9 @@ public
 class Delete_customer_payment_instrument
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-	customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
-	payment_instrument_token_id = (JSON.parse(Create_payment_instrument_card.new.run())['id']
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        customer_token_id = "A822E6E50ED5C604E05341588E0A12EC"
+        payment_instrument_token_id = (JSON.parse(Create_payment_instrument_card.new.run()))['id']
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::CustomerPaymentInstrumentApi.new(api_client, config)

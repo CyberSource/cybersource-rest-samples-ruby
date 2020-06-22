@@ -63,10 +63,10 @@ class Authorization_with_customer_default_payment_instrument_shipping_address_cr
 
         token_information = CyberSource::Ptsv2paymentsTokenInformation.new
         payment_instrument = CyberSource::Ptsv2paymentsTokenInformationPaymentInstrument.new
-        payment_instrument._default = true
+        payment_instrument.default = true
         token_information.payment_instrument = payment_instrument
         shipping_address = CyberSource::Ptsv2paymentsTokenInformationShippingAddress.new
-        shipping_address._default = true
+        shipping_address.default = true
         token_information.shipping_address = shipping_address
         request_obj.token_information = token_information
 

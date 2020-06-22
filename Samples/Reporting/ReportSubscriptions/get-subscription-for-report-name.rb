@@ -5,7 +5,7 @@ public
 class Get_subscription_for_report_name
     def run()
         opts = {}
-        report_name = "createsubscription_report"
+        report_name = "testrest_subcription_v1"
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::ReportSubscriptionsApi.new(api_client, config)

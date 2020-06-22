@@ -5,8 +5,8 @@ public
 class Update_instrument_identifier_previoustransactionid
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-	instrument_identifier_token_id = "7010000000016241111"
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        instrument_identifier_token_id = "7010000000016241111"
 	
         request_obj = CyberSource::PatchInstrumentIdentifierRequest.new
         processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformation.new

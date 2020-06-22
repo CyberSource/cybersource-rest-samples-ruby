@@ -5,7 +5,7 @@ public
 class Create_instrument_identifier_card_enroll_for_network_token
     def run()
         opts = {}
-	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+        opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
         request_obj = CyberSource::PostInstrumentIdentifierRequest.new
         request_obj.type = "enrollable card"
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
