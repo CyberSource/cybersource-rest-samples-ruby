@@ -11,7 +11,6 @@ class Download_report
 
         opts = {}
         opts[:"organization_id"] = "testrest"
-        opts[:"report_time"] = "00:00:00Z"
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
@@ -38,7 +37,9 @@ class Download_report
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
 
-        return data, status_code, headers
+        puts data, status_code, headers
+
+        return data
     rescue StandardError => err
         puts err.message
     end

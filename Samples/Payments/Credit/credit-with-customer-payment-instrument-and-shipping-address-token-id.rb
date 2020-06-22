@@ -11,13 +11,13 @@ class Credit_with_customer_payment_instrument_and_shipping_address_token_id
 
         payment_information = CyberSource::Ptsv2paymentsidrefundsPaymentInformation.new
         customer = CyberSource::Ptsv2paymentsPaymentInformationCustomer.new
-        customer.id = "7500BB199B4270EFE05340588D0AFCAD"
+        customer.id = "A822E6E50ED5C604E05341588E0A12EC"
         payment_information.customer = customer
         payment_instrument = CyberSource::Ptsv2paymentsPaymentInformationPaymentInstrument.new
-        payment_instrument.id = "7500BB199B4270EFE05340588D0AFCPI"
+        payment_instrument.id = "A823339844A25949E05340588D0A69FB"
         payment_information.payment_instrument = payment_instrument
         shipping_address = CyberSource::Ptsv2paymentsPaymentInformationShippingAddress.new
-        shipping_address.id = "7500BB199B4270EFE05340588D0AFCSA"
+        shipping_address.id = "A8235AC00BC67783E05340588D0A851E"
         payment_information.shipping_address = shipping_address
         request_obj.payment_information = payment_information
 
@@ -34,7 +34,7 @@ class Credit_with_customer_payment_instrument_and_shipping_address_token_id
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

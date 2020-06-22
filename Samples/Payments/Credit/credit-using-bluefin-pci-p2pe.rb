@@ -54,7 +54,7 @@ class Credit_using_bluefin_pci_p2pe
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

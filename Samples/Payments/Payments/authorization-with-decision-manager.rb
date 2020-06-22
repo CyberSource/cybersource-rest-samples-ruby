@@ -9,10 +9,6 @@ class Authorization_with_decision_manager
         client_reference_information.code = "TSYS_Eh_FE_01"
         request_obj.client_reference_information = client_reference_information
 
-        processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
-        processing_information.capture = false
-        request_obj.processing_information = processing_information
-
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
         card = CyberSource::Ptsv2paymentsPaymentInformationCard.new
         card.number = "4111111111111111"
@@ -45,7 +41,7 @@ class Authorization_with_decision_manager
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
         return data
     rescue StandardError => err
         puts err.message

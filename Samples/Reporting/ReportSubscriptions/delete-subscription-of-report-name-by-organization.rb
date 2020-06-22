@@ -4,12 +4,13 @@ require_relative '../../../data/Configuration.rb'
 public
 class Delete_subscription_of_report_name_by_organization
     def run()
-        report_name = "Cybersource-rest-py"
+        opts = {}
+        report_name = "testrest_subcription_v1"
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::ReportSubscriptionsApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.delete_subscription(report_name)
+        data, status_code, headers = api_instance.delete_subscription(report_name, opts)
 
         puts data, status_code, headers
         return data

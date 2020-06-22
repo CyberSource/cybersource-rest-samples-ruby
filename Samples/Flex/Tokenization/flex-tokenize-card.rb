@@ -27,12 +27,14 @@ class Flex_tokenize_card
         is_token_verified = token_verifier.verifyToken(public_key, data)
 	    print "Token Verification : ", is_token_verified, "\n"
 
-        puts status_code, headers, data
+        puts data, status_code, headers
+
         return data
     rescue StandardError => err
         puts err.message
     end
     if __FILE__ == $0
+
         Flex_tokenize_card.new.run()
     end
 end

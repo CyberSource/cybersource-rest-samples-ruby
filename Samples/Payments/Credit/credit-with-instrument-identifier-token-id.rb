@@ -44,7 +44,7 @@ class Credit_with_instrument_identifier_token_id
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

@@ -1,16 +1,16 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/Configuration.rb'
+require_relative '../../data/Configuration.rb'
 
 public
 class Validate_authentication_results
     def run()
         request_obj = CyberSource::ValidateRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "pavalidatecheck"
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1authenticationresultsOrderInformation.new
-        amount_details = CyberSource::Riskv1decisionsOrderInformationAmountDetails.new
+        amount_details = CyberSource::Riskv1authenticationsOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.total_amount = "200.00"
         order_information.amount_details = amount_details

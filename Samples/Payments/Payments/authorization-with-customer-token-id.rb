@@ -11,7 +11,7 @@ class Authorization_with_customer_token_id
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
         customer = CyberSource::Ptsv2paymentsPaymentInformationCustomer.new
-        customer.id = "7500BB199B4270EFE05340588D0AFCAD"
+        customer.id = "A8302E14870EE99DE05340588D0A1889"
         payment_information.customer = customer
         request_obj.payment_information = payment_information
 
@@ -28,7 +28,7 @@ class Authorization_with_customer_token_id
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

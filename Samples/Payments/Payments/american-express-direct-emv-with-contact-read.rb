@@ -58,7 +58,7 @@ class American_express_direct_emv_with_contact_read
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
         return data
     rescue StandardError => err
         puts err.message

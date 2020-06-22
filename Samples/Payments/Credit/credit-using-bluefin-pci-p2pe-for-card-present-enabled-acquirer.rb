@@ -2,7 +2,7 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Credit_using_bluefin_pci_p2pe
+class Credit_using_bluefin_pci_p2pe_for_card_present_enabled_acquirer
     def run()
         request_obj = CyberSource::CreateCreditRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -54,7 +54,7 @@ class Credit_using_bluefin_pci_p2pe
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err
@@ -62,6 +62,6 @@ class Credit_using_bluefin_pci_p2pe
     end
     if __FILE__ == $0
 
-        Credit_using_bluefin_pci_p2pe.new.run()
+        Credit_using_bluefin_pci_p2pe_for_card_present_enabled_acquirer.new.run()
     end
 end

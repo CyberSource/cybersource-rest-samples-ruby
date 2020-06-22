@@ -35,7 +35,9 @@ class Download_file_with_file_identifier
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
 
-        return data, status_code, headers
+        puts data, status_code, headers
+
+        return data
     rescue StandardError => err
         puts err.message
     end

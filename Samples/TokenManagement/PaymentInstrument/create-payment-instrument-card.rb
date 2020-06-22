@@ -3,51 +3,39 @@ require_relative '../../../data/Configuration.rb'
 
 public
 class Create_payment_instrument_card
-    def run(profileid)
-        request_obj = CyberSource::CreatePaymentInstrumentRequest.new
-        card = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedCard.new
-        card.expiration_month = "09"
-        card.expiration_year = "2017"
+    def run()
+        opts = {}
+	opts['profile-id'] = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
+	
+        request_obj = CyberSource::PostPaymentInstrumentRequest.new
+        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
+        card.expiration_month = "12"
+        card.expiration_year = "2031"
         card.type = "visa"
-        card.issue_number = "01"
-        card.start_month = "01"
-        card.start_year = "2016"
         request_obj.card = card
 
-        buyer_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformation.new
-        buyer_information.company_tax_id = "12345"
-        buyer_information.currency = "USD"
-        request_obj.buyer_information = buyer_information
-
-        bill_to = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBillTo.new
+        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "John"
-        bill_to.last_name = "Smith"
-        bill_to.company = "Cybersource"
-        bill_to.address1 = "8310 Capital of Texas Highwas North"
-        bill_to.address2 = "Bluffstone Drive"
-        bill_to.locality = "Austin"
-        bill_to.administrative_area = "TX"
-        bill_to.postal_code = "78731"
+        bill_to.last_name = "Doe"
+        bill_to.company = "CyberSource"
+        bill_to.address1 = "1 Market St"
+        bill_to.locality = "San Francisco"
+        bill_to.administrative_area = "CA"
+        bill_to.postal_code = "94105"
         bill_to.country = "US"
-        bill_to.email = "john.smith@test.com"
-        bill_to.phone_number = "+44 2890447951"
+        bill_to.email = "test@cybs.com"
+        bill_to.phone_number = "4158880000"
         request_obj.bill_to = bill_to
 
-        processing_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation.new
-        processing_information.bill_payment_program_enabled = true
-        request_obj.processing_information = processing_information
-
-        instrument_identifier = CyberSource::Tmsv1paymentinstrumentsInstrumentIdentifier.new
-        card = CyberSource::TmsV1InstrumentIdentifiersPost200ResponseCard.new
-        card.number = "411111111111112"
-        instrument_identifier.card = card
+        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_payment_instrument(profileid, request_obj)
+        data, status_code, headers = api_instance.post_payment_instrument(request_obj, opts)
 
         puts data, status_code, headers
         return data
@@ -55,8 +43,6 @@ class Create_payment_instrument_card
         puts err.message
     end
     if __FILE__ == $0
-        profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
-
-        Create_payment_instrument_card.new.run(profileid)
+        Create_payment_instrument_card.new.run()
     end
 end

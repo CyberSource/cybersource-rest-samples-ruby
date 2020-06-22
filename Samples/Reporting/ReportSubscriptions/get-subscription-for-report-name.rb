@@ -4,12 +4,13 @@ require_relative '../../../data/Configuration.rb'
 public
 class Get_subscription_for_report_name
     def run()
+        opts = {}
         report_name = "createsubscription_report"
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::ReportSubscriptionsApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.get_subscription(report_name)
+        data, status_code, headers = api_instance.get_subscription(report_name, opts)
 
         puts data, status_code, headers
         return data

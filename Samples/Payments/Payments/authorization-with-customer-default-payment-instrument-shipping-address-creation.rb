@@ -76,7 +76,7 @@ class Authorization_with_customer_default_payment_instrument_shipping_address_cr
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

@@ -6,7 +6,7 @@ public
 class Retrieve_transaction
     def run()
         id = (JSON.parse(Simple_authorizationinternet.new.run(false)))['id']
-        sleep(10)
+        sleep(15)
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::TransactionDetailsApi.new(api_client, config)
