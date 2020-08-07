@@ -1,16 +1,16 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/Configuration.rb'
+require_relative '../../data/Configuration.rb'
 
 public
 class Enroll_with_pending_authentication
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "cybs_test"
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1authenticationsOrderInformation.new
-        amount_details = CyberSource::Riskv1decisionsOrderInformationAmountDetails.new
+        amount_details = CyberSource::Riskv1authenticationsOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.total_amount = "10.99"
         order_information.amount_details = amount_details
@@ -41,7 +41,8 @@ class Enroll_with_pending_authentication
         buyer_information.mobile_phone = 1245789632
         request_obj.buyer_information = buyer_information
 
-        consumer_authentication_information = CyberSource::Riskv1authenticationsConsumerAuthenticationInformation.new
+        consumer_authentication_information = CyberSource::Riskv1decisionsConsumerAuthenticationInformation.new
+        consumer_authentication_information.return_url = "http://localhost:8189/cart/enterprise/collect-term"
         consumer_authentication_information.transaction_mode = "MOTO"
         request_obj.consumer_authentication_information = consumer_authentication_information
 

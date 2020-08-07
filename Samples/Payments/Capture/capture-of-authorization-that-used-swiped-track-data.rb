@@ -1,6 +1,6 @@
 require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
-require_relative './authorization-using-swiped-track-data.rb'
+require_relative '../Payments/authorization-using-swiped-track-data.rb'
 
 public
 class Capture_of_authorization_that_used_swiped_track_data
@@ -27,7 +27,7 @@ class Capture_of_authorization_that_used_swiped_track_data
 
         data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

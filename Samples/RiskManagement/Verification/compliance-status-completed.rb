@@ -48,9 +48,9 @@ class Compliance_status_completed
         export_compliance_information.weights = weights
 
         sanction_lists =  []
-        sanction_lists << "abc";
-        sanction_lists << "acc";
-        sanction_lists << "bac";
+        sanction_lists << "abc"
+        sanction_lists << "acc"
+        sanction_lists << "bac"
         export_compliance_information.sanction_lists = sanction_lists
         request_obj.export_compliance_information = export_compliance_information
 

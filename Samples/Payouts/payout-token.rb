@@ -5,7 +5,7 @@ public
 class Payout_token
     def run()
         request_obj = CyberSource::OctCreatePaymentRequest.new
-        client_reference_information = CyberSource::PtsV2IncrementalAuthorizationPatch201ResponseClientReferenceInformation.new
+        client_reference_information = CyberSource::Ptsv2payoutsClientReferenceInformation.new
         client_reference_information.code = "111111113"
         request_obj.client_reference_information = client_reference_information
 

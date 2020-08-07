@@ -1,16 +1,16 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/Configuration.rb'
+require_relative '../../data/Configuration.rb'
 
 public
 class Enroll_with_travel_information
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "cybs_test"
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1authenticationsOrderInformation.new
-        amount_details = CyberSource::Riskv1decisionsOrderInformationAmountDetails.new
+        amount_details = CyberSource::Riskv1authenticationsOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.total_amount = "10.99"
         order_information.amount_details = amount_details
@@ -41,20 +41,20 @@ class Enroll_with_travel_information
         buyer_information.mobile_phone = 1245789632
         request_obj.buyer_information = buyer_information
 
-        consumer_authentication_information = CyberSource::Riskv1authenticationsConsumerAuthenticationInformation.new
+        consumer_authentication_information = CyberSource::Riskv1decisionsConsumerAuthenticationInformation.new
         consumer_authentication_information.transaction_mode = "MOTO"
         request_obj.consumer_authentication_information = consumer_authentication_information
 
         travel_information = CyberSource::Riskv1authenticationsTravelInformation.new
 
         legs = []
-        legs1 = CyberSource::Riskv1authenticationsTravelInformationLegs.new
+        legs1 = CyberSource::Riskv1decisionsTravelInformationLegs.new
         legs1.destination = "DEF"
         legs1.carrier_code = "UA"
         legs1.departure_date = "2019-01-01"
         legs << legs1
 
-        legs2 = CyberSource::Riskv1authenticationsTravelInformationLegs.new
+        legs2 = CyberSource::Riskv1decisionsTravelInformationLegs.new
         legs2.destination = "RES"
         legs2.carrier_code = "AS"
         legs2.departure_date = "2019-02-21"
@@ -64,12 +64,12 @@ class Enroll_with_travel_information
         travel_information.number_of_passengers = 2
 
         passengers = []
-        passengers1 = CyberSource::Riskv1authenticationsTravelInformationPassengers.new
+        passengers1 = CyberSource::Riskv1decisionsTravelInformationPassengers.new
         passengers1.first_name = "Raj"
         passengers1.last_name = "Charles"
         passengers << passengers1
 
-        passengers2 = CyberSource::Riskv1authenticationsTravelInformationPassengers.new
+        passengers2 = CyberSource::Riskv1decisionsTravelInformationPassengers.new
         passengers2.first_name = "Potter"
         passengers2.last_name = "Suhember"
         passengers << passengers2

@@ -1,6 +1,6 @@
 require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
-require_relative './restaurant-authorization.rb'
+require_relative '../Payments/restaurant-authorization.rb'
 
 public
 class Restaurant_capture_with_gratuity
@@ -32,7 +32,7 @@ class Restaurant_capture_with_gratuity
 
         data, status_code, headers = api_instance.capture_payment(request_obj, id)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

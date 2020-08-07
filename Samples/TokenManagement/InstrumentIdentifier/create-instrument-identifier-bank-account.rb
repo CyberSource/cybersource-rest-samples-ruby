@@ -4,8 +4,8 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_instrument_identifier_bank_account
     def run(profileid)
-        request_obj = CyberSource::CreateInstrumentIdentifierRequest.new
-        bank_account = CyberSource::Tmsv1instrumentidentifiersBankAccount.new
+        request_obj = CyberSource::PostInstrumentIdentifierRequest.new
+        bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBankAccount.new
         bank_account.number = "4100"
         bank_account.routing_number = "071923284"
         request_obj.bank_account = bank_account
@@ -14,7 +14,7 @@ class Create_instrument_identifier_bank_account
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_instrument_identifier(profileid, request_obj)
+        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, profileid)
 
         puts data, status_code, headers
         return data

@@ -11,7 +11,6 @@ class Download_report
 
         opts = {}
         opts[:"organization_id"] = "testrest"
-        opts[:"report_time"] = "00:00:00Z"
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new

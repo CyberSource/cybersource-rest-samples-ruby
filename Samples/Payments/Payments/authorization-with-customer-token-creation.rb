@@ -65,7 +65,7 @@ class Authorization_with_customer_token_creation
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

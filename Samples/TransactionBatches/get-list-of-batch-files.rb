@@ -4,8 +4,8 @@ require_relative '../../data/Configuration.rb'
 public
 class Get_list_of_batch_files
     def run()
-        start_time = "2019-05-22T01:47:57.000Z"
-        end_time = "2019-07-22T22:47:57.000Z"
+        start_time = "2020-02-22T01:47:57.000Z"
+        end_time = "2020-02-22T22:47:57.000Z"
 
         opts = {}
 

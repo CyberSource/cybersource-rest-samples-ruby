@@ -4,21 +4,20 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_instrument_identifier_card_enroll_for_network_token
     def run(profileid)
-        request_obj = CyberSource::CreateInstrumentIdentifierRequest.new
+        request_obj = CyberSource::PostInstrumentIdentifierRequest.new
         request_obj.type = "enrollable card"
-        card = CyberSource::Tmsv1instrumentidentifiersCard.new
-        card.number = "4622943127013705"
+        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
+        card.number = "4111111111111111"
         card.expiration_month = "12"
-        card.expiration_year = "2022"
-        card.security_code = "838"
+        card.expiration_year = "2031"
+        card.security_code = "123"
         request_obj.card = card
 
-        bill_to = CyberSource::Tmsv1instrumentidentifiersBillTo.new
-        bill_to.address1 = "8310 Capital of Texas Highway North"
-        bill_to.address2 = "Bluffstone Drive"
-        bill_to.locality = "Austin"
-        bill_to.administrative_area = "TX"
-        bill_to.postal_code = "78731"
+        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBillTo.new
+        bill_to.address1 = "1 Market St"
+        bill_to.locality = "San Francisco"
+        bill_to.administrative_area = "CA"
+        bill_to.postal_code = "94105"
         bill_to.country = "US"
         request_obj.bill_to = bill_to
 
@@ -26,7 +25,7 @@ class Create_instrument_identifier_card_enroll_for_network_token
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_instrument_identifier(profileid, request_obj)
+        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, profileid)
 
         puts data, status_code, headers
         return data

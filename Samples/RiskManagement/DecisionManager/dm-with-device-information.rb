@@ -4,7 +4,7 @@ require_relative '../../../data/Configuration.rb'
 public
 class Dm_with_device_information
     def run()
-        request_obj = CyberSource::CreateDecisionManagerCaseRequest.new
+        request_obj = CyberSource::CreateBundledDecisionManagerCaseRequest.new
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "54323007"
         request_obj.client_reference_information = client_reference_information
@@ -47,7 +47,7 @@ class Dm_with_device_information
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::DecisionManagerApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_decision_manager_case(request_obj)
+        data, status_code, headers = api_instance.create_bundled_decision_manager_case(request_obj)
 
         puts data, status_code, headers
         return data

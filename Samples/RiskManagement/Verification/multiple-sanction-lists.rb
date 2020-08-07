@@ -63,9 +63,9 @@ class Multiple_sanction_lists
         export_compliance_information.weights = weights
 
         sanction_lists =  []
-        sanction_lists << "Bureau Of Industry and Security";
-        sanction_lists << "DOS_DTC";
-        sanction_lists << "AUSTRALIA";
+        sanction_lists << "Bureau Of Industry and Security"
+        sanction_lists << "DOS_DTC"
+        sanction_lists << "AUSTRALIA"
         export_compliance_information.sanction_lists = sanction_lists
         request_obj.export_compliance_information = export_compliance_information
 

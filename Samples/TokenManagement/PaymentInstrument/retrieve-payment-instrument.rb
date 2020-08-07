@@ -10,7 +10,7 @@ class Retrieve_payment_instrument
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.get_payment_instrument(profileid, token_id)
+        data, status_code, headers = api_instance.get_payment_instrument(token_id, profileid)
 
         puts data, status_code, headers
         return data
