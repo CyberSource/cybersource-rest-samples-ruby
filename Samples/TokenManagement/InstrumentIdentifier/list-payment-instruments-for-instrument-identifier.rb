@@ -6,12 +6,14 @@ class List_payment_instruments_for_instrument_identifier
     def run()
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
         opts = {}
+        opts[:"profile-id"] = profileid
+
         instrument_identifier_token_id = "7010000000016241111"
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.get_instrument_identifier_payment_instruments_list(instrument_identifier_token_id, profileid, opts)
+        data, status_code, headers = api_instance.get_instrument_identifier_payment_instruments_list(instrument_identifier_token_id, opts)
 
         puts data, status_code, headers
 

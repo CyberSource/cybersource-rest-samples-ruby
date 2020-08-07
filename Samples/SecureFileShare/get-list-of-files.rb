@@ -9,7 +9,7 @@ class Get_list_of_files
 
         opts = {}
         opts[:"organization_id"] = "testrest"
-        opts[:"name"] = Nil
+        opts[:"name"] = nil
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new

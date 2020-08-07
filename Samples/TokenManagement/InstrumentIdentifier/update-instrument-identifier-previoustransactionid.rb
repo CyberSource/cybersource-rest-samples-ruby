@@ -5,11 +5,13 @@ public
 class Update_instrument_identifier_previoustransactionid
     def run()
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
-		
         instrument_identifier_token_id = "7010000000016241111"
-		
+
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         request_obj = CyberSource::PatchInstrumentIdentifierRequest.new
-		
+
         processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformation.new
         authorization_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptions.new
         initiator = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptionsInitiator.new
@@ -24,7 +26,7 @@ class Update_instrument_identifier_previoustransactionid
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.patch_instrument_identifier(instrument_identifier_token_id, request_obj, profileid)
+        data, status_code, headers = api_instance.patch_instrument_identifier(instrument_identifier_token_id, request_obj, opts)
 
         puts data, status_code, headers
 

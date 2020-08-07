@@ -21,11 +21,14 @@ class Create_instrument_identifier_card_enroll_for_network_token
         bill_to.country = "US"
         request_obj.bill_to = bill_to
 
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, profileid)
+        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, opts)
 
         puts data, status_code, headers
         return data

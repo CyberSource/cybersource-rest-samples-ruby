@@ -10,11 +10,14 @@ class Create_instrument_identifier_bank_account
         bank_account.routing_number = "071923284"
         request_obj.bank_account = bank_account
 
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, profileid)
+        data, status_code, headers = api_instance.post_instrument_identifier(request_obj, opts)
 
         puts data, status_code, headers
         return data

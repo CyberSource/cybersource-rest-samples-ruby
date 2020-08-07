@@ -32,11 +32,14 @@ class Create_payment_instrument_pinless_debit
         instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.post_payment_instrument(request_obj, profileid)
+        data, status_code, headers = api_instance.post_payment_instrument(request_obj, opts)
 
         puts data, status_code, headers
         return data

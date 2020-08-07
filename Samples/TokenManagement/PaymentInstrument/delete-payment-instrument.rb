@@ -6,11 +6,14 @@ public
 class Delete_payment_instrument
     def run(profileid)
         token_id = (JSON.parse(Create_payment_instrument_card.new.run(profileid)))['id']
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.delete_payment_instrument(token_id, profileid)
+        data, status_code, headers = api_instance.delete_payment_instrument(token_id, opts)
 
         puts data, status_code, headers
         return data

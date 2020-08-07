@@ -49,11 +49,14 @@ class Create_payment_instrument_bank_account
         instrument_identifier.id = "A7A91A2CA872B272E05340588D0A0699"
         request_obj.instrument_identifier = instrument_identifier
 
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.post_payment_instrument(request_obj, profileid)
+        data, status_code, headers = api_instance.post_payment_instrument(request_obj, opts)
 
         puts data, status_code, headers
         return data
