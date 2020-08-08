@@ -1,16 +1,16 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/Configuration.rb'
+require_relative '../../data/Configuration.rb'
 
 public
 class Validate_authentication_results
     def run()
         request_obj = CyberSource::ValidateRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "pavalidatecheck"
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1authenticationresultsOrderInformation.new
-        amount_details = CyberSource::Riskv1decisionsOrderInformationAmountDetails.new
+        amount_details = CyberSource::Riskv1authenticationsOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.total_amount = "200.00"
         order_information.amount_details = amount_details
@@ -36,6 +36,7 @@ class Validate_authentication_results
 
         consumer_authentication_information = CyberSource::Riskv1authenticationresultsConsumerAuthenticationInformation.new
         consumer_authentication_information.authentication_transaction_id = "PYffv9G3sa1e0CQr5fV0"
+        consumer_authentication_information.response_access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI5YTAwYTYzMC0zNzFhLTExZTYtYTU5Ni1kZjQwZjUwMjAwNmMiLCJpYXQiOjE0NjY0NDk4MDcsImlzcyI6Ik1pZGFzLU5vRFYtS2V5IiwiUGF5bG9hZCI6eyJPcmRlckRldGFpbHMiOnsiT3JkZXJOdW1iZXIiOjE1NTc4MjAyMzY3LCJBbW91bnQiOiIxNTAwIiwiQ3VycmVudENvZGUiOiI4NDAiLCJUcmFuc2FjdGlvbklkIjoiOVVzaGVoRFFUcWh1SFk5SElqZTAifX0sIk9yZ1VuaXRJZCI6IjU2NGNkY2JjYjlmNjNmMGM0OGQ2Mzg3ZiIsIk9iamVjdGlmeVBheWxvYWQiOnRydWV9.eaU8LZJnMtY3mPl4vBXVCVUuyeSeAp8zoNaEOmKS4XY"
         consumer_authentication_information.signed_pares = "eNqdmFmT4jgSgN+J4D90zD4yMz45PEFVhHzgA2zwjXnzhQ984Nvw61dAV1"
         request_obj.consumer_authentication_information = consumer_authentication_information
 

@@ -6,12 +6,16 @@ public
 class Delete_instrument_identifier
     def run()
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
-	    token_id = (JSON.parse(Create_instrument_identifier_card.new.run(profileid)))['id']
+        token_id = (JSON.parse(Create_instrument_identifier_card.new.run(profileid)))['id']
+
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.delete_instrument_identifier(profileid, token_id)
+        data, status_code, headers = api_instance.delete_instrument_identifier(token_id, opts)
 
         puts data, status_code, headers
         return data

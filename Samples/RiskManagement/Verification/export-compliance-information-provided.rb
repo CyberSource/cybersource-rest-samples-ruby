@@ -51,7 +51,7 @@ class Export_compliance_information_provided
         export_compliance_information.weights = weights
 
         sanction_lists =  []
-        sanction_lists << "Bureau Of Industry and Security";
+        sanction_lists << "Bureau Of Industry and Security"
         export_compliance_information.sanction_lists = sanction_lists
         request_obj.export_compliance_information = export_compliance_information
 

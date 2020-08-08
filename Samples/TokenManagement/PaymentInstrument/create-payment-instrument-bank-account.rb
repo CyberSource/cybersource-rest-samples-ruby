@@ -4,21 +4,21 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_payment_instrument_bank_account
     def run(profileid)
-        request_obj = CyberSource::CreatePaymentInstrumentRequest.new
-        bank_account = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBankAccount.new
+        request_obj = CyberSource::PostPaymentInstrumentRequest.new
+        bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount.new
         bank_account.type = "savings"
         request_obj.bank_account = bank_account
 
-        buyer_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformation.new
+        buyer_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformation.new
         buyer_information.company_tax_id = "12345"
         buyer_information.currency = "USD"
         buyer_information.date_of_birth = "2000-12-13"
 
         personal_identification = []
-        personal_identification1 = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformationPersonalIdentification.new
+        personal_identification1 = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification.new
         personal_identification1.id = "57684432111321"
         personal_identification1.type = "driver license"
-        issued_by1 = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformationIssuedBy.new
+        issued_by1 = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy.new
         issued_by1.administrative_area = "CA"
         personal_identification1.issued_by = issued_by1
         personal_identification << personal_identification1
@@ -26,45 +26,37 @@ class Create_payment_instrument_bank_account
         buyer_information.personal_identification = personal_identification
         request_obj.buyer_information = buyer_information
 
-        bill_to = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBillTo.new
+        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "John"
-        bill_to.last_name = "Smith"
+        bill_to.last_name = "Doe"
         bill_to.company = "Cybersource"
-        bill_to.address1 = "8310 Capital of Texas Highwas North"
-        bill_to.address2 = "Bluffstone Drive"
-        bill_to.locality = "Austin"
-        bill_to.administrative_area = "TX"
-        bill_to.postal_code = "78731"
+        bill_to.address1 = "1 Market St"
+        bill_to.locality = "San Francisco"
+        bill_to.administrative_area = "CA"
+        bill_to.postal_code = "94105"
         bill_to.country = "US"
-        bill_to.email = "john.smith@test.com"
-        bill_to.phone_number = "+44 2890447951"
+        bill_to.email = "test@cybs.com"
+        bill_to.phone_number = "4158880000"
         request_obj.bill_to = bill_to
 
-        processing_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation.new
-        processing_information.bill_payment_program_enabled = true
-        bank_transfer_options = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformationBankTransferOptions.new
+        processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation.new
+        bank_transfer_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions.new
         bank_transfer_options.sec_code = "WEB"
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information
 
-        merchant_information = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedMerchantInformation.new
-        merchant_descriptor = CyberSource::TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedMerchantInformationMerchantDescriptor.new
-        merchant_descriptor.alternate_name = "Branch Name"
-        merchant_information.merchant_descriptor = merchant_descriptor
-        request_obj.merchant_information = merchant_information
-
-        instrument_identifier = CyberSource::Tmsv1paymentinstrumentsInstrumentIdentifier.new
-        bank_account = CyberSource::Tmsv1instrumentidentifiersBankAccount.new
-        bank_account.number = "4100"
-        bank_account.routing_number = "071923284"
-        instrument_identifier.bank_account = bank_account
+        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier.id = "A7A91A2CA872B272E05340588D0A0699"
         request_obj.instrument_identifier = instrument_identifier
+
+        opts = {}
+        opts[:"profile-id"] = profileid
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentInstrumentApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.create_payment_instrument(profileid, request_obj)
+        data, status_code, headers = api_instance.post_payment_instrument(request_obj, opts)
 
         puts data, status_code, headers
         return data

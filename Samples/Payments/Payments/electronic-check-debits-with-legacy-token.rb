@@ -11,7 +11,7 @@ class Electronic_check_debits_with_legacy_token
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
         legacy_token = CyberSource::Ptsv2paymentsPaymentInformationLegacyToken.new
-        legacy_token.id = "7500BB199B4270EFE05340588D0AFCAD"
+        legacy_token.id = "AB7C01E66529EA42E05341588E0A22AD"
         payment_information.legacy_token = legacy_token
         payment_type = CyberSource::Ptsv2paymentsPaymentInformationPaymentType.new
         payment_type.name = "CHECK"
@@ -41,7 +41,7 @@ class Electronic_check_debits_with_legacy_token
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

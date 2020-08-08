@@ -14,6 +14,8 @@ class Updateinvoicesettings
         header_style.font_color = "#000001"
         header_style.background_color = "#FFFFFF"
         invoice_settings_information.header_style = header_style
+        invoice_settings_information.delivery_language = "en-US"
+        invoice_settings_information.default_currency_code = "USD"
         request_obj.invoice_settings_information = invoice_settings_information
 
         config = MerchantConfiguration.new.merchantConfigProp()

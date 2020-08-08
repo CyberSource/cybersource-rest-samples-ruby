@@ -11,7 +11,7 @@ class Credit_with_customer_token_id
 
         payment_information = CyberSource::Ptsv2paymentsidrefundsPaymentInformation.new
         customer = CyberSource::Ptsv2paymentsPaymentInformationCustomer.new
-        customer.id = "7500BB199B4270EFE05340588D0AFCAD"
+        customer.id = "AB695DA801DD1BB6E05341588E0A3BDC"
         payment_information.customer = customer
         request_obj.payment_information = payment_information
 
@@ -28,7 +28,7 @@ class Credit_with_customer_token_id
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

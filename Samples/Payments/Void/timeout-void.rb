@@ -5,11 +5,13 @@ require_relative '../Payments/authorization-capture-for-timeout-void-flow.rb'
 public
 class Timeout_void
     def run()
-        id = (JSON.parse(Authorization_capture_for_timeout_void_flow.new.run()))['id']
+        auth_capture_flow = Authorization_capture_for_timeout_void_flow.new
+        id = (JSON.parse(auth_capture_flow.run()))['id']
+
         request_obj = CyberSource::MitVoidRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
-        client_reference_information.transaction_id = "718713511403634634"
+        client_reference_information.transaction_id = auth_capture_flow.timeoutVoidTransactionId
         request_obj.client_reference_information = client_reference_information
 
         config = MerchantConfiguration.new.merchantConfigProp()

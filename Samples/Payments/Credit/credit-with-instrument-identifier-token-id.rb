@@ -16,7 +16,7 @@ class Credit_with_instrument_identifier_token_id
         card.type = "001"
         payment_information.card = card
         instrument_identifier = CyberSource::Ptsv2paymentsPaymentInformationInstrumentIdentifier.new
-        instrument_identifier.id = "7500BB199B4270EFE05340588D0AFCII"
+        instrument_identifier.id = "7010000000016241111"
         payment_information.instrument_identifier = instrument_identifier
         request_obj.payment_information = payment_information
 
@@ -44,7 +44,7 @@ class Credit_with_instrument_identifier_token_id
 
         data, status_code, headers = api_instance.create_credit(request_obj)
 
-        puts status_code, headers, data
+        puts data, status_code, headers
 
         return data
     rescue StandardError => err

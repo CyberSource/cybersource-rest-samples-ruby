@@ -11,8 +11,8 @@ class Mark_as_suspect
         marking_details.reason = "suspected"
 
         fields_included =  []
-        fields_included << "customer_email";
-        fields_included << "customer_phone";
+        fields_included << "customer_email"
+        fields_included << "customer_phone"
         marking_details.fields_included = fields_included
         marking_details.action = "add"
         risk_information.marking_details = marking_details
