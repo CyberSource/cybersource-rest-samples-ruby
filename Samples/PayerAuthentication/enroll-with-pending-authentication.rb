@@ -42,7 +42,6 @@ class Enroll_with_pending_authentication
         request_obj.buyer_information = buyer_information
 
         consumer_authentication_information = CyberSource::Riskv1decisionsConsumerAuthenticationInformation.new
-        consumer_authentication_information.return_url = "http://localhost:8189/cart/enterprise/collect-term"
         consumer_authentication_information.transaction_mode = "MOTO"
         request_obj.consumer_authentication_information = consumer_authentication_information
 

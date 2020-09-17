@@ -14,7 +14,7 @@ class Setup_completion_with_card_number
         card.type = "001"
         card.expiration_month = "12"
         card.expiration_year = "2025"
-        card.number = "4111111111111111"
+        card.number = "4000000000000101"
         payment_information.card = card
         request_obj.payment_information = payment_information
 
