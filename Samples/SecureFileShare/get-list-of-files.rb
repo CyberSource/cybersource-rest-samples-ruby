@@ -4,8 +4,8 @@ require_relative '../../data/Configuration.rb'
 public
 class Get_list_of_files
     def run()
-        start_date = "2020-03-20"
-        end_date = "2020-03-30"
+        start_date = "2020-07-20"
+        end_date = "2020-07-30"
 
         opts = {}
         opts[:"organization_id"] = "testrest"
