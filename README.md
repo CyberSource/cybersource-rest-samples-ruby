@@ -1,7 +1,7 @@
 # Ruby Sample Code for the CyberSource SDK
 [![Travis CI Status](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby.svg?branch=master)](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby)
 
-This repository contains working code samples which demonstrate Ruby integration with the CyberSource REST APIs through the [CyberSource Ruby SDK] (https://github.com/CyberSource/cybersource-rest-client-ruby).
+This repository contains working code samples which demonstrate Ruby integration with the CyberSource REST APIs through the [CyberSource Ruby SDK](https://github.com/CyberSource/cybersource-rest-client-ruby).
 
 
 ## Using the Sample Code
@@ -11,7 +11,7 @@ The samples are all completely independent and self-contained. You can analyze t
 You can run each sample directly from the command line.
 
 ## Requirements
-* Ruby 2.2.2 or higher
+* Ruby 2.5.0 or higher
 * [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
 * [CyberSource API Keys](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
 

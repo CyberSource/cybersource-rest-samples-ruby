@@ -5,7 +5,7 @@ require_relative '../Payments/electronic-check-debits.rb'
 public
 class Electronic_check_follow_on_refund
     def run()
-        id = (JSON.parse(Electronic_check_debits.new.run()))['id']
+        id = (JSON.parse(Electronic_check_debits.new.run(true)))['id']
         request_obj = CyberSource::RefundPaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"

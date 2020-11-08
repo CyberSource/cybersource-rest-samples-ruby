@@ -31,7 +31,7 @@ class Update_payment_instrument
         request_obj.bill_to = bill_to
 
         instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
-        instrument_identifier.id = "instrumentIdentifierTokenId"
+        instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 
         config = MerchantConfiguration.new.merchantConfigProp()
