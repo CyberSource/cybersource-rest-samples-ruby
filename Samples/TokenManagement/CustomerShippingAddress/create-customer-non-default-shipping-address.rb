@@ -2,10 +2,11 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Create_shipping_address
+class Create_customer_non_default_shipping_address
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerShippingAddressRequest.new
+        request_obj._default = false
         ship_to = CyberSource::Tmsv2customersEmbeddedDefaultShippingAddressShipTo.new
         ship_to.first_name = "John"
         ship_to.last_name = "Doe"
@@ -32,6 +33,6 @@ class Create_shipping_address
         puts err.message
     end
     if __FILE__ == $0
-        Create_shipping_address.new.run()
+        Create_customer_non_default_shipping_address.new.run()
     end
 end

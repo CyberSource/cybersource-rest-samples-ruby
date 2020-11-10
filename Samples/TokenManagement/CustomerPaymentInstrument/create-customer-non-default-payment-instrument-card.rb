@@ -2,10 +2,11 @@ require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
 
 public
-class Create_customer_payment_instrument_card
+class Create_customer_non_default_payment_instrument_card
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
+        request_obj._default = false
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
@@ -42,6 +43,6 @@ class Create_customer_payment_instrument_card
         puts err.message
     end
     if __FILE__ == $0
-        Create_customer_payment_instrument_card.new.run()
+        Create_customer_non_default_payment_instrument_card.new.run()
     end
 end
