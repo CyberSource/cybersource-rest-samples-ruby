@@ -7,6 +7,9 @@ class Enroll_instrument_identifier_for_network_tokenization
         profileid = '93B32398-AD51-4CC2-A682-EA3E93614EB1'
         instrument_identifier_token_id = '7010000000016241111'
 
+        opts = {}
+        opts[:"profile-id"] = profileid
+
         request_obj = CyberSource::PostInstrumentIdentifierRequest.new
         request_obj.type = "enrollable card"
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
@@ -27,7 +30,7 @@ class Enroll_instrument_identifier_for_network_tokenization
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::InstrumentIdentifierApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.post_instrument_identifier_enrollment(instrument_identifier_token_id, request_obj, profileid)
+        data, status_code, headers = api_instance.post_instrument_identifier_enrollment(instrument_identifier_token_id, request_obj, opts)
 
         puts data, status_code, headers
 
