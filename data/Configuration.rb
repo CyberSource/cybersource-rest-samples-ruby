@@ -70,6 +70,10 @@ class MerchantConfiguration
     keyAlias='testrest_cpctv'
     keyPass='testrest_cpctv'
     keyFilename='testrest_cpctv'
+
+    # MetaKey Params
+    useMetaKey = false
+    portfolioID = ''
     
     configurationDictionary={}
     configurationDictionary['merchantID']=merchantId
@@ -87,6 +91,8 @@ class MerchantConfiguration
     configurationDictionary['keysDirectory']=keysDirectory
     configurationDictionary['keyAlias']=keyAlias
     configurationDictionary['keyPass']=keyPass
+    configurationDictionary['useMetaKey'] = useMetaKey
+    configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
     configurationDictionary['logFilename'] = logFilename
     return configurationDictionary
