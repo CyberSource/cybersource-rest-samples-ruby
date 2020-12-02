@@ -6,7 +6,7 @@ class Create_customer_default_payment_instrument_card
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
-        request_obj._default = true
+        request_obj.default = true
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
