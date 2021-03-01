@@ -13,7 +13,7 @@ class Authorization_with_decision_manager_travel_information
         card = CyberSource::Ptsv2paymentsPaymentInformationCard.new
         card.number = "4444444444444448"
         card.expiration_month = "12"
-        card.expiration_year = "2020"
+        card.expiration_year = "2032"
         payment_information.card = card
         request_obj.payment_information = payment_information
 
