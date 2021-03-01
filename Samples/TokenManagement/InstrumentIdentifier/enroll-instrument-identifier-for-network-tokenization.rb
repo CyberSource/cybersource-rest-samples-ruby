@@ -10,7 +10,7 @@ class Enroll_instrument_identifier_for_network_tokenization
         opts = {}
         opts[:"profile-id"] = profileid
 
-        request_obj = CyberSource::PostInstrumentIdentifierRequest.new
+        request_obj = CyberSource::PostInstrumentIdentifierEnrollmentRequest.new
         request_obj.type = "enrollable card"
         card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
         card.expiration_month = "12"

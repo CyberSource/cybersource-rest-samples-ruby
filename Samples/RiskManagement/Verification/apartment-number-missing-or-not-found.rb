@@ -5,7 +5,7 @@ public
 class Apartment_number_missing_or_not_found
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
-        client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "addressEg"
         client_reference_information.comments = "dav-error response check"
         request_obj.client_reference_information = client_reference_information

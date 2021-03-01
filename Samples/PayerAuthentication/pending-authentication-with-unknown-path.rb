@@ -5,7 +5,7 @@ public
 class Pending_authentication_with_unknown_path
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "UNKNOWN"
         request_obj.client_reference_information = client_reference_information
 
