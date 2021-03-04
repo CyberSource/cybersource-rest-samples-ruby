@@ -40,21 +40,45 @@ Configure the following information in the data/Configuration.rb file:
   * Http Signature 
 
 ```ruby
-    merchantId='your_merchant_id'
-    authenticationType='http_signature'   
+    merchantId                  = 'your_merchant_id'
+    authenticationType          = 'http_signature'
     # HTTP Parameters
-    merchantKeyId='your_key_serial_number'
-    merchantSecretKey='your_key_shared_secret'
+    merchantKeyId               = 'your_key_serial_number'
+    merchantSecretKey           = 'your_key_shared_secret'
 ```
   * Jwt
 
 ```ruby
-    merchantId='your_merchant_id'
+    merchantId                  = 'your_merchant_id'
+    authenticationType          = 'jwt'
     # JWT Parameters
-    keysDirectory='resource'
-    keyAlias='your_merchant_id'
-    keyPass='your_merchant_id'
-    keyFilename='your_merchant_id'
+    keysDirectory               = 'resource'
+    keyAlias                    = 'your_merchant_id'
+    keyPass                     = 'your_merchant_id'
+    keyFilename                 = 'your_merchant_id'
+```
+
+  * MetaKey Http
+
+```ruby
+    authenticationType          = 'http_Signature'
+    merchantId                  = 'your_child_merchant_id'
+    merchantKeyId               = 'your_metakey_serial_number'
+    merchantSecretKey           = 'your_metakey_shared_secret'
+    portfolioId                 = 'your_portfolio_id'
+    useMetaKey                  = true
+```
+
+  * MetaKey JWT
+
+```ruby
+    authenticationType          = 'jwt'
+    merchantId                  = 'your_child_merchant_id'
+    keyAlias                    = 'your_child_merchant_id'
+    keyPass                     = 'your_portfolio_id'
+    keyFilename                 = 'your_portfolio_id'
+    keysDirectory               = 'resource'
+    useMetaKey                  = true
 ```
 
 ## Switching between the sandbox environment and the production environment
@@ -64,10 +88,10 @@ configured to communicate with the sandbox environment. To switch to the product
 constant in data/Configuration.rb file.  For example:
 
 ```Ruby
-# For TESTING use
-runEnvironment='cybersource.environment.sandbox'
-# For PRODUCTION use
-# runEnvironment='cybersource.environment.production'
+   # For TESTING use
+   runEnvironment='cybersource.environment.sandbox'
+   # For PRODUCTION use
+   # runEnvironment='cybersource.environment.production'
 ```
 
 ## API Reference

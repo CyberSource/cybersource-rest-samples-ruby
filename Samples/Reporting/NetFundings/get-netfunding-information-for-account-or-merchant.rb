@@ -4,8 +4,8 @@ require_relative '../../../data/Configuration.rb'
 public
 class Get_netfunding_information_for_account_or_merchant
     def run()
-        start_time = "2019-08-01T00:00:00Z"
-        end_time = "2019-09-01T23:59:59Z"
+        start_time = "2021-01-01T00:00:00Z"
+        end_time = "2021-02-01T23:59:59Z"
 
         opts = {}
         opts[:"organization_id"] = "testrest"

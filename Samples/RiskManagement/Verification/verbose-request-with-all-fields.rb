@@ -5,9 +5,13 @@ public
 class Verbose_request_with_all_fields
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
-        client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "addressEg"
         client_reference_information.comments = "dav-All fields"
+        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner.developer_id = "7891234"
+        partner.solution_id = "89012345"
+        client_reference_information.partner = partner
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1addressverificationsOrderInformation.new

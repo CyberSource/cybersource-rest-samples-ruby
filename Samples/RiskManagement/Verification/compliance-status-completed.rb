@@ -5,7 +5,7 @@ public
 class Compliance_status_completed
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
-        client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "verification example"
         request_obj.client_reference_information = client_reference_information
 

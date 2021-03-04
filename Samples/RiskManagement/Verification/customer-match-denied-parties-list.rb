@@ -5,9 +5,13 @@ public
 class Customer_match_denied_parties_list
     def run()
         request_obj = CyberSource::ValidateExportComplianceRequest.new
-        client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "verification example"
         client_reference_information.comments = "Export-basic"
+        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner.developer_id = "7891234"
+        partner.solution_id = "89012345"
+        client_reference_information.partner = partner
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1exportcomplianceinquiriesOrderInformation.new
