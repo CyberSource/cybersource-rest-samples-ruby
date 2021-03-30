@@ -19,6 +19,11 @@ class Configuration
     keyAlias='testrest'
     keyPass='testrest'
     keyFilename='testrest'
+
+    # MetaKey Params
+    useMetaKey = false
+    portfolioID = ''
+    
     logFilename='Cybs'
     configurationDictionary={}
     configurationDictionary['merchantID']=merchantId
@@ -35,6 +40,8 @@ class Configuration
     configurationDictionary['keysDirectory']=keysDirectory
     configurationDictionary['keyAlias']=keyAlias
     configurationDictionary['keyPass']=keyPass
+    configurationDictionary['useMetaKey'] = useMetaKey
+    configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
     configurationDictionary['logFilename'] = logFilename
     return configurationDictionary
