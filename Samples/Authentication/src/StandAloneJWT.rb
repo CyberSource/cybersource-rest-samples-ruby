@@ -157,7 +157,7 @@ class StandAloneJWT
   end
   
   def processGet()
-    resource = "/reporting/v3/reports?startTime=2018-10-01T00:00:00.0Z&endTime=2018-10-30T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
+    resource = "/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
     method = "get"
     statusCode = -1
     url = URI.encode("https://" + @@request_host + resource)

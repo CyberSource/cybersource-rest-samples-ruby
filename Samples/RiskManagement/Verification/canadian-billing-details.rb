@@ -5,7 +5,7 @@ public
 class Canadian_billing_details
     def run()
         request_obj = CyberSource::VerifyCustomerAddressRequest.new
-        client_reference_information = CyberSource::Riskv1addressverificationsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "addressEg"
         client_reference_information.comments = "dav-All fields"
         request_obj.client_reference_information = client_reference_information

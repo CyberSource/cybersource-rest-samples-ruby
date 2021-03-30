@@ -5,7 +5,7 @@ require_relative '../../data/Configuration.rb'
 public
 class Get_search_results
     def run()
-        search_id = (JSON.parse(Create_search_request.new.run))['search_id']
+        search_id = (JSON.parse(Create_search_request.new.run))['searchId']
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::SearchTransactionsApi.new(api_client, config)

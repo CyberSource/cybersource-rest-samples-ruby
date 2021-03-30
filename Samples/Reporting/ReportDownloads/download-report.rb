@@ -6,7 +6,7 @@ public
 class Download_report
     def run()
         download_file_path = "resource//DownloadedReport"
-        report_date = "2020-05-05"
+        report_date = "2020-07-05"
         report_name = "testrest_subcription_v2989"
 
         opts = {}

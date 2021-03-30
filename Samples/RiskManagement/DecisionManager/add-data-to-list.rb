@@ -26,6 +26,10 @@ class Add_data_to_list
 
         client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "54323007"
+        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner.developer_id = "7891234"
+        partner.solution_id = "89012345"
+        client_reference_information.partner = partner
         request_obj.client_reference_information = client_reference_information
 
         risk_information = CyberSource::Riskv1liststypeentriesRiskInformation.new

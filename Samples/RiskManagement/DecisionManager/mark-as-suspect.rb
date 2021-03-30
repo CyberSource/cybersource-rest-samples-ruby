@@ -18,6 +18,14 @@ class Mark_as_suspect
         risk_information.marking_details = marking_details
         request_obj.risk_information = risk_information
 
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
+        client_reference_information.code = "12345"
+        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner.developer_id = "1234"
+        partner.solution_id = "3321"
+        client_reference_information.partner = partner
+        request_obj.client_reference_information = client_reference_information
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::DecisionManagerApi.new(api_client, config)
