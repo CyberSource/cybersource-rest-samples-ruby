@@ -4,14 +4,14 @@ public
 class SimplePaymentUsingMetaKey
 
     def merchantConfigProp()
-        merchantId='merchannt998'
+        merchantId=''
         runEnvironment='cybersource.environment.sandbox'
         authenticationType='http_signature'
-        merchantKeyId='7a7f20a6-1f7f-4780-9a79-3ff8acf7cc83'
-        merchantSecretKey='X+ynT3aTCD643tZgnEnnLD+sd5pplDGMw5vG5klPvVY='
+        merchantKeyId=''
+        merchantSecretKey=''
         # MetaKey Params
         useMetaKey = true
-        portfolioID = 'developercp'
+        portfolioID = ''
         
         configurationDictionary={}
         configurationDictionary['merchantID']=merchantId
