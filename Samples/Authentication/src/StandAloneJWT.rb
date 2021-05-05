@@ -4,7 +4,7 @@ require 'jwt'
 require 'json'
 require 'date'
 require 'net/http'
-require 'uri'
+require 'addressable/uri'
 require 'active_support'
 
 public 
@@ -61,9 +61,9 @@ class StandAloneJWT
   def getJsonWebToken(resource, http_method, gmtdatetime)
     jwtBody = ''
     filePath = File.join(File.dirname(__FILE__), "../resource/" + @@filename + ".p12")
-    
+
     p12File = File.binread(filePath)
-    
+
     if http_method == "post"
         payload = @@payload
         digest = Digest::SHA256.base64digest(payload)
@@ -71,26 +71,26 @@ class StandAloneJWT
     elsif http_method == "get"
         jwtBody = "{\n \"iat\":\"" + gmtdatetime + "\"\n} \n\n"
     end
-    
+
     claimSet = JSON.parse(jwtBody)
     p12FilePath = OpenSSL::PKCS12.new(p12File, "testrest")
-    
+
     publicKey = OpenSSL::PKey::RSA.new(p12FilePath.key.public_key)
     privateKey = OpenSSL::PKey::RSA.new(p12FilePath.key)
     x5CertPem = OpenSSL::X509::Certificate.new(p12FilePath.certificate)
     x5CertDer = Base64.strict_encode64(x5CertPem.to_der)
-    
+
     x5clist = [x5CertDer]
-    
+
     customHeaders = {}
     customHeaders['v-c-merchant-id'] = @@merchant_id
     customHeaders['x5c'] = x5clist
-    
+
     token = JWT.encode(claimSet, privateKey, 'RS256', customHeaders)
-    
+
     puts "\n -- TOKEN --\n"
     puts token;
-    
+
     return token
   end
   
@@ -98,15 +98,15 @@ class StandAloneJWT
     resource = "/pts/v2/payments/"
     method = "post"
     statusCode = -1
-    url = URI.encode("https://" + @@request_host + resource)
-    
+    url = Addressable::URI.encode("https://" + @@request_host + resource)
+
     header_params = {}
     header_params['Accept'] = 'application/hal+json;charset=utf-8'
     header_params['Content-Type'] = 'application/json;charset=utf-8'
-    
+
     auth_names = []
-    gmtDateTime = DateTime.now.httpdate    
-    
+    gmtDateTime = DateTime.now.httpdate
+
     puts "\n -- RequestURL -- \n"
     puts "\tURL : " + url + "\n"
     puts "\n -- HTTP Headers -- \n"
@@ -114,23 +114,34 @@ class StandAloneJWT
     puts "\tv-c-merchant-id : " + @@merchant_id + "\n"
     puts "\tDate : " + gmtDateTime + "\n"
     puts "\tHost : " + @@request_host + "\n"
-    
+
     token = "Bearer " + getJsonWebToken(resource, method, gmtDateTime)
 
     header_params['Authorization'] = token
-    
+
     header_params['v-c-merchant-id'] = @@merchant_id
     header_params['Date'] = gmtDateTime
     header_params['Host'] = @@request_host
-    
+
     payload = @@payload
     digest = Digest::SHA256.base64digest(payload)
     digest_payload = 'SHA-256=' + digest
     header_params['Digest'] = digest_payload
-    
+
     headers = @@default_headers.merge(header_params || {})
-    
-    uri = URI(url)
+
+    uri = Addressable::URI.parse(url)
+    uri.port = 443
+
+    # IMPORTANT NOTE:
+    # Addressable does not set the port unless explicitly supplied in the URL.
+    # According to the developer of Addressable:
+        # Yeah, this was one of those tough design decisions where I opted to break strict compatibility with the URI class because I think
+        # it's doing the wrong thing. The way the standard library's implementation was designed, you can't easily tell if someone has
+        # overridden the default port without parsing the authority component manually yourself (which URI doesn't actually give you access
+        # to); so that's super-lame. The first version of Addressable (back in the 0.0.1 days) tried to be 100% compatible here and the
+        # issue came up so often that I eventually decided that URI's decision was just wrong and opted for the opposite one instead.
+        # Addressable is a parser, not a magical 'try-to-figure-out-what-you-want-in-this-context' library.
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -141,18 +152,18 @@ class StandAloneJWT
     end
 
     response = http.request(req)
-    
+
     if response.code.to_i >= 200 && response.code.to_i <= 299
         statusCode = 0
     end
-    
+
     puts "\n -- Response Message -- \n"
     puts "\tResponse Code : " + response.code + "\n"
     puts "\tv-c-correlation-id : " + response['v-c-correlation-id'] + "\n"
     puts "\n"
     puts "\tResponse Data :\n"
     puts response.body + "\n\n"
-    
+
     return statusCode;
   end
   
@@ -160,15 +171,15 @@ class StandAloneJWT
     resource = "/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
     method = "get"
     statusCode = -1
-    url = URI.encode("https://" + @@request_host + resource)
-    
+    url = Addressable::URI.encode("https://" + @@request_host + resource)
+
     header_params = {}
     header_params['Accept'] = 'application/hal+json;charset=utf-8'
     header_params['Content-Type'] = 'application/json;charset=utf-8'
-    
+
     auth_names = []
     gmtDateTime = DateTime.now.httpdate
-    
+
     puts "\n -- RequestURL -- \n"
     puts "\tURL : " + url + "\n"
     puts "\n -- HTTP Headers -- \n"
@@ -176,25 +187,36 @@ class StandAloneJWT
     puts "\tv-c-merchant-id : " + @@merchant_id + "\n"
     puts "\tDate : " + gmtDateTime + "\n"
     puts "\tHost : " + @@request_host + "\n"
-    
+
     token = "Bearer " + getJsonWebToken(resource, method, gmtDateTime)
-    
+
     header_params['Authorization'] = token
-    
+
     header_params['v-c-merchant-id'] = @@merchant_id
     header_params['Accept-Encoding'] = '*'
     header_params['Date'] = gmtDateTime
     header_params['Host'] = @@request_host
     header_params['User-Agent'] = "Mozilla/5.0"
-    
+
     headers = @@default_headers.merge(header_params || {})
-    
-    uri = URI(url)
+
+    uri = Addressable::URI.parse(url)
+    uri.port = 443
+
+    # IMPORTANT NOTE:
+    # Addressable does not set the port unless explicitly supplied in the URL.
+    # According to the developer of Addressable:
+        # Yeah, this was one of those tough design decisions where I opted to break strict compatibility with the URI class because I think
+        # it's doing the wrong thing. The way the standard library's implementation was designed, you can't easily tell if someone has
+        # overridden the default port without parsing the authority component manually yourself (which URI doesn't actually give you access
+        # to); so that's super-lame. The first version of Addressable (back in the 0.0.1 days) tried to be 100% compatible here and the
+        # issue came up so often that I eventually decided that URI's decision was just wrong and opted for the opposite one instead.
+        # Addressable is a parser, not a magical 'try-to-figure-out-what-you-want-in-this-context' library.
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    req = Net::HTTP::Get.new(uri)
-    
+    req = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
+
     header_params.each do |custom_header, custom_header_value|
         req[custom_header] = custom_header_value
     end
@@ -204,7 +226,7 @@ class StandAloneJWT
     if response.code.to_i >= 200 && response.code.to_i <= 299
         statusCode = 0
     end
-    
+
     puts "\n -- Response Message -- \n"
     puts "\tResponse Code : " + response.code + "\n"
     puts "\tv-c-correlation-id : " + response['v-c-correlation-id'] + "\n"
@@ -212,7 +234,7 @@ class StandAloneJWT
     puts "\n"
     puts "\tResponse Data :\n"
     puts response.body + "\n\n"
-    
+
     return statusCode;
   end
   
@@ -220,23 +242,23 @@ class StandAloneJWT
     # HTTP POST REQUEST
     puts "\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request"
     @statusCode = processPost()
-    
+
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
     else
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
-        
+    
     # HTTP GET REQUEST
     puts "\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request"
     @statusCode = processGet()
-    
+
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
     else
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
-    
+
   end
   
   if __FILE__ == $0
