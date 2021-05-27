@@ -9,9 +9,9 @@ class StandAloneOAuth
         authenticationType='mutual_auth'
         enableClientCert = true
         clientCertDirectory = 'resource'
-        sslClientCert = 'paymentsdemo.crt'
-        privateKey = 'paymentsdemo.pem'
-        # sslKeyPassword = ''
+        sslClientCert = '' #Cert name, Cert should be in PEM format
+        privateKey = ''  #Key name, Key should be in PEM format
+        # sslKeyPassword = '' #Optional password field
         clientId = '3sEPsYUFtz'
         clientSecret = '79fcae20-433f-49f8-b8e6-a8273205a010'
         
