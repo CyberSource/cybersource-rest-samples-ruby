@@ -2,7 +2,7 @@ public
 class Configuration
   def merchantConfigProp()
     merchantId='testrest'
-    runEnvironment='cybersource.environment.sandbox'
+    runEnvironment='apitest.cybersource.com'
     timeout=1000 #In Milliseconds
     authenticationType='JWT' #'HTTP_Signature'
     logDirectory='./log'

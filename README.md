@@ -1,4 +1,5 @@
 # Ruby Sample Code for the CyberSource SDK
+
 [![Travis CI Status](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby.svg?branch=master)](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby)
 
 This repository contains working code samples which demonstrate Ruby integration with the CyberSource REST APIs through the [CyberSource Ruby SDK](https://github.com/CyberSource/cybersource-rest-client-ruby).
@@ -11,33 +12,40 @@ The samples are all completely independent and self-contained. You can analyze t
 You can run each sample directly from the command line.
 
 ## Requirements
+
 * Ruby 2.5.0 or higher
 * [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
 * [CyberSource API Keys](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
 
 ## Running the Samples From the Command Line
+
 * Clone this repository:
+
+```bash
+    git clone https://github.com/CyberSource/cybersource-rest-samples-ruby
 ```
-    $ git clone https://github.com/CyberSource/cybersource-rest-samples-ruby
-```
+
 * Install the cybersource-rest-client-ruby (from RubyGems.org)
-```
-    $ gem install cybersource_rest_client
+
+```bash
+    gem install cybersource_rest_client
 ```
 * Run the individual samples by name. For example: 
-```
-    $ Ruby [DirectoryPath]/[CodeSampleName]
+
+```bash
+    ruby [DirectoryPath]/[CodeSampleName]
 ```
 e.g.
-```
-    $ ruby Samples/Payments/CoreServices/ProcessPayment.rb
+
+```bash
+    ruby Samples/Payments/Payments/simple-authorizationinternet.rb
 ```
 
 ## Setting your own API credentials for an API request
 
 Configure the following information in the data/Configuration.rb file:
   
-  * Http Signature 
+* Http Signature 
 
 ```ruby
     merchantId                  = 'your_merchant_id'
@@ -46,7 +54,8 @@ Configure the following information in the data/Configuration.rb file:
     merchantKeyId               = 'your_key_serial_number'
     merchantSecretKey           = 'your_key_shared_secret'
 ```
-  * Jwt
+
+* Jwt
 
 ```ruby
     merchantId                  = 'your_merchant_id'
@@ -58,7 +67,7 @@ Configure the following information in the data/Configuration.rb file:
     keyFilename                 = 'your_merchant_id'
 ```
 
-  * MetaKey Http
+* MetaKey Http
 
 ```ruby
     authenticationType          = 'http_Signature'
@@ -69,7 +78,7 @@ Configure the following information in the data/Configuration.rb file:
     useMetaKey                  = true
 ```
 
-  * MetaKey JWT
+* MetaKey JWT
 
 ```ruby
     authenticationType          = 'jwt'
@@ -82,19 +91,48 @@ Configure the following information in the data/Configuration.rb file:
 ```
 
 ## Switching between the sandbox environment and the production environment
-CyberSource maintains a complete sandbox environment for testing and development purposes. This sandbox environment is an exact 
-duplicate of our production environment with the transaction authorization and settlement process simulated. By default, this sample code is 
-configured to communicate with the sandbox environment. To switch to the production environment, set the appropriate environment 
-constant in data/Configuration.rb file.  For example:
 
-```Ruby
+CyberSource maintains a complete sandbox environment for testing and development purposes. This sandbox environment is an exact duplicate of our production environment with the transaction authorization and settlement process simulated. By default, this sample code is configured to communicate with the sandbox environment. To switch to the production environment, set the appropriate environment constant in data/Configuration.rb file.  For example:
+
+```ruby
    # For TESTING use
-   runEnvironment='cybersource.environment.sandbox'
+     runEnvironment='apitest.cybersource.com'
+   # For PRODUCTION use
+   # runEnvironment='api.cybersource.com'
+```
+
+## Run Environments
+
+The run environments that were supported in CyberSource Ruby SDK have been deprecated.
+Moving forward, the SDKs will only support the direct hostname as the run environment.
+
+For the old run environments previously used, they should be replaced by the following hostnames:
+
+| Old Run Environment                             | New Hostname Value           |
+| ----------------------------------------------- | ---------------------------- |
+| `cybersource.environment.sandbox`               | `apitest.cybersource.com`    |
+| `cybersource.environment.production`            | `api.cybersource.com`        |
+| `cybersource.in.environment.sandbox`            | `apitest.cybersource.com`    |
+| `cybesource.in.environment.production`          | `api.in.cybersource.com`     |
+
+For example, replace the following code in the Configuration file:
+
+```ruby
+   # For TESTING use
+     runEnvironment='cybersource.environment.sandbox'
    # For PRODUCTION use
    # runEnvironment='cybersource.environment.production'
+```
+
+with the following code:
+
+```ruby
+   # For TESTING use
+     runEnvironment='apitest.cybersource.com'
+   # For PRODUCTION use
+   # runEnvironment='api.cybersource.com'
 ```
 
 ## API Reference
 
 The [API Reference Guide](http://developer.cybersource.com/api/reference) provides examples of what information is needed for a particular request and how that information would be formatted. Using those examples, you can easily determine what methods would be necessary to include that information in a request using this SDK.
-

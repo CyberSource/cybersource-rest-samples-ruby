@@ -3,9 +3,9 @@ class MerchantConfiguration
   def merchantConfigProp()
     # Common Paramaters
     merchantId='testrest'
-    runEnvironment='cybersource.environment.sandbox'
+    runEnvironment='apitest.cybersource.com'
     timeout=1000 #In Milliseconds
-    authenticationType='http_signature'   
+    authenticationType='http_signature'
     jsonFilePath='resource/request.json'
     logSize=10485760
     enableLog=true
@@ -54,7 +54,7 @@ class MerchantConfiguration
     merchantId='testrest_cpctv'
     runEnvironment='cybersource.environment.sandbox'
     timeout=1000 #In Milliseconds
-    authenticationType='http_signature'   
+    authenticationType='http_signature'
     jsonFilePath='resource/request.json'
     logSize=10485760
     enableLog=true

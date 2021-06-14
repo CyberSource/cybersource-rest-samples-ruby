@@ -5,7 +5,7 @@ class SimplePaymentUsingMetaKey
 
     def merchantConfigProp()
         merchantId=''
-        runEnvironment='cybersource.environment.sandbox'
+        runEnvironment='apitest.cybersource.com'
         authenticationType='http_signature'
         merchantKeyId=''
         merchantSecretKey=''
