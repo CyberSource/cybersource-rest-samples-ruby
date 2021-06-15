@@ -5,7 +5,7 @@ public
 class StandAloneOAuth
 
     def merchantConfigProp()
-        runEnvironment='cybersource.environment.mutualauth.sandbox'        
+        runEnvironment='api-matest.cybersource.com'        
         authenticationType='mutual_auth'
         enableClientCert = true
         clientCertDirectory = 'resource'
