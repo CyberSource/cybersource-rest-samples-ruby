@@ -52,7 +52,7 @@ class MerchantConfiguration
   def alternativeMerchantConfigProp()
     # Common Paramaters
     merchantId='testrest_cpctv'
-    runEnvironment='cybersource.environment.sandbox'
+    runEnvironment='apitest.cybersource.com'
     timeout=1000 #In Milliseconds
     authenticationType='http_signature'
     jsonFilePath='resource/request.json'
