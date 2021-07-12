@@ -109,24 +109,13 @@ Class.new Test::Unit::TestCase do
 						end
 
 						# Start assertions
-
-						unless road["Assertions"]["httpStatus"].nil? or road["Assertions"]["httpStatus"].empty?
-							assert_equal(road["Assertions"]["httpStatus"], (http_status.nil?) ? http_status : http_status.to_s, "Actual value of \"httpStatus\" field doesn't match Expected value in the response.")
-						end
-					
-						unless road["Assertions"]["requiredFields"].nil?
-							for required_field in road["Assertions"]["requiredFields"]
+						unless road["storedResponseFields"].nil?
+							for required_field in road["storedResponseFields"]
 								actual_value = find(hash_response,required_field)
 								assert_equal(true, !actual_value.nil?, required_field + " - is a required field, but not present in the response.")
 							end
 						end
 
-						unless road["Assertions"]["expectedValues"].nil?
-							for expected_value in road["Assertions"]["expectedValues"]
-								actual_value = find(hash_response,expected_value["field"])
-								assert_equal(expected_value["value"], actual_value, "Actual value of \"" + expected_value["field"] + "\" field doesn't match Expected value in the response.")
-							end
-						end
 					else
 						assert_equal(true, false, "Sample code execution failed as response returned is null/empty.")
 					end
