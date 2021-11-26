@@ -4,8 +4,8 @@ require_relative '../../../data/Configuration.rb'
 public
 class Get_notification_of_changes
     def run()
-        start_time = "2020-10-01T12:00:00Z"
-        end_time = "2020-10-10T12:00:00Z"
+        start_time = "2021-10-01T12:00:00Z"
+        end_time = "2021-10-10T12:00:00Z"
 
         opts = {}
 

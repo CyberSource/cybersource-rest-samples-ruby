@@ -15,8 +15,8 @@ class Create_adhoc_report
         request_obj.report_mime_type = "application/xml"
         request_obj.report_name = "testrest_v2"
         request_obj.timezone = "GMT"
-        request_obj.report_start_time = "2020-03-01T17:30:00.000+05:30"
-        request_obj.report_end_time = "2020-03-02T17:30:00.000+05:30"
+        request_obj.report_start_time = "2021-03-01T17:30:00.000+05:30"
+        request_obj.report_end_time = "2021-03-02T17:30:00.000+05:30"
         report_preferences = CyberSource::Reportingv3reportsReportPreferences.new
         report_preferences.signed_amounts = true
         report_preferences.field_name_convention = "SOAPI"
