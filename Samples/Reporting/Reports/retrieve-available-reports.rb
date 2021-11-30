@@ -4,8 +4,8 @@ require_relative '../../../data/Configuration.rb'
 public
 class Retrieve_available_reports
     def run()
-        start_time = "2020-04-01T00:00:00Z"
-        end_time = "2020-04-03T23:59:59Z"
+        start_time = "2021-04-01T00:00:00Z"
+        end_time = "2021-04-03T23:59:59Z"
         time_query_type = "executedTime"
 
         opts = {}
