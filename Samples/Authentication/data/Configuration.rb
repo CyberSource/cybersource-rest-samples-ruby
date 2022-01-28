@@ -5,10 +5,7 @@ class Configuration
     runEnvironment='apitest.cybersource.com'
     timeout=1000 #In Milliseconds
     authenticationType='JWT' #'HTTP_Signature'
-    logDirectory='./log'
     jsonFilePath='./resource/request.json'
-    logSize=5000
-    enableLog=true
     #proxyAddress='userproxy.visa.com'
     #proxyPort=443
     # HTTP Parameters
@@ -23,17 +20,30 @@ class Configuration
     # MetaKey Params
     useMetaKey = false
     portfolioID = ''
-    
+
+    enableLog=true
+    loggingLevel = 'DEBUG'
+    logDirectory='./log'
     logFilename='Cybs'
+    maxLogSize=5000
+    maxLogFiles=5
+    enableMasking=true
+
+    logConfiguration={}
+    logConfiguration['enableLog']=enableLog
+    logConfiguration['loggingLevel']=loggingLevel
+    logConfiguration['logDirectory']=logDirectory
+    logConfiguration['logFilename']=logFilename
+    logConfiguration['maxLogSize']=maxLogSize
+    logConfiguration['maxLogFiles']=maxLogFiles
+    logConfiguration['enableMasking']=enableMasking
+
     configurationDictionary={}
     configurationDictionary['merchantID']=merchantId
     configurationDictionary['runEnvironment']=runEnvironment
     configurationDictionary['timeout']=timeout
     configurationDictionary['authenticationType']=authenticationType
-    configurationDictionary['logDirectory']=logDirectory
     configurationDictionary['jsonFilePath']=jsonFilePath
-    configurationDictionary['logSize']=logSize
-    configurationDictionary['enableLog']=enableLog
     # configurationDictionary['proxyPort']=proxyPort
     configurationDictionary['merchantsecretKey']=merchantSecretKey
     configurationDictionary['merchantKeyId']=merchantKeyId
@@ -43,7 +53,7 @@ class Configuration
     configurationDictionary['useMetaKey'] = useMetaKey
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
-    configurationDictionary['logFilename'] = logFilename
+    configurationDictionary['logConfiguration']=logConfiguration
     return configurationDictionary
   end
 end

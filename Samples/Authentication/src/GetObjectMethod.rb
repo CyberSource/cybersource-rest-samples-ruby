@@ -20,7 +20,7 @@ class SamplecodeForGet
     cybsPropertyobj = Configuration.new.merchantConfigProp
     merchantconfig_obj = Merchantconfig.new cybsPropertyobj
 
-    logObj = Log.new merchantconfig_obj.logDirectory,merchantconfig_obj.logFilename,merchantconfig_obj.logSize,merchantconfig_obj.enableLog
+    logObj = Log.new merchantconfig_obj.log_config, 'GetObjectMethod'
     # Set Request Type into the merchant config object.
     merchantconfig_obj.requestType = @@request_type
     # Set Request Target into the merchant config object.
@@ -30,7 +30,7 @@ class SamplecodeForGet
     # Set URL into the merchant config object.
     merchantconfig_obj.requestUrl = url
     # Calling APISDK, Apisdk.controller.
-    response_code, response_body, vc_correlationid = APIController.new.payment_get(merchantconfig_obj, logObj)
+    response_code, response_body, vc_correlationid = APIController.new.payment_get(merchantconfig_obj)
     # Display response message and Headers in console.
     puts 'v-c-correlation-id:' + vc_correlationid
     puts 'Response Code:' + response_code

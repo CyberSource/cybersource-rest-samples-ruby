@@ -16,7 +16,8 @@ class HttpConnection
 
   # This function generate token for GET method
   # Token = header+ signature
-  def getHTTPConnection (merchantconfig_obj, log_obj)
+  def getHTTPConnection (merchantconfig_obj)
+    log_obj = Log.new merchantconfig_obj.log_config, 'HttpConnection'
     log_obj.logger.info('Request Type > ' + merchantconfig_obj.requestType)
     log_obj.logger.info('Authentication Type > '+ merchantconfig_obj.authenticationType)
     uri_string = merchantconfig_obj.requestUrl
@@ -31,7 +32,7 @@ class HttpConnection
     req.add_field(Constants::HOST, merchantconfig_obj.requestHost)
     if merchantconfig_obj.requestType == Constants::POST_REQUEST_TYPE || merchantconfig_obj.requestType ==  Constants::PUT_REQUEST_TYPE
       payload = merchantconfig_obj.requestJsonData
-      digest = DigestGeneration.new.generateDigest(payload, log_obj)
+      digest = DigestGeneration.new.generateDigest(payload)
       digest_payload = Constants::SHA256 + digest
       req.add_field('Digest', digest_payload)
       req.body = payload
@@ -39,7 +40,7 @@ class HttpConnection
       log_obj.logger.info('Request Body:' + JSON.generate(masked_request_body))
     end
     # Calling Authentication SDK for generating Signature
-    signature = Authorization.new.getToken(merchantconfig_obj, @@gmtDateTime, log_obj)
+    signature = Authorization.new.getToken(merchantconfig_obj, @@gmtDateTime)
     req.add_field(Constants::SIGNATURE, signature)
     req.each_header do |key, value|
       log_obj.logger.info("#{key} : #{value}")

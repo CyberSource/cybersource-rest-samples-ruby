@@ -1,3 +1,5 @@
+require 'cybersource_rest_client'
+
 public
 class MerchantConfiguration
   def merchantConfigProp()
@@ -7,10 +9,13 @@ class MerchantConfiguration
     timeout=1000 #In Milliseconds
     authenticationType='http_signature'
     jsonFilePath='resource/request.json'
-    logSize=10485760
     enableLog=true
-    logDirectory='../log'
+    loggingLevel='DEBUG'
+    logDirectory='log'
     logFilename='cybs'
+    maxLogSize=10485760
+    maxLogFiles=5
+    enableMasking=true
     # proxyAddress='userproxy.com'
     # proxyPort=443
     # HTTP Parameters
@@ -27,25 +32,32 @@ class MerchantConfiguration
     portfolioID = ''
     
     configurationDictionary={}
-    configurationDictionary['merchantID']=merchantId
-    configurationDictionary['runEnvironment']=runEnvironment
-    configurationDictionary['timeout']=timeout
-    configurationDictionary['authenticationType']=authenticationType
-    configurationDictionary['logDirectory']=logDirectory
-    configurationDictionary['jsonFilePath']=jsonFilePath
-    configurationDictionary['logSize']=logSize
-    configurationDictionary['enableLog']=enableLog
-    # configurationDictionary['proxyPort']=proxyPort
-    # configurationDictionary['proxyAddress']=proxyAddress
-    configurationDictionary['merchantsecretKey']=merchantSecretKey
-    configurationDictionary['merchantKeyId']=merchantKeyId
-    configurationDictionary['keysDirectory']=keysDirectory
-    configurationDictionary['keyAlias']=keyAlias
-    configurationDictionary['keyPass']=keyPass
+    configurationDictionary['merchantID'] = merchantId
+    configurationDictionary['runEnvironment'] = runEnvironment
+    configurationDictionary['timeout'] = timeout
+    configurationDictionary['authenticationType'] = authenticationType
+    configurationDictionary['jsonFilePath'] = jsonFilePath
+    # configurationDictionary['proxyPort'] = proxyPort
+    # configurationDictionary['proxyAddress'] = proxyAddress
+    configurationDictionary['merchantsecretKey'] = merchantSecretKey
+    configurationDictionary['merchantKeyId'] = merchantKeyId
+    configurationDictionary['keysDirectory'] = keysDirectory
+    configurationDictionary['keyAlias'] = keyAlias
+    configurationDictionary['keyPass'] = keyPass
     configurationDictionary['useMetaKey'] = useMetaKey
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
-    configurationDictionary['logFilename'] = logFilename
+
+    log_config = {}
+    log_config['enableLog'] = enableLog
+    log_config['loggingLevel'] = loggingLevel
+    log_config['logDirectory'] = logDirectory
+    log_config['logFilename'] = logFilename
+    log_config['maxLogSize'] = maxLogSize
+    log_config['maxLogFiles'] = maxLogFiles
+    log_config['enableMasking'] = enableMasking
+
+    configurationDictionary['logConfiguration'] = log_config
     return configurationDictionary
   end
 
@@ -56,10 +68,13 @@ class MerchantConfiguration
     timeout=1000 #In Milliseconds
     authenticationType='http_signature'
     jsonFilePath='resource/request.json'
-    logSize=10485760
     enableLog=true
-    logDirectory='../log'
+    loggingLevel='DEBUG'
+    logDirectory='log'
     logFilename='cybs'
+    maxLogSize=10485760
+    maxLogFiles=5
+    enableMasking=true
     # proxyAddress='userproxy.com'
     # proxyPort=443
     # HTTP Parameters
@@ -76,25 +91,32 @@ class MerchantConfiguration
     portfolioID = ''
     
     configurationDictionary={}
-    configurationDictionary['merchantID']=merchantId
-    configurationDictionary['runEnvironment']=runEnvironment
-    configurationDictionary['timeout']=timeout
-    configurationDictionary['authenticationType']=authenticationType
-    configurationDictionary['logDirectory']=logDirectory
-    configurationDictionary['jsonFilePath']=jsonFilePath
-    configurationDictionary['logSize']=logSize
-    configurationDictionary['enableLog']=enableLog
-    # configurationDictionary['proxyPort']=proxyPort
-    # configurationDictionary['proxyAddress']=proxyAddress
-    configurationDictionary['merchantsecretKey']=merchantSecretKey
-    configurationDictionary['merchantKeyId']=merchantKeyId
-    configurationDictionary['keysDirectory']=keysDirectory
-    configurationDictionary['keyAlias']=keyAlias
-    configurationDictionary['keyPass']=keyPass
+    configurationDictionary['merchantID'] = merchantId
+    configurationDictionary['runEnvironment'] = runEnvironment
+    configurationDictionary['timeout'] = timeout
+    configurationDictionary['authenticationType'] = authenticationType
+    # configurationDictionary['jsonFilePath'] = jsonFilePath
+    # configurationDictionary['proxyPort'] = proxyPort
+    # configurationDictionary['proxyAddress'] = proxyAddress
+    configurationDictionary['merchantsecretKey'] = merchantSecretKey
+    configurationDictionary['merchantKeyId'] = merchantKeyId
+    configurationDictionary['keysDirectory'] = keysDirectory
+    configurationDictionary['keyAlias'] = keyAlias
+    configurationDictionary['keyPass'] = keyPass
     configurationDictionary['useMetaKey'] = useMetaKey
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
-    configurationDictionary['logFilename'] = logFilename
+
+    log_config = {}
+    log_config['enableLog'] = enableLog
+    log_config['loggingLevel'] = loggingLevel
+    log_config['logDirectory'] = logDirectory
+    log_config['logFilename'] = logFilename
+    log_config['maxLogSize'] = maxLogSize
+    log_config['maxLogFiles'] = maxLogFiles
+    log_config['enableMasking'] = enableMasking
+
+    configurationDictionary['logConfiguration'] = log_config
     return configurationDictionary
   end
 end

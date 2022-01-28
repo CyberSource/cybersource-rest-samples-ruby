@@ -18,7 +18,7 @@ class SamplecodeForPut
     cybsproperty_obj = PropertiesUtil.new.getCybsProp('resource/cybs.yml')
     merchantconfig_obj = Merchantconfig.new(cybsproperty_obj)
 
-    logObj = Log.new merchantconfig_obj.logDirectory,merchantconfig_obj.logFilename,merchantconfig_obj.logSize,merchantconfig_obj.enableLog
+    logObj = Log.new merchantconfig_obj.log_config, 'PutMethod'
     # Set Request Type into the merchant config object.
     merchantconfig_obj.requestType = @@request_type
     # Set Request Target into the merchant config object.
@@ -30,7 +30,7 @@ class SamplecodeForPut
     # SetrequestJsonDataURL into the merchant config object.
     merchantconfig_obj.requestJsonData=RequestData.new.jsonFileData(@@requestJsonPath)
     # Calling APISDK, Apisdk.Controller
-    response_code, response_body, vc_correlationid = APIController.new.payment_put(merchantconfig_obj, logObj)
+    response_code, response_body, vc_correlationid = APIController.new.payment_put(merchantconfig_obj)
     # Display response message and Headers in console.
     puts 'v-c-correlation-id:' + vc_correlationid
     puts 'Response Code:' + response_code

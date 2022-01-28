@@ -23,7 +23,7 @@ class PutGenerateHeaders
       merchantConfigObj = Merchantconfig.new cybsPropertyobj
       
       # creating Logger Object
-      logObj = Log.new merchantConfigObj.logDirectory,merchantConfigObj.logFilename,merchantConfigObj.logSize,merchantConfigObj.enableLog
+      logObj = Log.new merchantConfigObj.log_config, 'PutGenerateHeaders'
 
       #setting requestType,requestTarget,requestUrl
       merchantConfigObj.requestType = @@request_type
@@ -55,12 +55,12 @@ class PutGenerateHeaders
         maskedRequestBody = Masking.new.maskPayload(merchantConfigObj.requestJsonData)
         logObj.logger.info("Request Body: " + JSON.generate(maskedRequestBody))
 
-        digest = DigestGeneration.new.generateDigest(merchantConfigObj.requestJsonData,logObj)
+        digest = DigestGeneration.new.generateDigest(merchantConfigObj.requestJsonData)
         digest = Constants::SHA256 + digest
         logObj.logger.info("Digest : " + digest)
         puts "Digest  : " + digest 
 
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,logObj)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
         logObj.logger.info("Host  : " + merchantConfigObj.requestHost)
         puts "Host  : " + merchantConfigObj.requestHost
 
@@ -68,7 +68,7 @@ class PutGenerateHeaders
         puts "Signature Header  : " + tempSig
       else
         #JWT Token
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,logObj)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
         puts "Authorization,Bearer  : " + tempSig
         logObj.logger.info("Authorization,Bearer  : " + tempSig)
       end

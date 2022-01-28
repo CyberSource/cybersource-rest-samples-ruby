@@ -24,7 +24,7 @@ class GetGenerateHeaders
       merchantConfigObj = Merchantconfig.new cybsPropertyobj
 
       # creating Logger Object
-      logObj = Log.new merchantConfigObj.logDirectory,merchantConfigObj.logFilename,merchantConfigObj.logSize,merchantConfigObj.enableLog
+      logObj = Log.new merchantConfigObj.log_config, 'GetGenerateHeaders'
 
       #setting requestType,requestTarget,requestUrl
       merchantConfigObj.requestType = @@request_type
@@ -55,7 +55,7 @@ class GetGenerateHeaders
         logObj.logger.info("Date  : " + gmtDateTime)
         puts "Date  : " + gmtDateTime
 
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,logObj)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
         logObj.logger.info("Host  : " + merchantConfigObj.requestHost)
         puts "Host  : " + merchantConfigObj.requestHost
 
@@ -63,7 +63,7 @@ class GetGenerateHeaders
         puts "Signature Header  : " + tempSig
       else
         #JWT Token
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,logObj)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
         puts "Authorization,Bearer  : " + tempSig
         logObj.logger.info("Authorization,Bearer  : " + tempSig)
       end

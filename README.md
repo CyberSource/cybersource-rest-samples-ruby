@@ -136,3 +136,11 @@ with the following code:
 ## API Reference
 
 The [API Reference Guide](http://developer.cybersource.com/api/reference) provides examples of what information is needed for a particular request and how that information would be formatted. Using those examples, you can easily determine what methods would be necessary to include that information in a request using this SDK.
+
+### Logging
+
+[![Generic badge](https://img.shields.io/badge/LOGGING-NEW-GREEN.svg)](https://shields.io/)
+
+Since v0.0.38, a new logging framework has been introduced in the SDK. This new logging framework makes use of Ruby's logger package, and standardizes the logging so that it can be integrated with the logging in the client application.
+
+More information about this new logging framework can be found in this file : [Logging.md](Logging.md)

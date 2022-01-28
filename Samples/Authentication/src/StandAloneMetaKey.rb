@@ -12,6 +12,23 @@ class SimplePaymentUsingMetaKey
         # MetaKey Params
         useMetaKey = true
         portfolioID = ''
+
+        enableLog=true
+        loggingLevel = 'DEBUG'
+        logDirectory='./log'
+        logFilename='Cybs'
+        maxLogSize=5000
+        maxLogFiles=5
+        enableMasking=true
+    
+        logConfiguration={}
+        logConfiguration['enableLog']=enableLog
+        logConfiguration['loggingLevel']=loggingLevel
+        logConfiguration['logDirectory']=logDirectory
+        logConfiguration['logFilename']=logFilename
+        logConfiguration['maxLogSize']=maxLogSize
+        logConfiguration['maxLogFiles']=maxLogFiles
+        logConfiguration['enableMasking']=enableMasking
         
         configurationDictionary={}
         configurationDictionary['merchantID']=merchantId
@@ -21,6 +38,7 @@ class SimplePaymentUsingMetaKey
         configurationDictionary['merchantKeyId']=merchantKeyId
         configurationDictionary['useMetaKey'] = useMetaKey
         configurationDictionary['portfolioID'] = portfolioID
+        configurationDictionary['logConfiguration']=logConfiguration
         return configurationDictionary
     end
 

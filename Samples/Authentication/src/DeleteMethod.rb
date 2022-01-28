@@ -19,7 +19,7 @@ class SamplecodeForDelete
     # creating MerchantConfig Object
     merchantconfig_obj = Merchantconfig.new(cybsproperty_obj)
 
-    logObj = Log.new merchantconfig_obj.logDirectory,merchantconfig_obj.logFilename,merchantconfig_obj.logSize,merchantconfig_obj.enableLog
+    logObj = Log.new merchantconfig_obj.log_config, 'DeleteMethod'
     # setting requestTarget,requestUrl,requestType to merchantConfig Object
     merchantconfig_obj.requestTarget = @@request_target
     # Give the url path to where the data needs to be authenticated.
@@ -28,7 +28,7 @@ class SamplecodeForDelete
     merchantconfig_obj.requestType = @@request_type
 
     # Calling APISDK, ApiController
-    response_code, response_body, vc_correlationid = APIController.new.payment_delete(merchantconfig_obj, logObj)
+    response_code, response_body, vc_correlationid = APIController.new.payment_delete(merchantconfig_obj)
     puts 'v-c-correlation-id:' + vc_correlationid
     puts 'Response Code:' + response_code
     puts 'Response Body:' + response_body

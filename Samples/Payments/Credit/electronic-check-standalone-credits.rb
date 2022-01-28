@@ -10,7 +10,7 @@ class Electronic_check_standalone_credits
         request_obj.client_reference_information = client_reference_information
 
         payment_information = CyberSource::Ptsv2paymentsidrefundsPaymentInformation.new
-        bank = CyberSource::Ptsv2paymentsPaymentInformationBank.new
+        bank = CyberSource::Ptsv2paymentsidrefundsPaymentInformationBank.new
         account = CyberSource::Ptsv2paymentsPaymentInformationBankAccount.new
         account.type = "C"
         account.number = "4100"

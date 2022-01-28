@@ -6,22 +6,22 @@ public
 # The controller class decides the next step in moving the logic from
 #  Sample code to servicing the payment request.
 class APIController
-  def payment_get(merchantconfig_obj, log_obj)
-    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj, log_obj)
+  def payment_get(merchantconfig_obj)
+    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj)
     return response_code, response_body, vc_correlationid
   end
 
-  def payment_post(merchantconfig_obj, log_obj)
-    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj, log_obj)
+  def payment_post(merchantconfig_obj)
+    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj)
     return response_code, response_body, vc_correlationid
   end
   
-  def payment_put(merchantconfig_obj, log_obj)
-    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj, log_obj)
+  def payment_put(merchantconfig_obj)
+    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj)
     return response_code, response_body, vc_correlationid
   end
-  def payment_delete(merchantconfig_obj, log_obj)
-    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj, log_obj)
+  def payment_delete(merchantconfig_obj)
+    response_code, response_body, vc_correlationid = PaymentService.new.paymentService(merchantconfig_obj)
     return response_code, response_body, vc_correlationid
   end
 end

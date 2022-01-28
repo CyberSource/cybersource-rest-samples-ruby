@@ -20,7 +20,7 @@ class SamplecodeForPostObject
       cybsPropertyobj = Configuration.new.merchantConfigProp
       merchantConfigObj = Merchantconfig.new cybsPropertyobj
 
-      logObj = Log.new merchantConfigObj.logDirectory,merchantConfigObj.logFilename,merchantConfigObj.logSize,merchantConfigObj.enableLog
+      logObj = Log.new merchantConfigObj.log_config, 'PostObjectMethod'
       # setting requestTarget to merchant
       merchantConfigObj.requestTarget = @@request_target
       merchantConfigObj.requestJsonData = RequestData.new.samplePaymentsData()
@@ -29,7 +29,7 @@ class SamplecodeForPostObject
       merchantConfigObj.requestType = @@request_type
       merchantConfigObj.requestUrl = url
       # Calling APISDK, ApiController
-      responsecode,responseBody,v_c_correlationId =  APIController.new.payment_post(merchantConfigObj, logObj)
+      responsecode,responseBody,v_c_correlationId =  APIController.new.payment_post(merchantConfigObj)
       puts "v-c-correlation-id:"  + v_c_correlationId
       puts "Response Code:" + responsecode
       puts "Response Body:" + responseBody

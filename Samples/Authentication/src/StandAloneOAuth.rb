@@ -5,7 +5,7 @@ public
 class StandAloneOAuth
 
     def merchantConfigProp()
-        runEnvironment='api-matest.cybersource.com'        
+        runEnvironment='api-matest.cybersource.com'
         authenticationType='mutual_auth'
         enableClientCert = true
         clientCertDirectory = 'resource'
@@ -14,6 +14,23 @@ class StandAloneOAuth
         # sslKeyPassword = '' #Optional password field
         clientId = ''
         clientSecret = ''
+
+        enableLog=true
+        loggingLevel = 'DEBUG'
+        logDirectory='./log'
+        logFilename='Cybs'
+        maxLogSize=5000
+        maxLogFiles=5
+        enableMasking=true
+    
+        logConfiguration={}
+        logConfiguration['enableLog']=enableLog
+        logConfiguration['loggingLevel']=loggingLevel
+        logConfiguration['logDirectory']=logDirectory
+        logConfiguration['logFilename']=logFilename
+        logConfiguration['maxLogSize']=maxLogSize
+        logConfiguration['maxLogFiles']=maxLogFiles
+        logConfiguration['enableMasking']=enableMasking
         
         configurationDictionary={}
         configurationDictionary['runEnvironment']=runEnvironment
@@ -25,6 +42,7 @@ class StandAloneOAuth
         # configurationDictionary['sslKeyPassword']=sslKeyPassword
         configurationDictionary['clientId'] = clientId
         configurationDictionary['clientSecret'] = clientSecret
+        configurationDictionary['logConfiguration']=logConfiguration
         return configurationDictionary
       end
 

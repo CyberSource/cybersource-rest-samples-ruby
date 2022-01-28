@@ -12,7 +12,8 @@ class JwtConnection
   @@gmtDateTime = @@gmtDateTime.httpdate
   # This is function for calling GET/POST based on the requestType
   public
-  def getJWTConnection(merchantconfig_obj,log_obj)
+  def getJWTConnection(merchantconfig_obj)
+    log_obj = Log.new merchantconfig_obj.log_config, 'JwtConnection'
     log_obj.logger.info('Request Type > ' + merchantconfig_obj.requestType)
     log_obj.logger.info('Authentication Type > '+ merchantconfig_obj.authenticationType)
     uri_string = merchantconfig_obj.requestUrl
@@ -22,7 +23,7 @@ class JwtConnection
     # Appending headers for Get Connection
     req.initialize_http_header({Constants::CONTENT_TYPE => Constants::MEDIA_TYPE_JSON})
     # Calling Authentication SDK for generating Signature
-    token = Authorization.new.getToken(merchantconfig_obj,@@gmtDateTime,log_obj)
+    token = Authorization.new.getToken(merchantconfig_obj,@@gmtDateTime)
     token  = "Bearer " + token
     req.add_field("Authorization",token)
     if(merchantconfig_obj.requestType == Constants::POST_REQUEST_TYPE || merchantconfig_obj.requestType == Constants::PUT_REQUEST_TYPE)
