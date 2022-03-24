@@ -15,7 +15,7 @@ do
    printf '\n\n**** START RUNNING - %s ****\n' "$p" >> output.log
    ruby "$p" >> output.log
    printf '\n\n**** END RUNNING - %s ****\n' "$p" >> output.log
-   sleep 3s
+   # sleep 3s
    FILECOUNT=$((FILECOUNT+1))
   fi
 done < list.txt
