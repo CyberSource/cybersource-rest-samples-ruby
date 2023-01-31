@@ -7,7 +7,7 @@ class Refund_capture
     def run()
         id = (JSON.parse(Capture_payment.new.run))['id']
         request_obj = CyberSource::RefundCaptureRequest.new
-        client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
+        client_reference_information = CyberSource::Ptsv2paymentsidrefundsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 

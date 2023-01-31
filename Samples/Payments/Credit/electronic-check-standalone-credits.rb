@@ -18,7 +18,7 @@ class Electronic_check_standalone_credits
         bank.account = account
         bank.routing_number = "071923284"
         payment_information.bank = bank
-        payment_type = CyberSource::Ptsv2paymentsPaymentInformationPaymentType.new
+        payment_type = CyberSource::Ptsv2paymentsidrefundsPaymentInformationPaymentType.new
         payment_type.name = "CHECK"
         payment_information.payment_type = payment_type
         request_obj.payment_information = payment_information
