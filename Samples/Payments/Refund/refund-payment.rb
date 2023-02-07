@@ -7,7 +7,7 @@ class Refund_payment
     def run()
         id = (JSON.parse(Simple_authorizationinternet.new.run(true)))['id']
         request_obj = CyberSource::RefundPaymentRequest.new
-        client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
+        client_reference_information = CyberSource::Ptsv2paymentsidrefundsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 

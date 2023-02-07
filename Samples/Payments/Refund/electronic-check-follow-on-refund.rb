@@ -7,7 +7,7 @@ class Electronic_check_follow_on_refund
     def run()
         id = (JSON.parse(Electronic_check_debits.new.run(true)))['id']
         request_obj = CyberSource::RefundPaymentRequest.new
-        client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
+        client_reference_information = CyberSource::Ptsv2paymentsidrefundsClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
@@ -15,7 +15,7 @@ class Electronic_check_follow_on_refund
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsidrefundsPaymentInformation.new
-        payment_type = CyberSource::Ptsv2paymentsPaymentInformationPaymentType.new
+        payment_type = CyberSource::Ptsv2paymentsidrefundsPaymentInformationPaymentType.new
         payment_type.name = "CHECK"
         payment_information.payment_type = payment_type
         request_obj.payment_information = payment_information
