@@ -1,6 +1,6 @@
 # Ruby Sample Code for the CyberSource SDK
 
-[![Travis CI Status](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby.svg?branch=master)](https://travis-ci.org/CyberSource/cybersource-rest-samples-ruby)
+[![Build Status](https://app.travis-ci.com/CyberSource/cybersource-rest-samples-ruby.svg?branch=master)](https://app.travis-ci.com/CyberSource/cybersource-rest-samples-ruby)
 
 This repository contains working code samples which demonstrate Ruby integration with the CyberSource REST APIs through the [CyberSource Ruby SDK](https://github.com/CyberSource/cybersource-rest-client-ruby).
 
