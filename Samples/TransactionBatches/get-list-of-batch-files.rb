@@ -16,10 +16,18 @@ class Get_list_of_batch_files
         data, status_code, headers = api_instance.get_transaction_batches(start_time, end_time)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Get_list_of_batch_files.new.run()
     end

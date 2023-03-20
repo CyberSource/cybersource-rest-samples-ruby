@@ -28,10 +28,18 @@ class Timeout_reversal
         data, status_code, headers = api_instance.mit_reversal(request_obj)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Timeout_reversal.new.run()
     end

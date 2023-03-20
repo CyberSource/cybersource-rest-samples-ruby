@@ -17,10 +17,18 @@ class Get_netfunding_information_for_account_or_merchant
         data, status_code, headers = api_instance.get_net_funding_details(start_time, end_time, opts)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Get_netfunding_information_for_account_or_merchant.new.run()
     end

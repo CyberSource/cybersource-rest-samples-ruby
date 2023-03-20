@@ -5,15 +5,20 @@ public
 # This is sample code for AuthenticationSDK - GET method
 # AuthenticationSDK is called via APISDK
 class SamplecodeForGet
-    # UNIQUE GET ID
-    # [Editable]
-    @@id = '5535107993816925603005'
-    # REQUEST TARGET
-    # [Editable]
-    @@request_target = '/pts/v2/payments/'
-    # Request Type. [Non-Editable]
-    @@request_type = 'GET'
-    
+  # UNIQUE GET ID
+  # [Editable]
+  @@id = '5535107993816925603005'
+  # REQUEST TARGET
+  # [Editable]
+  @@request_target = '/pts/v2/payments/'
+  # Request Type. [Non-Editable]
+  @@request_type = 'GET'
+
+  def write_log_audit(status)
+    filename = ($0.split("/")).last.split(".")[0]
+    puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
+
   def main
     cybsproperty_obj = PropertiesUtil.new.getCybsProp('resource/cybs.yml')
     merchantconfig_obj = Merchantconfig.new(cybsproperty_obj)
@@ -33,8 +38,10 @@ class SamplecodeForGet
     puts 'v-c-correlation-id:' + vc_correlationid
     puts 'Response Code:' + response_code
     puts 'Response Body:' + response_body
+    write_log_audit(response_code)
   rescue StandardError => err
     puts 'Check log for more details.'
+    write_log_audit(400)
   end
   SamplecodeForGet.new.main
 end

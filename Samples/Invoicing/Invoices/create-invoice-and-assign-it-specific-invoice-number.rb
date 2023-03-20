@@ -56,10 +56,18 @@ class Create_invoice_and_assign_it_specific_invoice_number
         data, status_code, headers = api_instance.create_invoice(request_obj)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
 
         Create_invoice_and_assign_it_specific_invoice_number.new.run()

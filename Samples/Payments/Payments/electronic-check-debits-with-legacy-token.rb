@@ -43,10 +43,18 @@ class Electronic_check_debits_with_legacy_token
 
         puts data, status_code, headers
 
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
 
         Electronic_check_debits_with_legacy_token.new.run()

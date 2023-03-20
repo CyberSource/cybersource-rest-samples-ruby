@@ -33,10 +33,18 @@ class Mark_as_suspect
         data, status_code, headers = api_instance.fraud_update(id, request_obj)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         id = "5880752617506443004004"
 

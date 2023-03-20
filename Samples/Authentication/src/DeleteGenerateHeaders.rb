@@ -5,10 +5,15 @@ require 'cybersource_rest_client'
 public 
 class DeleteGenerateHeaders
   # REQUEST TARGET
-	# [Editable]
-	@@request_target = '/reporting/v2/reportSubscriptions/TRRReport?organizationId=testrest'
-	# Request Type. [Non-Editable]
+  # [Editable]
+  @@request_target = '/reporting/v2/reportSubscriptions/TRRReport?organizationId=testrest'
+  # Request Type. [Non-Editable]
   @@request_type = 'DELETE'
+
+  def write_log_audit(status)
+      filename = ($0.split("/")).last.split(".")[0]
+      puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
 
   public 
   def main()
@@ -34,7 +39,7 @@ class DeleteGenerateHeaders
       logObj.logger.info("Authentication Type -> " + merchantConfigObj.authenticationType)
       logObj.logger.info("Url >" + requestUrl)
       puts "URL   : " + requestUrl
-      
+
       logObj.logger.info(Constants::CONTENT_TYPE + " : " + Constants::MEDIA_TYPE_JSON)
       puts Constants::CONTENT_TYPE + " : " + Constants::MEDIA_TYPE_JSON
 
@@ -64,11 +69,13 @@ class DeleteGenerateHeaders
       end
 
       logObj.logger.info("END> =======================================")
+      write_log_audit(200)
 
     rescue StandardError => err
       puts err.message
       puts err.backtrace
       puts "Check log for more details"
+      write_log_audit(400)
     end
   end
   # Reading getId from command line argument

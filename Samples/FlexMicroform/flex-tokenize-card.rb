@@ -7,7 +7,7 @@ class Flex_tokenize_card
     def run()
         key_generation_response = JSON.parse(Generate_key_legacy_token_format.new.run)
         public_key = key_generation_response['der']['publicKey']
-	
+
         request_obj = CyberSource::TokenizeRequest.new
         request_obj.key_id = key_generation_response['keyId']
         card_info = CyberSource::Flexv1tokensCardInfo.new
@@ -25,13 +25,21 @@ class Flex_tokenize_card
 
         token_verifier = CyberSource::TokenVerification.new
         is_token_verified = token_verifier.verifyToken(public_key, data)
-	    print "Token Verification : ", is_token_verified, "\n"
+        print "Token Verification : ", is_token_verified, "\n"
 
         puts status_code, headers, data
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Flex_tokenize_card.new.run()
     end

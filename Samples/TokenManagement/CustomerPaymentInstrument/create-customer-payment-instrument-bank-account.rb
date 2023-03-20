@@ -58,10 +58,18 @@ class Create_customer_payment_instrument_bank_account
 
         puts data, status_code, headers
 
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Create_customer_payment_instrument_bank_account.new.run()
     end
