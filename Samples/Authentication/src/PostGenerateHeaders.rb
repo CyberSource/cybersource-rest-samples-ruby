@@ -6,12 +6,17 @@ require_relative '.././data/RequestData.rb'
 public 
 class PostGenerateHeaders
   # REQUEST TARGET, REQUEST JSON PATH
-	# [Editable]
+    # [Editable]
   @@request_target = '/pts/v2/payments'
   @@requestJsonPath='.././resource/request.json'
-  
+
   # Request Type. [Non-Editable]
   @@request_type = 'POST'
+
+  def write_log_audit(status)
+      filename = ($0.split("/")).last.split(".")[0]
+      puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
 
   public 
   def main()
@@ -21,7 +26,7 @@ class PostGenerateHeaders
 
       # creating MerchantConfig Object
       merchantConfigObj = Merchantconfig.new cybsPropertyobj
-      
+
       # creating Logger Object
       logObj = Log.new merchantConfigObj.log_config, 'PostGenerateHeaders'
 
@@ -73,11 +78,13 @@ class PostGenerateHeaders
         logObj.logger.info("Authorization,Bearer  : " + tempSig)
       end
       logObj.logger.info("END> =======================================")
+      write_log_audit(200)
 
     rescue StandardError => err
       puts err.message
       puts err.backtrace
       puts "Check log for more details"
+      write_log_audit(400)
     end
   end
   PostGenerateHeaders.new.main()

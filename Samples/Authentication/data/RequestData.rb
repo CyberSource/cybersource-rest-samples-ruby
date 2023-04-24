@@ -28,11 +28,11 @@ class RequestData
     clientReferenceInformation = ClientReferenceInformation.new code = "TC50171_3"
     clientReferenceInformationHash = {}
     clientReferenceInformation.instance_variables.each {|var| clientReferenceInformationHash[var.to_s.delete("@")] = clientReferenceInformation.instance_variable_get(var)}
-    
+
     processingInformation = ProcessingInformation.new commerceIndicator = "internet"
     processingInformationHash = {}
     processingInformation.instance_variables.each {|var| processingInformationHash[var.to_s.delete("@")] = processingInformation.instance_variable_get(var)}
-    
+
     subMerchant = SubMerchant.new(
     cardAcceptorID = "1234567890",
     country = "US",
@@ -46,14 +46,14 @@ class RequestData
     email = "test@cybs.com")
     subMerchantHash = {}
     subMerchant.instance_variables.each {|var| subMerchantHash[var.to_s.delete("@")] = subMerchant.instance_variable_get(var)}
-    
+
     aggregatorInformation = AggregatorInformation.new(
     subMerchant = subMerchantHash,
     name = "V-Internatio",
     aggregatorID = "123456789")
     aggregatorInformationHash = {}
     aggregatorInformation.instance_variables.each {|var| aggregatorInformationHash[var.to_s.delete("@")] = aggregatorInformation.instance_variable_get(var)}
-    
+
     billTo = BillTo.new(
       country = "US",
       lastName = "VDP",
@@ -70,19 +70,19 @@ class RequestData
       email = "test@cybs.com")
     billToHash = {}
     billTo.instance_variables.each {|var| billToHash[var.to_s.delete("@")] = billTo.instance_variable_get(var)}
-    
+
     amountDetails = AmountDetails.new(
       totalAmount = "102.21",
       currency = "USD")
     amountDetailsHash = {}
     amountDetails.instance_variables.each {|var| amountDetailsHash[var.to_s.delete("@")] = amountDetails.instance_variable_get(var)}
-    
+
     orderInformation = OrderInformation.new(
       billTo = billToHash,
       amountDetails = amountDetailsHash)
     orderInformationHash = {}
     orderInformation.instance_variables.each {|var| orderInformationHash[var.to_s.delete("@")] = orderInformation.instance_variable_get(var)}
-      
+
     card = Card.new(
       expirationYear = "2031",
       number = "5555555555554444",
@@ -91,11 +91,11 @@ class RequestData
       type = "002")
       cardHash = {}
       card.instance_variables.each {|var| cardHash[var.to_s.delete("@")] = card.instance_variable_get(var)}
-    
+
     paymentInformation = PaymentInformation.new (card = cardHash)
     paymentInformationHash = {}
     paymentInformation.instance_variables.each {|var| paymentInformationHash[var.to_s.delete("@")] = paymentInformation.instance_variable_get(var)}
-    
+
     payments = Payments.new(
       clientReferenceInformation = clientReferenceInformationHash,
       processingInformation = processingInformationHash,

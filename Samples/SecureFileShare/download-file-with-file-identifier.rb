@@ -35,10 +35,18 @@ class Download_file_with_file_identifier
         end
         # END : FILE DOWNLOAD FUNCTIONALITY
 
+        write_log_audit(status_code)
         return data, status_code, headers
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         file_id = "Q2hhcmdlYmFja0FuZFJldHJpZXZhbFJlcG9ydC1hYWVkMWEwMS03OGNhLTU1YzgtZTA1My1hMjU4OGUwYWNhZWEuY3N2LTIwMjAtMDctMzA="
 

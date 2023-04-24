@@ -7,7 +7,7 @@ require 'net/http'
 require 'addressable/uri'
 require 'active_support'
 
-public 
+public
 class StandAloneJWT
   # Initialization of constant data
   # Try with your own credentaials
@@ -57,7 +57,7 @@ class StandAloneJWT
   # Function to get the Json Web Token
   # param: resource - denotes the resource being accessed
   # param: http_method - denotes the HTTP verb
-  # param: gmtdatetime - stores the current timestamp  
+  # param: gmtdatetime - stores the current timestamp
   def getJsonWebToken(resource, http_method, gmtdatetime)
     jwtBody = ''
     filePath = File.join(File.dirname(__FILE__), "../resource/" + @@filename + ".p12")
@@ -93,7 +93,7 @@ class StandAloneJWT
 
     return token
   end
-  
+
   def processPost()
     resource = "/pts/v2/payments/"
     method = "post"
@@ -166,7 +166,7 @@ class StandAloneJWT
 
     return statusCode;
   end
-  
+
   def processGet()
     resource = "/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
     method = "get"
@@ -237,21 +237,28 @@ class StandAloneJWT
 
     return statusCode;
   end
-  
+
+  def write_log_audit(status)
+    filename = ($0.split("/")).last.split(".")[0]
+    puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
+
   def main
     # HTTP POST REQUEST
     puts "\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request"
     @statusCode = processPost()
+    statusCodePost = @statusCode
 
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
     else
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
-    
+
     # HTTP GET REQUEST
     puts "\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request"
     @statusCode = processGet()
+    statusCodeGet = @statusCode
 
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
@@ -259,8 +266,13 @@ class StandAloneJWT
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
 
+    if statusCodePost == 0 and statusCodeGet == 0
+        write_log_audit(200)
+    else
+        write_log_audit(400)
+    end
   end
-  
+
   if __FILE__ == $0
     StandAloneJWT.new.main
   end

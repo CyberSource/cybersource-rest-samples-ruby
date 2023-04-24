@@ -63,10 +63,18 @@ class Authorization_using_bluefin_pci_p2pe_with_visa_platform_connect
 
         puts data, status_code, headers
 
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
 
         Authorization_using_bluefin_pci_p2pe_with_visa_platform_connect.new.run()

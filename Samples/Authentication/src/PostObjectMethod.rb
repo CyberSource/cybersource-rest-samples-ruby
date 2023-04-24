@@ -7,11 +7,16 @@ require_relative '.././data/RequestData.rb'
 public
 class SamplecodeForPostObject
   # REQUEST TARGET, REQUEST JSON PATH
-	# [Editable]
+    # [Editable]
   @@request_target = '/pts/v2/payments'
-  
+
   # Request Type. [Non-Editable]
   @@request_type = 'POST'
+
+  def write_log_audit(status)
+    filename = ($0.split("/")).last.split(".")[0]
+    puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
 
   public
   def main()
@@ -29,13 +34,15 @@ class SamplecodeForPostObject
       merchantConfigObj.requestType = @@request_type
       merchantConfigObj.requestUrl = url
       # Calling APISDK, ApiController
-      responsecode,responseBody,v_c_correlationId =  APIController.new.payment_post(merchantConfigObj)
+      response_code,responseBody,v_c_correlationId =  APIController.new.payment_post(merchantConfigObj)
       puts "v-c-correlation-id:"  + v_c_correlationId
-      puts "Response Code:" + responsecode
+      puts "Response Code:" + response_code
       puts "Response Body:" + responseBody
+      write_log_audit(response_code)
     rescue => err
       puts err.message
       puts err.backtrace
+      write_log_audit(400)
     end
   end
   SamplecodeForPostObject.new.main

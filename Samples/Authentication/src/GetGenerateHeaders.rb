@@ -6,13 +6,18 @@ require 'cybersource_rest_client'
 public 
 class GetGenerateHeaders
   # UNIQUE GET ID
-	# [Editable]
-	@@id = '5265502011846829204101'
-	# REQUEST TARGET
-	# [Editable]
-	@@request_target = '/pts/v2/payments/'
-	# Request Type. [Non-Editable]
+    # [Editable]
+    @@id = '5265502011846829204101'
+    # REQUEST TARGET
+    # [Editable]
+    @@request_target = '/pts/v2/payments/'
+    # Request Type. [Non-Editable]
   @@request_type = 'GET'
+
+  def write_log_audit(status)
+      filename = ($0.split("/")).last.split(".")[0]
+      puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
 
   public 
   def main()
@@ -69,11 +74,13 @@ class GetGenerateHeaders
       end
 
       logObj.logger.info("END> =======================================")
+      write_log_audit(200)
 
     rescue StandardError => err
       puts err.message
       puts err.backtrace
       puts "Check log for more details"
+      write_log_audit(400)
     end
   end
   # Reading getId from command line argument

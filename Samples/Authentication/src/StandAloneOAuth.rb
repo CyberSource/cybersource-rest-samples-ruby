@@ -22,7 +22,7 @@ class StandAloneOAuth
         maxLogSize=5000
         maxLogFiles=5
         enableMasking=true
-    
+
         logConfiguration={}
         logConfiguration['enableLog']=enableLog
         logConfiguration['loggingLevel']=loggingLevel
@@ -31,7 +31,7 @@ class StandAloneOAuth
         logConfiguration['maxLogSize']=maxLogSize
         logConfiguration['maxLogFiles']=maxLogFiles
         logConfiguration['enableMasking']=enableMasking
-        
+
         configurationDictionary={}
         configurationDictionary['runEnvironment']=runEnvironment
         configurationDictionary['authenticationType']=authenticationType
@@ -53,7 +53,7 @@ class StandAloneOAuth
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
-        processing_information.capture = false        
+        processing_information.capture = false
         request_obj.processing_information = processing_information
 
         payment_information = CyberSource::Ptsv2paymentsPaymentInformation.new
@@ -91,8 +91,10 @@ class StandAloneOAuth
 
         data, status_code, headers = api_instance.create_payment(request_obj)
 
+        write_log_audit(status_code)
         puts data, status_code, headers
     rescue StandardError => err
+        write_log_audit(400)
         puts err.message
     end
 
@@ -110,6 +112,7 @@ class StandAloneOAuth
         puts data, status_code, headers
         return data
     rescue StandardError => err
+        write_log_audit(400)
         puts err.message
     end
 
@@ -127,6 +130,7 @@ class StandAloneOAuth
         puts data, status_code, headers
         return data
     rescue StandardError => err
+        write_log_audit(400)
         puts err.message
     end
 
@@ -150,10 +154,15 @@ class StandAloneOAuth
 
             #Call Payments SampleCode using OAuth, Set Authentication to OAuth in Sample Code Configuration
             simple_authorizationinternet(refresh_token, access_token)
-        end        
+        end
     end
 
-    if __FILE__ == $0        
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
+    if __FILE__ == $0
         StandAloneOAuth.new.run()
     end
 end

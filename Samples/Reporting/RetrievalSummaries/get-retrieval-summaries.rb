@@ -20,10 +20,18 @@ class Get_retrieval_summaries
 
         puts status_code, headers, data
 
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(err.code)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         Get_retrieval_summaries.new.run()
     end

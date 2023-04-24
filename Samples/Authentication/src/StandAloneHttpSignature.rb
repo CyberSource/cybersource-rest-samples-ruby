@@ -97,7 +97,7 @@ class StandAloneHttpSignature
 
     return signatureHeaderValue
   end
-  
+
   def processPost()
     resource = "/pts/v2/payments/"
     method = "post"
@@ -132,8 +132,8 @@ class StandAloneHttpSignature
     puts "\tv-c-merchant-id : " + @@merchant_id + "\n"
     puts "\tDate : " + gmtDateTime + "\n"
     puts "\tHost : " + @@request_host + "\n"
-	puts "\tSignature : " + token + "\n"
-	puts "\tDigest : " + digest + "\n"
+    puts "\tSignature : " + token + "\n"
+    puts "\tDigest : " + digest + "\n"
 
     uri = Addressable::URI.parse(url)
     uri.port = 443
@@ -171,7 +171,7 @@ class StandAloneHttpSignature
 
     return statusCode;
   end
-  
+
   def processGet()
     resource = "/reporting/v3/reports?startTime=2021-01-01T00:00:00.0Z&endTime=2021-01-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
     method = "get"
@@ -242,21 +242,28 @@ class StandAloneHttpSignature
 
     return statusCode;
   end
-  
+
+  def write_log_audit(status)
+    filename = ($0.split("/")).last.split(".")[0]
+    puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
+
   def main
     # HTTP POST REQUEST
     puts "\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request"
     @statusCode = processPost()
+    statusCodePost = @statusCode
 
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
     else
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
-    
+
     # HTTP GET REQUEST
     puts "\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request"
     @statusCode = processGet()
+    statusCodeGet = @statusCode
 
     if @statusCode == 0
         puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
@@ -264,8 +271,13 @@ class StandAloneHttpSignature
         puts "STATUS : ERROR (HTTP Status = #@statusCode)"
     end
 
+    if statusCodePost == 0 and statusCodeGet == 0
+        write_log_audit(200)
+    else
+        write_log_audit(400)
+    end
   end
-  
+
   if __FILE__ == $0
     StandAloneHttpSignature.new.main
   end

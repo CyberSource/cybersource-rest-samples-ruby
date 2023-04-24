@@ -20,7 +20,7 @@ class SimplePaymentUsingMetaKey
         maxLogSize=5000
         maxLogFiles=5
         enableMasking=true
-    
+
         logConfiguration={}
         logConfiguration['enableLog']=enableLog
         logConfiguration['loggingLevel']=loggingLevel
@@ -29,7 +29,7 @@ class SimplePaymentUsingMetaKey
         logConfiguration['maxLogSize']=maxLogSize
         logConfiguration['maxLogFiles']=maxLogFiles
         logConfiguration['enableMasking']=enableMasking
-        
+
         configurationDictionary={}
         configurationDictionary['merchantID']=merchantId
         configurationDictionary['runEnvironment']=runEnvironment
@@ -85,10 +85,18 @@ class SimplePaymentUsingMetaKey
         data, status_code, headers = api_instance.create_payment(request_obj)
 
         puts data, status_code, headers
+        write_log_audit(status_code)
         return data
     rescue StandardError => err
+        write_log_audit(400)
         puts err.message
     end
+
+    def write_log_audit(status)
+        filename = ($0.split("/")).last.split(".")[0]
+        puts "[Sample Code Testing] [#{filename}] #{status}"
+    end
+
     if __FILE__ == $0
         SimplePaymentUsingMetaKey.new.run()
     end

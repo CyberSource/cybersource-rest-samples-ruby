@@ -6,14 +6,19 @@ public
 # This is sample code for AuthenticationSDK - POST method
 # AuthenticationSDK is called via APISDK
 class SamplecodeForPost
-    # REQUEST TARGET, REQUEST JSON PATH
-	  # [Editable]
-    @@request_target = '/pts/v2/payments'
-    @@requestJsonPath='./resource/request.json'
+  # REQUEST TARGET, REQUEST JSON PATH
+    # [Editable]
+  @@request_target = '/pts/v2/payments'
+  @@requestJsonPath='./resource/request.json'
 
-	  # Request Type. [Non-Editable]
-    @@request_type = 'POST'
-    
+    # Request Type. [Non-Editable]
+  @@request_type = 'POST'
+
+  def write_log_audit(status)
+    filename = ($0.split("/")).last.split(".")[0]
+    puts "[Sample Code Testing] [#{filename}] #{status}"
+  end
+
   def main
     cybsproperty_obj = PropertiesUtil.new.getCybsProp('resource/cybs.yml')
     merchantconfig_obj = Merchantconfig.new(cybsproperty_obj)
@@ -35,10 +40,12 @@ class SamplecodeForPost
     puts 'v-c-correlation-id:' + vc_correlationid
     puts 'Response Code:' + response_code
     puts 'Response Body:' + response_body
+    write_log_audit(response_code)
   rescue StandardError => err
     puts err.message
     puts err.backtrace
     puts 'Check log for more details.'
+    write_log_audit(400)
   end
   SamplecodeForPost.new.main
 end
