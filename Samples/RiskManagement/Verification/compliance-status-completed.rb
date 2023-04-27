@@ -41,7 +41,7 @@ class Compliance_status_completed
 
         export_compliance_information = CyberSource::Riskv1exportcomplianceinquiriesExportComplianceInformation.new
         export_compliance_information.address_operator = "and"
-        weights = CyberSource::Riskv1exportcomplianceinquiriesExportComplianceInformationWeights.new
+        weights = CyberSource::Ptsv2paymentsWatchlistScreeningInformationWeights.new
         weights.address = "abc"
         weights.company = "def"
         weights.name = "adb"

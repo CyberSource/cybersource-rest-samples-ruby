@@ -56,7 +56,7 @@ class Multiple_sanction_lists
 
         export_compliance_information = CyberSource::Riskv1exportcomplianceinquiriesExportComplianceInformation.new
         export_compliance_information.address_operator = "and"
-        weights = CyberSource::Riskv1exportcomplianceinquiriesExportComplianceInformationWeights.new
+        weights = CyberSource::Ptsv2paymentsWatchlistScreeningInformationWeights.new
         weights.address = "low"
         weights.company = "exact"
         weights.name = "exact"
