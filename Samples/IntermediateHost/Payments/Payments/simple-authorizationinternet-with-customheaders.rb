@@ -1,5 +1,5 @@
 require 'cybersource_rest_client'
-require_relative '../../../data/ConfigurationWithIntermediateHost.rb'
+require_relative '../../../../data/ConfigurationWithIntermediateHost.rb'
 
 public
 class Simple_authorizationinternet_custom_headers
