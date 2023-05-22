@@ -6,6 +6,7 @@ require 'date'
 require 'net/http'
 require 'addressable/uri'
 require 'active_support'
+require 'time'
 
 public
 class StandAloneJWT
@@ -67,9 +68,9 @@ class StandAloneJWT
     if http_method == "post"
         payload = @@payload
         digest = Digest::SHA256.base64digest(payload)
-        jwtBody = "{\n      \"digest\":\"" + digest + "\", \"digestAlgorithm\":\"SHA-256\", \"iat\":\"" + gmtdatetime + "\"}"
+        jwtBody = "{\"digest\":\"" + digest + "\", \"digestAlgorithm\":\"SHA-256\", \"iat\": "+ Time.parse(gmtdatetime).to_i.to_s + "}"
     elsif http_method == "get"
-        jwtBody = "{\n \"iat\":\"" + gmtdatetime + "\"\n} \n\n"
+         jwtBody = "{\n \"iat\":" + Time.parse(gmtdatetime).to_i.to_s + "\n} \n\n"
     end
 
     claimSet = JSON.parse(jwtBody)
