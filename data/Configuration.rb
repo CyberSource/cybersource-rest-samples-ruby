@@ -78,8 +78,8 @@ class MerchantConfiguration
     # proxyAddress='userproxy.com'
     # proxyPort=443
     # HTTP Parameters
-    merchantKeyId='e547c3d3-16e4-444c-9313-2a08784b906a'
-    merchantSecretKey='JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo='
+    merchantKeyId='964f2ecc-96f0-4432-a742-db0b44e6a73a'
+    merchantSecretKey='zXKpCqMQPmOR/JRldSlkQUtvvIzOewUVqsUP0sBHpxQ='
     # JWT Parameters
     keysDirectory='resource'
     keyAlias='testrest_cpctv'
