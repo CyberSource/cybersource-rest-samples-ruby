@@ -4,10 +4,13 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_plan
     def run()
+        # Required to make the sample code activate-plan.rb work
+        plan_information_status = "DRAFT"
         request_obj = CyberSource::CreatePlanRequest.new
         plan_information = CyberSource::Rbsv1plansPlanInformation.new
         plan_information.name = "Gold Plan"
         plan_information.description = "New Gold Plan"
+        plan_information.status = plan_information_status
         billing_period = CyberSource::InlineResponse200PlanInformationBillingPeriod.new
         billing_period.length = "1"
         billing_period.unit = "M"

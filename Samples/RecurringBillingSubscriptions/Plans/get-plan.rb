@@ -5,12 +5,12 @@ require_relative '../../../data/Configuration.rb'
 public
 class Get_plan
     def run()
-        id = (JSON.parse(Create_plan.new.run()[0]))['id']
+        plan_id = (JSON.parse(Create_plan.new.run()[0]))['id']
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PlansApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.get_plan(id)
+        data, status_code, headers = api_instance.get_plan(plan_id)
 
         puts status_code, headers, data
 
