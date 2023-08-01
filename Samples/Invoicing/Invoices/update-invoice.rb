@@ -1,9 +1,11 @@
 require 'cybersource_rest_client'
 require_relative '../../../data/Configuration.rb'
+require_relative './create-draft-invoice.rb'
 
 public
 class Update_invoice
   def run()
+    invoice_id = (JSON.parse(Create_draft_invoice.new.run()))['id']
     request_obj = CyberSource::UpdateInvoiceRequest.new
     customer_information = CyberSource::Invoicingv2invoicesCustomerInformation.new
     customer_information.name = "New Customer Name"
@@ -51,7 +53,7 @@ class Update_invoice
     api_client = CyberSource::ApiClient.new
     api_instance = CyberSource::InvoicesApi.new(api_client, config)
 
-    data, status_code, headers = api_instance.create_invoice(request_obj)
+    data, status_code, headers = api_instance.update_invoice(invoice_id, request_obj)
 
     puts data, status_code, headers
     write_log_audit(status_code)
