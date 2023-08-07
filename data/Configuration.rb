@@ -58,6 +58,11 @@ class MerchantConfiguration
     log_config['enableMasking'] = enableMasking
 
     configurationDictionary['logConfiguration'] = log_config
+
+    # PEM Key file path for decoding JWE Response Enter the folder path where the .pem file is located.
+    # It is optional property, require adding only during JWE decryption.
+    configurationDictionary['pemFileDirectory'] = 'resource/NetworkTokenCert.pem'
+
     return configurationDictionary
   end
 
