@@ -63,16 +63,16 @@ class StandAloneHttpSignature
     signatureHeaderValue << ", algorithm=\"HmacSHA256\""
 
     if http_method == "post"
-        signatureHeader = 'host date (request-target) digest v-c-merchant-id'
+        signatureHeader = 'host date request-target digest v-c-merchant-id'
     elsif http_method == "get"
-        signatureHeader = 'host date (request-target) v-c-merchant-id'
+        signatureHeader = 'host date request-target v-c-merchant-id'
     end
 
     signatureHeaderValue << ", headers=\"" + signatureHeader + "\""
 
     signatureString = 'host: ' + @@request_host
     signatureString << "\ndate: " + gmtdatetime
-    signatureString << "\n(request-target): "
+    signatureString << "\nrequest-target: "
 
     targetUrl = http_method + ' ' + resource
 
