@@ -10,7 +10,7 @@ class Update_plan
         plan_information = CyberSource::Rbsv1plansidPlanInformation.new
         plan_information.name = "Gold Plan NA"
         plan_information.description = "Updated Gold Plan"
-        billing_period = CyberSource::InlineResponse200PlanInformationBillingPeriod.new
+        billing_period = CyberSource::GetAllPlansResponsePlanInformationBillingPeriod.new
         billing_period.length = "2"
         billing_period.unit = "W"
         plan_information.billing_period = billing_period
@@ -25,8 +25,8 @@ class Update_plan
         processing_information.subscription_billing_options = subscription_billing_options
         request_obj.processing_information = processing_information
 
-        order_information = CyberSource::InlineResponse200OrderInformation.new
-        amount_details = CyberSource::InlineResponse200OrderInformationAmountDetails.new
+        order_information = CyberSource::GetAllPlansResponseOrderInformation.new
+        amount_details = CyberSource::GetAllPlansResponseOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.billing_amount = "11"
         amount_details.setup_fee = "2"

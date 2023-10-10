@@ -11,7 +11,7 @@ class Create_plan
         plan_information.name = "Gold Plan"
         plan_information.description = "New Gold Plan"
         plan_information.status = plan_information_status
-        billing_period = CyberSource::InlineResponse200PlanInformationBillingPeriod.new
+        billing_period = CyberSource::GetAllPlansResponsePlanInformationBillingPeriod.new
         billing_period.length = "1"
         billing_period.unit = "M"
         plan_information.billing_period = billing_period
