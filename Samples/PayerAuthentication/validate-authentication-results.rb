@@ -14,19 +14,10 @@ class Validate_authentication_results
         request_obj.client_reference_information = client_reference_information
 
         order_information = CyberSource::Riskv1authenticationresultsOrderInformation.new
-        amount_details = CyberSource::Riskv1authenticationsOrderInformationAmountDetails.new
+        amount_details = CyberSource::Riskv1authenticationresultsOrderInformationAmountDetails.new
         amount_details.currency = "USD"
         amount_details.total_amount = "200.00"
         order_information.amount_details = amount_details
-
-        line_items = []
-        line_items1 = CyberSource::Riskv1authenticationresultsOrderInformationLineItems.new
-        line_items1.unit_price = "10"
-        line_items1.quantity = 2
-        line_items1.tax_amount = "32.40"
-        line_items << line_items1
-
-        order_information.line_items = line_items
         request_obj.order_information = order_information
 
         payment_information = CyberSource::Riskv1authenticationresultsPaymentInformation.new
@@ -40,7 +31,6 @@ class Validate_authentication_results
 
         consumer_authentication_information = CyberSource::Riskv1authenticationresultsConsumerAuthenticationInformation.new
         consumer_authentication_information.authentication_transaction_id = "PYffv9G3sa1e0CQr5fV0"
-        consumer_authentication_information.signed_pares = "eNqdmFmT4jgSgN+J4D90zD4yMz45PEFVhHzgA2zwjXnzhQ984Nvw61dAV1"
         request_obj.consumer_authentication_information = consumer_authentication_information
 
         config = MerchantConfiguration.new.merchantConfigProp()
