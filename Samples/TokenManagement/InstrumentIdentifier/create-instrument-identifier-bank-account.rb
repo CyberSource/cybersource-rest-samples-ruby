@@ -5,7 +5,7 @@ public
 class Create_instrument_identifier_bank_account
     def run(profileid)
         request_obj = CyberSource::PostInstrumentIdentifierRequest.new
-        bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBankAccount.new
+        bank_account = CyberSource::TmsEmbeddedInstrumentIdentifierBankAccount.new
         bank_account.number = "4100"
         bank_account.routing_number = "071923284"
         request_obj.bank_account = bank_account

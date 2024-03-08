@@ -12,10 +12,10 @@ class Update_instrument_identifier_previoustransactionid
 
         request_obj = CyberSource::PatchInstrumentIdentifierRequest.new
 
-        processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformation.new
-        authorization_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptions.new
-        initiator = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptionsInitiator.new
-        merchant_initiated_transaction = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction.new
+        processing_information = CyberSource::TmsEmbeddedInstrumentIdentifierProcessingInformation.new
+        authorization_options = CyberSource::TmsAuthorizationOptions.new
+        initiator = CyberSource::TmsAuthorizationOptionsInitiator.new
+        merchant_initiated_transaction = CyberSource::TmsAuthorizationOptionsInitiatorMerchantInitiatedTransaction.new
         merchant_initiated_transaction.previous_transaction_id = "123456789012345"
         initiator.merchant_initiated_transaction = merchant_initiated_transaction
         authorization_options.initiator = initiator
