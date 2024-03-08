@@ -40,8 +40,8 @@ class Create_customer_payment_instrument_bank_account
         bill_to.phone_number = "4158880000"
         request_obj.bill_to = bill_to
 
-        processing_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation.new
-        bank_transfer_options = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions.new
+        processing_information = CyberSource::TmsPaymentInstrumentProcessingInfo.new
+        bank_transfer_options = CyberSource::TmsPaymentInstrumentProcessingInfoBankTransferOptions.new
         bank_transfer_options.sec_code = "WEB"
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information

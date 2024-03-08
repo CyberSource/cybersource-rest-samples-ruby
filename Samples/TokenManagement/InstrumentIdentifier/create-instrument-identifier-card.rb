@@ -5,7 +5,7 @@ public
 class Create_instrument_identifier_card
     def run(profileid)
         request_obj = CyberSource::PostInstrumentIdentifierRequest.new
-        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
+        card = CyberSource::TmsEmbeddedInstrumentIdentifierCard.new
         card.number = "4111111111111111"
         request_obj.card = card
 

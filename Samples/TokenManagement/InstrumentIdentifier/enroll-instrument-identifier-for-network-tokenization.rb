@@ -12,13 +12,13 @@ class Enroll_instrument_identifier_for_network_tokenization
 
         request_obj = CyberSource::PostInstrumentIdentifierEnrollmentRequest.new
         request_obj.type = "enrollable card"
-        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
+        card = CyberSource::TmsEmbeddedInstrumentIdentifierCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
         card.security_code = "123"
         request_obj.card = card
 
-        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBillTo.new
+        bill_to = CyberSource::TmsEmbeddedInstrumentIdentifierBillTo.new
         bill_to.address1 = "1 Market St"
         bill_to.locality = "San Francisco"
         bill_to.administrative_area = "CA"

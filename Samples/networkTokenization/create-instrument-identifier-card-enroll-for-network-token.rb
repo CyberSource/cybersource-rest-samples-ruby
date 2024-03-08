@@ -11,7 +11,7 @@ class Create_instrument_identifier_card_enroll_for_network_token
     end
     request_obj = CyberSource::PostInstrumentIdentifierRequest.new
     request_obj.type = "enrollable card"
-    card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard.new
+    card = CyberSource::TmsEmbeddedInstrumentIdentifierCard.new
     card.number = "5204245750003216"
     card.expiration_month = "12"
     card.expiration_year = "2025"
