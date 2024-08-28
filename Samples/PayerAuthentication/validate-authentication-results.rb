@@ -5,7 +5,7 @@ public
 class Validate_authentication_results
     def run()
         request_obj = CyberSource::ValidateRequest.new
-        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "pavalidatecheck"
         partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
         partner.developer_id = "7891234"

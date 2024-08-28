@@ -5,7 +5,7 @@ public
 class Enroll_with_pending_authentication
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "cybs_test"
         request_obj.client_reference_information = client_reference_information
 
@@ -29,7 +29,7 @@ class Enroll_with_pending_authentication
         request_obj.order_information = order_information
 
         payment_information = CyberSource::Riskv1authenticationsPaymentInformation.new
-        card = CyberSource::Riskv1authenticationsPaymentInformationCard.new
+        card = CyberSource::Riskv1authenticationsetupsPaymentInformationCard.new
         card.type = "001"
         card.expiration_month = "12"
         card.expiration_year = "2025"

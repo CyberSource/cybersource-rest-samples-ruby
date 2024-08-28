@@ -5,7 +5,7 @@ public
 class Setup_completion_with_card_number
     def run()
         request_obj = CyberSource::PayerAuthSetupRequest.new
-        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
         client_reference_information.code = "cybs_test"
         partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
         partner.developer_id = "7891234"
