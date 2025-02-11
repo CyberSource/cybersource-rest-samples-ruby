@@ -31,12 +31,7 @@ class Generate_unified_checkout_capture_context
         request_obj.allowed_card_networks = allowed_card_networks
 
         allowed_payment_types =  []
-        allowed_payment_types << "APPLEPAY"
-        allowed_payment_types << "CHECK"
         allowed_payment_types << "CLICKTOPAY"
-        allowed_payment_types << "GOOGLEPAY"
-        allowed_payment_types << "PANENTRY"
-        allowed_payment_types << "PAZE"
         request_obj.allowed_payment_types = allowed_payment_types
         request_obj.country = "US"
         request_obj.locale = "en_US"
