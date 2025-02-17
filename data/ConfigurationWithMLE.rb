@@ -55,7 +55,7 @@ class MerchantConfiguration
     configurationDictionary['useMLEGlobally'] = true # globally MLE will be enabled for all the MLE supported APIs by Cybs in SDK
     mapToControlMLE = {
       'create_payment' => false, # only create_payment function will have MLE=false i.e. (/pts/v2/payments POST API) out of all MLE supported APIs
-      'capture_payment' => true # capturePayment function will have MLE=true i.e.  (/pts/v2/payments/{id}/captures POST API), if it not in list of MLE supportedAPIs else it will already have MLE=true by global MLE parameter.
+      'capture_payment' => true # capture_payment function will have MLE=true i.e.  (/pts/v2/payments/{id}/captures POST API), if it not in list of MLE supportedAPIs else it will already have MLE=true by global MLE parameter.
     }
     configurationDictionary['mapToControlMLEonAPI'] = mapToControlMLE
     configurationDictionary['mleKeyAlias']='CyberSource_SJC_US' # this is optional parameter, not required to set the parameter if custom value is not required for MLE key alias. Default value is "CyberSource_SJC_US".
