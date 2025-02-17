@@ -44,31 +44,33 @@ class MerchantConfiguration
   end
   def self.merchantConfigPropWithoutMLEMAP()
     configurationDictionary = MerchantConfiguration.commonConfig
-    configurationDictionary['useMLEGlobally'] = true
-    configurationDictionary['mleKeyAlias']='CyberSource_SJC_US'
+    configurationDictionary['useMLEGlobally'] = true # globally MLE will be enabled for all the MLE supported APIs by Cybs in SDK
+    configurationDictionary['mleKeyAlias']='CyberSource_SJC_US' # this is optional parameter, not required to set the parameter if custom value is not required for MLE key alias. Default value is "CyberSource_SJC_US".
 
     configurationDictionary
   end
 
-  def merchantConfigPropWithMLEMAPAndGlobalFlag()
+  def self.merchantConfigPropWithMLEMAPAndGlobalFlag()
     configurationDictionary = MerchantConfiguration.commonConfig
-    configurationDictionary['useMLEGlobally'] = true
+    configurationDictionary['useMLEGlobally'] = true # globally MLE will be enabled for all the MLE supported APIs by Cybs in SDK
     mapToControlMLE = {
-      'createPayment' => false,
-      'capturePayment' => true
+      'create_payment' => false, # only create_payment function will have MLE=false i.e. (/pts/v2/payments POST API) out of all MLE supported APIs
+      'capture_payment' => true # capturePayment function will have MLE=true i.e.  (/pts/v2/payments/{id}/captures POST API), if it not in list of MLE supportedAPIs else it will already have MLE=true by global MLE parameter.
     }
     configurationDictionary['mapToControlMLEonAPI'] = mapToControlMLE
+    configurationDictionary['mleKeyAlias']='CyberSource_SJC_US' # this is optional parameter, not required to set the parameter if custom value is not required for MLE key alias. Default value is "CyberSource_SJC_US".
     configurationDictionary
   end
 
   def self.merchantConfigPropWithMLEMAPAndGlobalFlagDisabled()
     configurationDictionary = MerchantConfiguration.commonConfig
-    configurationDictionary['useMLEGlobally'] = false
+    configurationDictionary['useMLEGlobally'] = false # globally MLE will be disabled for all the APIs in SDK
     mapToControlMLE = {
-      'createPayment' => true,
-      'capturePayment' => true
+      'create_payment' => true, # create_payment function will have MLE=true i.e. (/pts/v2/payments POST API)
+      'capture_payment' => true # capture_payment function will also have MLE=true i.e. (/pts/v2/payments/{id}/captures POST API)
     }
     configurationDictionary['mapToControlMLEonAPI'] = mapToControlMLE
+    configurationDictionary['mleKeyAlias']='CyberSource_SJC_US' # this is optional parameter, not required to set the parameter if custom value is not required for MLE key alias. Default value is "CyberSource_SJC_US".
     configurationDictionary
   end
 end
