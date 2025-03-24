@@ -4,8 +4,8 @@ require_relative '../../../data/Configuration.rb'
 public
 class Get_payment_batch_summary_data
     def run()
-        start_time = "2020-09-01T12:00:00Z"
-        end_time = "2020-09-30T12:00:00Z"
+        start_time = "2024-09-01T12:00:00Z"
+        end_time = "2024-09-30T12:00:00Z"
 
         opts = {}
         opts[:"organization_id"] = "testrest"
