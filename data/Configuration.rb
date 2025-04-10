@@ -188,6 +188,7 @@ class MerchantConfiguration
     log_config['maxLogSize'] = maxLogSize
     log_config['loggingLevel'] = loggingLevel
     log_config['enableMasking'] = enableMasking
+    log_config['maxLogFiles'] = maxLogFiles
 
     configurationDictionary['logConfiguration'] = log_config
 
