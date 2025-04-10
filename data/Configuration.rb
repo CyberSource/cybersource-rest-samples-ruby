@@ -30,6 +30,9 @@ class MerchantConfiguration
     # MetaKey Params
     useMetaKey = false
     portfolioID = ''
+
+    # Add the property if required to override the cybs default developerId in all request body
+    defaultDeveloperId = ""
     
     configurationDictionary={}
     configurationDictionary['merchantID'] = merchantId
@@ -47,6 +50,7 @@ class MerchantConfiguration
     configurationDictionary['useMetaKey'] = useMetaKey
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
+    configurationDictionary['defaultDeveloperId'] = defaultDeveloperId
 
     log_config = {}
     log_config['enableLog'] = enableLog

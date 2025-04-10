@@ -16,7 +16,13 @@ class NetworkTokenization
     encoded_payment_credentials_response = Payment_credentials_from_network_token.new.run
 
     #Step-II
-    decoded_response = CyberSource::JWEUtility.decryptJWEResponse(encoded_payment_credentials_response, merchant_configuration)
+
+    # The following method CyberSource::JWEUtility.decryptJWEResponse(String, MerchantConfig) has been deprecated.
+    # decoded_response = CyberSource::JWEUtility.decryptJWEResponse(encoded_payment_credentials_response, merchant_configuration)
+
+    # Using the new method CyberSource::JWEUtility.decryptJWUsingPrivateKey(PrivateKey, String) instead
+    private_key = JOSE::JWK.from_pem_file merchant_configuration.pemFileDirectory
+    decoded_response = CyberSource::JWEUtility.decryptJWUsingPrivateKey(private_key, encoded_payment_credentials_response)
 
     puts 'Decoded Response'
     puts decoded_response
