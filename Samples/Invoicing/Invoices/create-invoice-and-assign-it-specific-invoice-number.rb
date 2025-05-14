@@ -24,9 +24,9 @@ class Create_invoice_and_assign_it_specific_invoice_number
         amount_details.total_amount = "2623.64"
         amount_details.currency = "USD"
         amount_details.discount_amount = "126.08"
-        amount_details.discount_percent = 5.0
-        amount_details.sub_amount = 2749.72
-        amount_details.minimum_partial_amount = 20.00
+        amount_details.discount_percent = "5.0"
+        amount_details.sub_amount = "2749.72"
+        amount_details.minimum_partial_amount = "20.00"
         tax_details = CyberSource::Invoicingv2invoicesOrderInformationAmountDetailsTaxDetails.new
         tax_details.type = "State Tax"
         tax_details.amount = "208.04"
