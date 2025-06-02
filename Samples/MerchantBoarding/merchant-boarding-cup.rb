@@ -104,10 +104,6 @@ class Merchant_boarding_cup
         payments.card_processing = card_processing
         
         virtual_terminal = CyberSource::PaymentsProductsVirtualTerminal.new
-        subscription_information2 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        
-        subscription_information2.enabled = true
-        virtual_terminal.subscription_information = subscription_information2
         
         configuration_information2 = CyberSource::PaymentsProductsVirtualTerminalConfigurationInformation.new
         
@@ -119,10 +115,6 @@ class Merchant_boarding_cup
         
         customer_invoicing = CyberSource::PaymentsProductsTax.new
         
-        subscription_information3 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        
-        subscription_information3.enabled = true
-        customer_invoicing.subscription_information = subscription_information3
         payments.customer_invoicing = customer_invoicing
         selected_products.payments = payments
         
@@ -131,11 +123,7 @@ class Merchant_boarding_cup
         commerce_solutions = CyberSource::CommerceSolutionsProducts.new
         
         token_management = CyberSource::CommerceSolutionsProductsTokenManagement.new
-        
-        subscription_information4 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information4.enabled = true
-        token_management.subscription_information = subscription_information4
-        
+                
         configuration_information3 = CyberSource::CommerceSolutionsProductsTokenManagementConfigurationInformation.new
         
         template_id3 = "9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"
@@ -148,13 +136,9 @@ class Merchant_boarding_cup
         value_added_services = CyberSource::ValueAddedServicesProducts.new
         
         transaction_search = CyberSource::PaymentsProductsTax.new
-        subscription_information5 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information5.enabled = true
-        transaction_search.subscription_information = subscription_information5
         value_added_services.transaction_search = transaction_search
         
         reporting = CyberSource::PaymentsProductsTax.new
-        reporting.subscription_information = subscription_information5
         value_added_services.reporting = reporting
         selected_products.value_added_services = value_added_services
         product_information.selected_products = selected_products

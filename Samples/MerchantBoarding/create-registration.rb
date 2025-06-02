@@ -48,9 +48,7 @@ class Create_registration
 
         # Setup Payments Products
         payer_authentication = CyberSource::PaymentsProductsPayerAuthentication.new
-        subscription_information = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information.enabled = true
-        payer_authentication.subscription_information = subscription_information
+
 
         configuration_information = CyberSource::PaymentsProductsPayerAuthenticationConfigurationInformation.new
         configurations = CyberSource::PayerAuthConfig.new
@@ -119,21 +117,15 @@ class Create_registration
 
         # Setup other payment-related products
         virtual_terminal = CyberSource::PaymentsProductsVirtualTerminal.new
-        subscription_information3 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information3.enabled = true
-        virtual_terminal.subscription_information = subscription_information3
+
         payments.virtual_terminal = virtual_terminal
 
         customer_invoicing = CyberSource::PaymentsProductsTax.new
-        subscription_information4 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information4.enabled = true
-        customer_invoicing.subscription_information = subscription_information4
+
         payments.customer_invoicing = customer_invoicing
 
         payouts = CyberSource::PaymentsProductsPayouts.new
-        subscription_information5 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information5.enabled = true
-        payouts.subscription_information = subscription_information5
+
         payments.payouts = payouts
 
         selected_products.payments = payments
@@ -141,18 +133,14 @@ class Create_registration
         # Setup Commerce Solutions
         commerce_solutions = CyberSource::CommerceSolutionsProducts.new
         token_management = CyberSource::CommerceSolutionsProductsTokenManagement.new
-        subscription_information6 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information6.enabled = true
-        token_management.subscription_information = subscription_information6
+
         commerce_solutions.token_management = token_management
         selected_products.commerce_solutions = commerce_solutions
 
         # Setup Risk Products
         risk = CyberSource::RiskProducts.new
         fraud_management_essentials = CyberSource::RiskProductsFraudManagementEssentials.new
-        subscription_information7 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information7.enabled = true
-        fraud_management_essentials.subscription_information = subscription_information7
+
 
         configuration_information5 = CyberSource::RiskProductsFraudManagementEssentialsConfigurationInformation.new
         template_id = 'E4EDB280-9DAC-4698-9EB9-9434D40FF60C'
