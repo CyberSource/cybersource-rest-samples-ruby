@@ -7,7 +7,7 @@ class Create_subscription
         request_obj = CyberSource::CreateSubscriptionRequest.new
         client_reference_information = CyberSource::Rbsv1subscriptionsClientReferenceInformation.new
         client_reference_information.code = "TC501713"
-        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner = CyberSource::Rbsv1subscriptionsClientReferenceInformationPartner.new
         partner.developer_id = "ABCD1234"
         partner.solution_id = "GEF1234"
         client_reference_information.partner = partner

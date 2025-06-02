@@ -9,7 +9,7 @@ class Update_subscription
         request_obj = CyberSource::UpdateSubscription.new
         client_reference_information = CyberSource::Rbsv1subscriptionsClientReferenceInformation.new
         client_reference_information.code = "APGHU"
-        partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
+        partner = CyberSource::Rbsv1subscriptionsClientReferenceInformationPartner.new
         partner.developer_id = "ABCD1234"
         partner.solution_id = "GEF1234"
         client_reference_information.partner = partner

@@ -98,9 +98,6 @@ class Merchant_boarding_smart_fdc
         payments.card_processing = card_processing
 
         virtual_terminal = CyberSource::PaymentsProductsVirtualTerminal.new
-        subscription_information5 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information5.enabled = true
-        virtual_terminal.subscription_information = subscription_information5
 
         configuration_information5 = CyberSource::PaymentsProductsVirtualTerminalConfigurationInformation.new
         template_id2 = "9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"
@@ -111,10 +108,6 @@ class Merchant_boarding_smart_fdc
 
         customer_invoicing = CyberSource::PaymentsProductsTax.new
 
-        subscription_information6 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-
-        subscription_information6.enabled = true
-        customer_invoicing.subscription_information = subscription_information6
         payments.customer_invoicing = customer_invoicing
 
         selected_products.payments = payments
@@ -127,9 +120,6 @@ class Merchant_boarding_smart_fdc
 
         token_management = CyberSource::CommerceSolutionsProductsTokenManagement.new
 
-        subscription_information7 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information7.enabled = true
-        token_management.subscription_information = subscription_information7
 
         configuration_information7 = CyberSource::CommerceSolutionsProductsTokenManagementConfigurationInformation.new
 
@@ -144,15 +134,11 @@ class Merchant_boarding_smart_fdc
 
         transaction_search = CyberSource::PaymentsProductsTax.new
 
-        subscription_information9 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information9.enabled = true
-        transaction_search.subscription_information = subscription_information9
+
         value_added_services.transaction_search = transaction_search
 
         reporting = CyberSource::PaymentsProductsTax.new
-        subscription_information3 = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information3.enabled = true
-        reporting.subscription_information = subscription_information3
+
         value_added_services.reporting = reporting
 
         selected_products.value_added_services = value_added_services

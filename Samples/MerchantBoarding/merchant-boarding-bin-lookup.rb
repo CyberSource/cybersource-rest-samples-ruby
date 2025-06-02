@@ -60,10 +60,6 @@ class Merchant_boarding_bin_lookup
         commerce_solutions = CyberSource::CommerceSolutionsProducts.new
         bin_lookup = CyberSource::CommerceSolutionsProductsBinLookup.new
 
-        # Subscription information
-        subscription_information = CyberSource::PaymentsProductsPayerAuthenticationSubscriptionInformation.new
-        subscription_information.enabled = true
-        bin_lookup.subscription_information = subscription_information
 
         # Configuration information
         configuration_information = CyberSource::CommerceSolutionsProductsBinLookupConfigurationInformation.new
