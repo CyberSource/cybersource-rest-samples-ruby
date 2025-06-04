@@ -60,6 +60,11 @@ class Generate_unified_checkout_capture_context
         order_information.amount_details = amount_details
         request_obj.order_information = order_information
 
+        complete_mandate = CyberSource::Upv1capturecontextsCompleteMandate.new
+        complete_mandate.type = "CAPTURE"
+        complete_mandate.decision_manager = false
+        request_obj.complete_mandate = complete_mandate
+
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::UnifiedCheckoutCaptureContextApi.new(api_client, config)
