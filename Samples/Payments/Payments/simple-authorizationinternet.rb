@@ -4,10 +4,9 @@ require_relative '../../../data/Configuration.rb'
 require 'csv'
 
 def run(flag)
-  no_of_calls_options = [5, 10, 20, 50, 100, 200, 300, 500, 700, 1000]
-#   no_of_calls_options = [5, 10, 20]
+  no_of_calls_options = [5,10,20,30,50]
+  csv_file_name = "PerformanceMetrics_Sequential_Calls_testrest_off_VPN.csv"
 
-  
   request_obj = CyberSource::CreatePaymentRequest.new
 
   client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -29,7 +28,7 @@ def run(flag)
   order_information = CyberSource::Ptsv2paymentsOrderInformation.new
   amount_details = CyberSource::Ptsv2paymentsOrderInformationAmountDetails.new
   amount_details.total_amount = "102.21"
-  amount_details.currency = "USD"
+  amount_details.currency = "AUD"
   order_information.amount_details = amount_details
 
   bill_to = CyberSource::Ptsv2paymentsOrderInformationBillTo.new
@@ -46,9 +45,7 @@ def run(flag)
 
   request_obj.order_information = order_information
 
-
-
-  CSV.open("PerformanceMetrics_Ruby.csv", "w") do |csv|
+  CSV.open(csv_file_name, "w") do |csv|
     csv << [
       "Number of Calls",
       "Best Time (ms)",
@@ -109,7 +106,7 @@ def run(flag)
     end
   end
 
-  puts "Performance metrics written to PerformanceMetrics_Ruby.csv"
+  puts "Performance metrics written to #{csv_file_name}"
 end
 
 if __FILE__ == $0
