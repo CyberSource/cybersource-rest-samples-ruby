@@ -51,9 +51,6 @@ class MerchantConfiguration
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
     configurationDictionary['defaultDeveloperId'] = defaultDeveloperId
-    configurationDictionary['enable_connection_pooling'] = true
-    configurationDictionary['max_connections_per_host'] = 10
-
     log_config = {}
     log_config['enableLog'] = enableLog
     log_config['loggingLevel'] = loggingLevel

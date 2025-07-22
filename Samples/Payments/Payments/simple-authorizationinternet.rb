@@ -4,10 +4,11 @@ require 'thread'
 require_relative '../../../data/Configuration.rb'
 
 class SimpleAuthorizationInternetParallel
-  CSV_FILENAME = "PerformanceMetrics_Parallel_Calls_CP_parallel_10_connections.csv"
+  CSV_FILENAME = "PerformanceMetrics_Parallel_Calls_off_VPN_testrest_50TPS.csv"
 
   # Array of number of calls you want to test with
-  NUMBER_OF_CALLS_ARRAY = [5, 10, 20, 50, 100, 200, 300, 500]
+  NUMBER_OF_CALLS_ARRAY = [50, 50 , 50 , 50]
+  # NUMBER_OF_CALLS_ARRAY = [200,200,200,200]
 
   def run_parallel_tests
     puts "=== STARTING PARALLEL CALLS ANALYSIS ==="
@@ -42,6 +43,7 @@ class SimpleAuthorizationInternetParallel
         result = execute_single_payment(call_id)
         mutex.synchronize { results << result }
       end
+      # sleep 0.05
     end
     thread_send_end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
     total_time_to_create_threads = (thread_send_end_time - start_time) / 1_000_000 # ms
@@ -76,7 +78,7 @@ class SimpleAuthorizationInternetParallel
       order_information = CyberSource::Ptsv2paymentsOrderInformation.new
       amount_details = CyberSource::Ptsv2paymentsOrderInformationAmountDetails.new
       amount_details.total_amount = "102.21"
-      amount_details.currency = "USD"
+      amount_details.currency = "AUD"
       order_information.amount_details = amount_details
       bill_to = CyberSource::Ptsv2paymentsOrderInformationBillTo.new
       bill_to.first_name = "John"
@@ -93,6 +95,7 @@ class SimpleAuthorizationInternetParallel
 
       config = MerchantConfiguration.new.merchantConfigProp()
       api_client = CyberSource::ApiClient.new
+      # puts config
       api_instance = CyberSource::PaymentsApi.new(api_client, config)
       start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
       data, status_code, _headers = api_instance.create_payment(request_obj)
@@ -101,8 +104,8 @@ class SimpleAuthorizationInternetParallel
       puts "Call ##{call_id} completed - ResponseCode: #{status_code} - Time: #{execution_time}ms"
       { call_id: call_id, success: status_code.to_i.between?(200,299), status_code: status_code, execution_time: execution_time }
     rescue => e
-      execution_time = ((Time.now - start_time) * 1000).to_i
-      puts "Call ##{call_id} failed: #{e.message}"
+      execution_time = 0
+      puts "Call ##{call_id} failed: #{e}"
       { call_id: call_id, success: false, status_code: e.respond_to?(:code) ? e.code : nil, execution_time: execution_time }
     end
   end
