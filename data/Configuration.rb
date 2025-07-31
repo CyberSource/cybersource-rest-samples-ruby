@@ -52,6 +52,8 @@ class MerchantConfiguration
     configurationDictionary['keyFilename'] = keyFilename
     configurationDictionary['defaultDeveloperId'] = defaultDeveloperId
 
+
+
     log_config = {}
     log_config['enableLog'] = enableLog
     log_config['loggingLevel'] = loggingLevel

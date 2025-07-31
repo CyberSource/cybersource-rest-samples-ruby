@@ -4,8 +4,9 @@ require_relative '../../../data/Configuration.rb'
 require 'csv'
 
 def run(flag)
-  no_of_calls_options = [5,10,20,30,50]
-  csv_file_name = "PerformanceMetrics_Sequential_Calls_testrest_off_VPN.csv"
+  # no_of_calls_options = [5,10,20,30,50]
+  wait_time = [0,2,10,30,100,115,117,118,120,130,150,170,200,220] #360,420,480]
+  csv_file_name = "Keep_Alive_Time_Metrics2.csv"
 
   request_obj = CyberSource::CreatePaymentRequest.new
 
@@ -47,66 +48,37 @@ def run(flag)
 
   CSV.open(csv_file_name, "w") do |csv|
     csv << [
-      "Number of Calls",
-      "Best Time (ms)",
-      "Worst Time (ms)",
-      "Total Time (ms)",
-      "Successful Calls",
-      "Average Time (ms)",
-      "Worst Call Number"
+      "Call Number",
+      "Wait Time (s)",
+      "Time Taken (ms)",
     ]
     api_client = CyberSource::ApiClient.new
     
-    no_of_calls_options.each do |no_of_calls|
-      best_time = Float::INFINITY
-      worst_time = 0
-      total_time = 0
-      successful_calls = 0
-      worst_call = 1
-    no_of_calls.times do |k|
+    wait_time.each_with_index do |wt, idx|
+      sleep(wt) if wt > 0 # Sleep before the call, but skip sleep for the first call
       begin
-        # Initialize the API instance
         config = MerchantConfiguration.new.merchantConfigProp()
         api_instance = CyberSource::PaymentsApi.new(api_client, config)
         start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
         data, status_code, headers = api_instance.create_payment(request_obj)
         end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
         time_taken = (end_time - start_time) / 1_000_000 # ms
-
-        if status_code.to_i >= 200 && status_code.to_i < 300
-        best_time = [best_time, time_taken].min
-        if worst_time < time_taken
-          worst_time = time_taken
-          worst_call = k + 1
-        end
-        successful_calls += 1
-        total_time += time_taken
-        end
+        success = (status_code.to_i >= 200 && status_code.to_i < 300) ? 'Success' : "Failed (#{status_code})"
+        csv << [ idx+1, wt, time_taken ]
+        csv.flush
+        puts "Call #{idx+1} after waiting #{wt}s took #{time_taken}ms - #{success} - #{status_code}"
       rescue StandardError => err
-        puts "[Error] Call #{k+1} failed: #{err.message}"
+        puts "[Error] Call #{idx+1} failed: #{err.message}"
         filename = ($0.split("/")).last.split(".")[0]
         code = err.respond_to?(:code) ? err.code : 'Exception'
         puts "[Sample Code Testing] [#{filename}] #{code}"
+        csv << [ idx+1, wt, "Error: #{err.message}" ]
+        csv.flush
       end
-    end
-
-      average_time = successful_calls > 0 ? total_time / successful_calls : 0
-
-      csv << [
-        no_of_calls,
-        best_time == Float::INFINITY ? 0 : best_time,
-        worst_time,
-        total_time,
-        successful_calls,
-        average_time,
-        worst_call
-      ]
-
-      csv.flush
     end
   end
 
-  puts "Performance metrics written to #{csv_file_name}"
+  puts "Keep Alive Metrics have been written to #{csv_file_name}"
 end
 
 if __FILE__ == $0
