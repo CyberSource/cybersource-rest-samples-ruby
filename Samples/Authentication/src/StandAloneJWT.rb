@@ -138,7 +138,7 @@ end
 # PARALLEL  TEST  DRIVER
 #####################################
 THREAD_COUNT     = 10   # concurrent threads
-CALLS_PER_THREAD = 1    # calls each thread makes
+CALLS_PER_THREAD = 2    # calls each thread makes
 
 mutex      = Mutex.new
 latencies  = []          # stores every latency (ms)
@@ -149,15 +149,17 @@ jwt_client = StandAloneJWT.new   # ONE shared client
 thread_nums = [10,20,30,40,50] # number of threads to test
 
 
-  thread_nums.each do |num_threads|
+  thread_nums.each_with_index do |num_threads, iter_idx|
+    puts "\n--- Iteration #{iter_idx + 1} with #{num_threads} threads ---"
     threads = []
     num_threads.times do |thread_idx|
       threads << Thread.new do
+        # puts "[Thread start] Iteration #{iter_idx + 1}, Thread index: #{thread_idx + 1}, Thread object_id: #{Thread.current.object_id}"
         CALLS_PER_THREAD.times do |call_idx|
           status, latency = jwt_client.do_one_payment
           lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
 
-          puts "Iteration with #{num_threads} threads, T#{thread_idx + 1}-#{call_idx+1}: status=#{status} latency=#{lat_str} ms"
+          puts "Iteration with #{num_threads} threads, T#{thread_idx + 1}-#{call_idx+1} [Thread #{Thread.current.object_id}]: status=#{status} latency=#{lat_str} ms , Thread object_id: #{Thread.current.object_id} "
           mutex.synchronize do
             latencies << latency if latency.positive?
             status_cnt[status] += 1
