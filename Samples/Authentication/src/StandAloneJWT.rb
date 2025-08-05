@@ -146,37 +146,27 @@ status_cnt = Hash.new(0) # histogram of HTTP status codes
 
 jwt_client = StandAloneJWT.new   # ONE shared client
 
-threads = []
+3.times do |iteration|
+  threads = []
 
-threads << Thread.new do
-  CALLS_PER_THREAD.times do |call_idx|
-    status, latency = jwt_client.do_one_payment
-    lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
+  5.times do |thread_idx|
+    threads << Thread.new do
+      CALLS_PER_THREAD.times do |call_idx|
+        status, latency = jwt_client.do_one_payment
+        lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
 
-    puts "T1-#{call_idx}: status=#{status} latency=#{lat_str} ms"
-    mutex.synchronize do
-      latencies << latency if latency.positive?
-      status_cnt[status] += 1
+        puts "Iteration #{iteration + 1}, T#{thread_idx + 1}-#{call_idx}: status=#{status} latency=#{lat_str} ms"
+        mutex.synchronize do
+          latencies << latency if latency.positive?
+          status_cnt[status] += 1
+        end
+      end
     end
   end
+
+  threads.each(&:join)
+  sleep 20 
 end
-
-sleep 120 # Wait for 120 seconds before starting the second thread
-
-threads << Thread.new do
-  CALLS_PER_THREAD.times do |call_idx|
-    status, latency = jwt_client.do_one_payment
-    lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
-
-    puts "T2-#{call_idx}: status=#{status} latency=#{lat_str} ms"
-    mutex.synchronize do
-      latencies << latency if latency.positive?
-      status_cnt[status] += 1
-    end
-  end
-end
-
-threads.each(&:join)
 
 #####################################
 # SIMPLE  STATISTICS
