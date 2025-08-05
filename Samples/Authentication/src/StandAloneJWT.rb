@@ -146,29 +146,31 @@ status_cnt = Hash.new(0) # histogram of HTTP status codes
 
 jwt_client = StandAloneJWT.new   # ONE shared client
 
-3.times do |iteration|
-  threads = []
+thread_nums = [10,20,30,40,50] # number of threads to test
 
-  5.times do |thread_idx|
-    threads << Thread.new do
-      CALLS_PER_THREAD.times do |call_idx|
-        status, latency = jwt_client.do_one_payment
-        lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
 
-        puts "Iteration #{iteration + 1}, T#{thread_idx + 1}-#{call_idx}: status=#{status} latency=#{lat_str} ms"
-        mutex.synchronize do
-          latencies << latency if latency.positive?
-          status_cnt[status] += 1
+  thread_nums.each do |num_threads|
+    threads = []
+    num_threads.times do |thread_idx|
+      threads << Thread.new do
+        CALLS_PER_THREAD.times do |call_idx|
+          status, latency = jwt_client.do_one_payment
+          lat_str = latency.negative? ? 'ERR' : format('%.1f', latency)
+
+          puts "Iteration with #{num_threads} threads, T#{thread_idx + 1}-#{call_idx+1}: status=#{status} latency=#{lat_str} ms"
+          mutex.synchronize do
+            latencies << latency if latency.positive?
+            status_cnt[status] += 1
+          end
         end
       end
     end
+    threads.each(&:join)
+    sleep 10
+    puts " "
   end
 
-  threads.each(&:join)
-  sleep 20 
-end
-
-#####################################
+  #####################################
 # SIMPLE  STATISTICS
 #####################################
 unless latencies.empty?
