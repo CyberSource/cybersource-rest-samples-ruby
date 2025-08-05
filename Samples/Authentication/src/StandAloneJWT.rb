@@ -138,7 +138,7 @@ end
 # PARALLEL  TEST  DRIVER
 #####################################
 THREAD_COUNT     = 10   # concurrent threads
-CALLS_PER_THREAD = 2    # calls each thread makes
+CALLS_PER_THREAD = 1    # calls each thread makes
 
 mutex      = Mutex.new
 latencies  = []          # stores every latency (ms)
