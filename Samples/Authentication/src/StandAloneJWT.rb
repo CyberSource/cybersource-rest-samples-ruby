@@ -1,3 +1,14 @@
+# START GENAI
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+#
+# Multithreaded performance test for CyberSource Stand-Alone JWT example.
+#
+# Gems that are not part of std-lib:
+#   gem install jwt addressable net-http-persistent
+#
+
 require 'base64'
 require 'openssl'
 require 'jwt'
@@ -6,287 +17,172 @@ require 'date'
 require 'net/http'
 require 'net/http/persistent'
 require 'addressable/uri'
-require 'active_support'
 require 'time'
+require 'thread'
 
-public
+##############################
+# THE ORIGINAL SAMPLE – trimmed
+##############################
 class StandAloneJWT
-  # Initialization of constant data
-  # Try with your own credentaials
-  # Get Key ID, Secret Key and Merchant Id from EBC portal
-  @@request_host = "apitest.cybersource.com"
-  @@merchant_id = "testrest"
-  @@merchant_key_id = "08c94330-f618-42a3-b09d-e1e43be5efda"
-  @@merchant_secret_key = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
-  @@filename = "testrest"
-  @@payload = "{" +
-        "  \"clientReferenceInformation\": {" +
-        "    \"code\": \"TC50171_3\"" +
-        "  }," +
-        "  \"processingInformation\": {" +
-        "    \"commerceIndicator\": \"internet\"" +
-        "  }," +
-        "  \"orderInformation\": {" +
-        "    \"billTo\": {" +
-        "      \"firstName\": \"john\"," +
-        "      \"lastName\": \"doe\"," +
-        "      \"address1\": \"201 S. Division St.\"," +
-        "      \"postalCode\": \"48104-2201\"," +
-        "      \"locality\": \"Ann Arbor\"," +
-        "      \"administrativeArea\": \"MI\"," +
-        "      \"country\": \"US\"," +
-        "      \"phoneNumber\": \"999999999\"," +
-        "      \"email\": \"test@cybs.com\"" +
-        "    }," +
-        "    \"amountDetails\": {" +
-        "      \"totalAmount\": \"10\"," +
-        "      \"currency\": \"USD\"" +
-        "    }" +
-        "  }," +
-        "  \"paymentInformation\": {" +
-        "    \"card\": {" +
-        "      \"expirationYear\": \"2031\"," +
-        "      \"number\": \"5555555555554444\"," +
-        "      \"securityCode\": \"123\"," +
-        "      \"expirationMonth\": \"12\"," +
-        "      \"type\": \"002\"" +
-        "    }" +
-        "  }" +
-        "}"
+  REQUEST_HOST        = 'apitest.cybersource.com'
+  MERCHANT_ID         = 'testrest'
+  MERCHANT_KEY_ID     = '08c94330-f618-42a3-b09d-e1e43be5efda'
+  MERCHANT_SECRET_KEY = 'yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE='
+  P12_FILE            = File.expand_path('../resource/testrest.p12', __dir__)
 
-  # HTTP Persistent connection configuration
-  @@keep_alive_timeout = 1 # seconds
-  @@connection_pool_size = 5
-  # Initialize persistent HTTP client
-  @@http_persistent = Net::HTTP::Persistent.new(name: 'cybersource_api')
+  JSON_PAYLOAD = <<~PAYLOAD
+  {
+    "clientReferenceInformation": {
+      "code": "TC50171_3"
+    },
+    "processingInformation": {
+      "commerceIndicator": "internet"
+    },
+    "orderInformation": {
+      "billTo": {
+        "firstName": "john",
+        "lastName": "doe",
+        "address1": "201 S. Division St.",
+        "postalCode": "48104-2201",
+        "locality": "Ann Arbor",
+        "administrativeArea": "MI",
+        "country": "US",
+        "phoneNumber": "999999999",
+        "email": "test@cybs.com"
+      },
+      "amountDetails": {
+        "totalAmount": "10",
+        "currency": "USD"
+      }
+    },
+    "paymentInformation": {
+      "card": {
+        "expirationYear": "2031",
+        "number": "5555555555554444",
+        "securityCode": "123",
+        "expirationMonth": "12",
+        "type": "002"
+      }
+    }
+  }
+  PAYLOAD
 
-  @@default_headers = {}
-
-  def initialize
-    # Configure persistent connection settings
-    @@http_persistent.idle_timeout = @@keep_alive_timeout
-    # @@http_persistent.pool_size = @@connection_pool_size
-    @@http_persistent.verify_mode = OpenSSL::SSL::VERIFY_PEER
+  # ------------------------------------------------------------------
+  # ONE global persistent connection pool that is shared by all
+  # threads.  The library is thread-safe.
+  # ------------------------------------------------------------------
+  HTTP_POOL = Net::HTTP::Persistent.new(name: 'cybersource_pool').tap do |http|
+    http.idle_timeout = 300
+    http.verify_mode  = OpenSSL::SSL::VERIFY_PEER
   end
 
-  # Function to get the Json Web Token
-  # param: resource - denotes the resource being accessed
-  # param: http_method - denotes the HTTP verb
-  # param: gmtdatetime - stores the current timestamp
-  def getJsonWebToken(resource, http_method, gmtdatetime)
-    jwtBody = ''
-    filePath = File.join(File.dirname(__FILE__), "../resource/" + @@filename + ".p12")
-
-    p12File = File.binread(filePath)
-
-    if http_method == "post"
-        payload = @@payload
-        digest = Digest::SHA256.base64digest(payload)
-        jwtBody = "{\"digest\":\"" + digest + "\", \"digestAlgorithm\":\"SHA-256\", \"iat\": "+ Time.parse(gmtdatetime).to_i.to_s + "}"
-    elsif http_method == "get"
-         jwtBody = "{\n \"iat\":" + Time.parse(gmtdatetime).to_i.to_s + "\n} \n\n"
-    end
-
-    claimSet = JSON.parse(jwtBody)
-    p12FilePath = OpenSSL::PKCS12.new(p12File, "testrest")
-
-    publicKey = OpenSSL::PKey::RSA.new(p12FilePath.key.public_key)
-    privateKey = OpenSSL::PKey::RSA.new(p12FilePath.key)
-    x5CertPem = OpenSSL::X509::Certificate.new(p12FilePath.certificate)
-    x5CertDer = Base64.strict_encode64(x5CertPem.to_der)
-
-    x5clist = [x5CertDer]
-
-    customHeaders = {}
-    customHeaders['v-c-merchant-id'] = @@merchant_id
-    customHeaders['x5c'] = x5clist
-
-    token = JWT.encode(claimSet, privateKey, 'RS256', customHeaders)
-
-    puts "\n -- TOKEN --\n"
-    puts token;
-
-    return token
-  end
-
-  def processPost()
-    resource = "/pts/v2/payments/"
-    method = "post"
-    statusCode = -1
-    url = Addressable::URI.encode("https://" + @@request_host + resource)
-    uri = Addressable::URI.parse(url)
-
-    header_params = {}
-    header_params['Accept'] = 'application/hal+json;charset=utf-8'
-    header_params['Content-Type'] = 'application/json;charset=utf-8'
-
-    auth_names = []
-    gmtDateTime = DateTime.now.httpdate
-
-    # puts "\n -- RequestURL -- \n"
-    # puts "\tURL : " + url + "\n"
-    # puts "\n -- HTTP Headers -- \n"
-    # puts "\tContent-Type : application/json;charset=utf-8" + "\n"
-    # puts "\tv-c-merchant-id : " + @@merchant_id + "\n"
-    # puts "\tDate : " + gmtDateTime + "\n"
-    # puts "\tHost : " + @@request_host + "\n"
-
-    token = "Bearer " + getJsonWebToken(resource, method, gmtDateTime)
-
-    header_params['Authorization'] = token
-
-    header_params['v-c-merchant-id'] = @@merchant_id
-    header_params['Date'] = gmtDateTime
-    header_params['Host'] = @@request_host
-
-    payload = @@payload
-    digest = Digest::SHA256.base64digest(payload)
-    digest_payload = 'SHA-256=' + digest
-    header_params['Digest'] = digest_payload
-
-    headers = @@default_headers.merge(header_params || {})
-
-    # Create a POST request for persistent HTTP client
-    5.times do |i|
-      sleep(6)
-      req = Net::HTTP::Post.new(uri.request_uri)
-      req.body = @@payload
-      header_params.each do |custom_header, custom_header_value|
-          req[custom_header] = custom_header_value
-      end
-
-      # Execute the request with persistent connection
-      start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
-      response = @@http_persistent.request(uri, req)
-      end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
-      time_taken = (end_time - start_time) / 1_000_000 # ms
-      if response.code.to_i >= 200 && response.code.to_i <= 299
-          statusCode = 0
+  # ------------------------------------------------------------------
+  # Build & sign a JWT
+  # ------------------------------------------------------------------
+  def json_web_token(resource, http_method, http_date)
+    body_json =
+      if http_method == :post
+        digest = Digest::SHA256.base64digest(JSON_PAYLOAD)
+        { digest: digest, digestAlgorithm: 'SHA-256', iat: Time.httpdate(http_date).to_i }
       else
-          statusCode = -1
+        { iat: Time.httpdate(http_date).to_i }
       end
-      if statusCode == 0
-        puts "Call #{i+1} STATUS : SUCCESS took #{time_taken} to complete."
-      else
-        puts "Call #{i+1} STATUS : ERROR"
-      end
-    end
 
+    # material from the .p12
+    pkcs12      = OpenSSL::PKCS12.new(File.binread(P12_FILE), 'testrest')
+    private_key = pkcs12.key
+    cert_der    = Base64.strict_encode64(pkcs12.certificate.to_der)
 
-    # puts "\n -- Response Message -- \n"
-    # puts "\tResponse Code : " + response.code + "\n"
-    # puts "\tv-c-correlation-id : " + response['v-c-correlation-id'] + "\n"
-    # puts "\n"
-    # puts "\tResponse Data :\n"
-    # puts response.body + "\n\n"
+    header = {
+      'v-c-merchant-id' => MERCHANT_ID,
+      'x5c'             => [cert_der]
+    }
 
-    return statusCode;
+    JWT.encode(body_json, private_key, 'RS256', header)
   end
 
-  def processGet()
-    resource = "/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml"
-    method = "get"
-    statusCode = -1
-    url = Addressable::URI.encode("https://" + @@request_host + resource)
-    uri = Addressable::URI.parse(url)
+  # -------------------------------------------------------------
+  # Perform ONE payment call and return [http_status, latency_ms]
+  # -------------------------------------------------------------
+  def do_one_payment
+    resource     = '/pts/v2/payments'
+    uri          = Addressable::URI.parse("https://#{REQUEST_HOST}#{resource}")
+    now_httpdate = Time.now.httpdate
 
-    header_params = {}
-    header_params['Accept'] = 'application/hal+json;charset=utf-8'
-    header_params['Content-Type'] = 'application/json;charset=utf-8'
+    token      = "Bearer #{json_web_token(resource, :post, now_httpdate)}"
+    digest_hdr = 'SHA-256=' + Digest::SHA256.base64digest(JSON_PAYLOAD)
 
-    auth_names = []
-    gmtDateTime = DateTime.now.httpdate
+    req = Net::HTTP::Post.new(uri.request_uri)
+    req.body = JSON_PAYLOAD
 
-    puts "\n -- RequestURL -- \n"
-    puts "\tURL : " + url + "\n"
-    puts "\n -- HTTP Headers -- \n"
-    puts "\tContent-Type : application/json;charset=utf-8" + "\n"
-    puts "\tv-c-merchant-id : " + @@merchant_id + "\n"
-    puts "\tDate : " + gmtDateTime + "\n"
-    puts "\tHost : " + @@request_host + "\n"
+    req['Accept']          = 'application/hal+json;charset=utf-8'
+    req['Content-Type']    = 'application/json;charset=utf-8'
+    req['Authorization']   = token
+    req['v-c-merchant-id'] = MERCHANT_ID
+    req['Date']            = now_httpdate
+    req['Host']            = REQUEST_HOST
+    req['Digest']          = digest_hdr
 
-    token = "Bearer " + getJsonWebToken(resource, method, gmtDateTime)
+    t0 = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
+    resp = HTTP_POOL.request(uri, req)
+    t1 = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
 
-    header_params['Authorization'] = token
-
-    header_params['v-c-merchant-id'] = @@merchant_id
-    header_params['Accept-Encoding'] = '*'
-    header_params['Date'] = gmtDateTime
-    header_params['Host'] = @@request_host
-    header_params['User-Agent'] = "Mozilla/5.0"
-
-    headers = @@default_headers.merge(header_params || {})
-
-    # Create a GET request for persistent HTTP client
-    request_uri = uri.request_uri
-    req = Net::HTTP::Get.new(request_uri)
-    
-    header_params.each do |custom_header, custom_header_value|
-        req[custom_header] = custom_header_value
-    end
-
-    # Execute the request with persistent connection
-    response = @@http_persistent.request(uri, req)
-
-    if response.code.to_i >= 200 && response.code.to_i <= 299
-        statusCode = 0
-    end
-
-    puts "\n -- Response Message -- \n"
-    puts "\tResponse Code : " + response.code + "\n"
-    puts "\tv-c-correlation-id : " + response['v-c-correlation-id'] + "\n"
-
-    puts "\n"
-    puts "\tResponse Data :\n"
-    puts response.body + "\n\n"
-
-    return statusCode;
-  end
-
-  def cleanup
-    # Close the persistent connection when done
-    @@http_persistent.shutdown
-  end
-
-  def write_log_audit(status)
-    filename = ($0.split("/")).last.split(".")[0]
-    puts "[Sample Code Testing] [#{filename}] #{status}"
-  end
-
-  def main
-    # HTTP POST REQUEST
-    puts "\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request"
-    @statusCode = processPost()
-    statusCodePost = @statusCode
-
-    if @statusCode == 0
-        puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
-    else
-        puts "STATUS : ERROR (HTTP Status = #@statusCode)"
-    end
-
-    # HTTP GET REQUEST
-    # puts "\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request"
-    # @statusCode = processGet()
-    # statusCodeGet = @statusCode
-
-    # if @statusCode == 0
-    #     puts "STATUS : SUCCESS (HTTP Status = #@statusCode)"
-    # else
-    #     puts "STATUS : ERROR (HTTP Status = #@statusCode)"
-    # end
-
-    # if statusCodePost == 0 and statusCodeGet == 0
-    #     write_log_audit(200)
-    # else
-    #     write_log_audit(400)
-    # end
-    
-    # Clean up connections when done
-    cleanup
-  end
-
-  if __FILE__ == $0
-    StandAloneJWT.new.main
+    latency_ms = (t1 - t0) / 1_000_000.0
+    [resp.code.to_i, latency_ms]
+  rescue StandardError => e
+    warn "Thread #{Thread.current.object_id}: #{e.class} - #{e.message}"
+    [0, -1.0] # indicate error
   end
 end
+
+#####################################
+# PARALLEL TEST DRIVER STARTS HERE
+#####################################
+
+THREAD_COUNT       = 10   # how many concurrent threads
+CALLS_PER_THREAD   = 5    # how many calls each thread makes
+
+mutex      = Mutex.new
+latencies  = []          # will hold every latency measurement (ms)
+status_cnt = Hash.new(0) # counts per HTTP status
+
+threads = Array.new(THREAD_COUNT) do |tindex|
+  Thread.new do
+    client = StandAloneJWT.new
+
+    CALLS_PER_THREAD.times do |call_idx|
+      status, latency = client.do_one_payment
+      latency_ms_str  = latency.negative? ? 'ERR' : format('%0.1f', latency)
+
+      puts "T#{tindex}-#{call_idx}: status=#{status} latency=#{latency_ms_str} ms"
+      mutex.synchronize do
+        latencies  << latency if latency.positive?
+        status_cnt[status] += 1
+      end
+    end
+  end
+end
+
+threads.each(&:join)
+
+#####################################
+#  SIMPLE  STATISTICS
+#####################################
+unless latencies.empty?
+  avg = latencies.sum / latencies.size
+  puts "
+----- SUMMARY -----"
+  puts "Total calls      : #{latencies.size}"
+  puts "Average latency  : #{'%.1f' % avg} ms"
+  puts "Min / Max        : #{'%.1f' % latencies.min} / #{'%.1f' % latencies.max} ms"
+end
+
+puts "
+Status histogram:"
+status_cnt.sort.each { |code, cnt| puts "  #{code} : #{cnt}" }
+
+# The Net::HTTP::Persistent pool will automatically clean up idle connections
+# when the process finishes.  If you want an explicit shutdown, you can do:
+#   StandAloneJWT::HTTP_POOL.shutdown
+
+# END GENAI
