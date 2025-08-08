@@ -33,6 +33,13 @@ class MerchantConfiguration
 
     # Add the property if required to override the cybs default developerId in all request body
     defaultDeveloperId = ""
+
+    # Add property for Keep Alive Timeout
+    # Default values for this property is 118 seconds
+    # This can be configured by the end user
+    # Maximum value supported by Cybersource is 300 seconds
+    
+    keepAliveTime = 300 # Unit is in seconds
     
     configurationDictionary={}
     configurationDictionary['merchantID'] = merchantId
@@ -51,6 +58,7 @@ class MerchantConfiguration
     configurationDictionary['portfolioID'] = portfolioID
     configurationDictionary['keyFilename'] = keyFilename
     configurationDictionary['defaultDeveloperId'] = defaultDeveloperId
+    configurationDictionary['keepAliveTime'] = keepAliveTime
 
     log_config = {}
     log_config['enableLog'] = enableLog
