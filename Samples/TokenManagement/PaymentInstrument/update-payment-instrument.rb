@@ -11,13 +11,13 @@ class Update_payment_instrument
         opts[:"profile-id"] = profileid
 
         request_obj = CyberSource::PatchPaymentInstrumentRequest.new
-        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
+        card = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
         card.type = "visa"
         request_obj.card = card
 
-        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
+        bill_to = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "Jack"
         bill_to.last_name = "Smith"
         bill_to.company = "CyberSource"
@@ -30,7 +30,7 @@ class Update_payment_instrument
         bill_to.phone_number = "4158888674"
         request_obj.bill_to = bill_to
 
-        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
         instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 

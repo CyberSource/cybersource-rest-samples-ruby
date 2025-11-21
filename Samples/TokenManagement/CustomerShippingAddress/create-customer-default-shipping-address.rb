@@ -7,7 +7,7 @@ class Create_customer_default_shipping_address
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerShippingAddressRequest.new
         request_obj.default = true
-        ship_to = CyberSource::Tmsv2customersEmbeddedDefaultShippingAddressShipTo.new
+        ship_to = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultShippingAddressShipTo.new
         ship_to.first_name = "John"
         ship_to.last_name = "Doe"
         ship_to.company = "CyberSource"

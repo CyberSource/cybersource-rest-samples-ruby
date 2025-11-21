@@ -6,7 +6,7 @@ class Create_customer_payment_instrument_pinless_debit
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
-        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
+        card = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
         card.type = "001"
@@ -16,7 +16,7 @@ class Create_customer_payment_instrument_pinless_debit
         card.use_as = "pinless debit"
         request_obj.card = card
 
-        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
+        bill_to = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "John"
         bill_to.last_name = "Doe"
         bill_to.company = "CyberSource"
@@ -29,7 +29,7 @@ class Create_customer_payment_instrument_pinless_debit
         bill_to.phone_number = "4158880000"
         request_obj.bill_to = bill_to
 
-        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
         instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 
