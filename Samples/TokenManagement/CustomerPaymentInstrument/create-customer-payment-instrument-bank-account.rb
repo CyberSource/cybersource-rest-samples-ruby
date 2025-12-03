@@ -6,20 +6,20 @@ class Create_customer_payment_instrument_bank_account
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PostCustomerPaymentInstrumentRequest.new
-        bank_account = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount.new
+        bank_account = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBankAccount.new
         bank_account.type = "savings"
         request_obj.bank_account = bank_account
 
-        buyer_information = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformation.new
+        buyer_information = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformation.new
         buyer_information.company_tax_id = "12345"
         buyer_information.currency = "USD"
         buyer_information.date_of_birth = "2000-12-13"
 
         personal_identification = []
-        personal_identification1 = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification.new
+        personal_identification1 = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification.new
         personal_identification1.id = "57684432111321"
         personal_identification1.type = "driver license"
-        issued_by1 = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy.new
+        issued_by1 = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy.new
         issued_by1.administrative_area = "CA"
         personal_identification1.issued_by = issued_by1
         personal_identification << personal_identification1
@@ -27,7 +27,7 @@ class Create_customer_payment_instrument_bank_account
         buyer_information.personal_identification = personal_identification
         request_obj.buyer_information = buyer_information
 
-        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
+        bill_to = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "John"
         bill_to.last_name = "Doe"
         bill_to.company = "CyberSource"
@@ -46,7 +46,7 @@ class Create_customer_payment_instrument_bank_account
         processing_information.bank_transfer_options = bank_transfer_options
         request_obj.processing_information = processing_information
 
-        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
         instrument_identifier.id = "A7A91A2CA872B272E05340588D0A0699"
         request_obj.instrument_identifier = instrument_identifier
 

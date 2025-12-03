@@ -5,13 +5,13 @@ public
 class Create_payment_instrument_card
     def run(profileid)
         request_obj = CyberSource::PostPaymentInstrumentRequest.new
-        card = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentCard.new
+        card = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentCard.new
         card.expiration_month = "12"
         card.expiration_year = "2031"
         card.type = "visa"
         request_obj.card = card
 
-        bill_to = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo.new
+        bill_to = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo.new
         bill_to.first_name = "John"
         bill_to.last_name = "Doe"
         bill_to.company = "Cybersource"
@@ -24,7 +24,7 @@ class Create_payment_instrument_card
         bill_to.phone_number = "4158880000"
         request_obj.bill_to = bill_to
 
-        instrument_identifier = CyberSource::Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
+        instrument_identifier = CyberSource::Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier.new
         instrument_identifier.id = "7010000000016241111"
         request_obj.instrument_identifier = instrument_identifier
 

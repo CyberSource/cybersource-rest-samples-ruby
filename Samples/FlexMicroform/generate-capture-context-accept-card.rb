@@ -37,6 +37,13 @@ class Generate_capture_context_with_checkout_api
         data, status_code, headers = api_instance.generate_capture_context(request_obj)
 
         puts status_code, headers, data
+        unless data.nil?
+            merchant_config = api_instance.api_client.merchantconfig
+            parsed_jwt_response = CyberSource::Utilities::CaptureContext::CaptureContextParser.parse_capture_context_response(data, merchant_config)
+            puts "\n=== Parsed and Verified JWT Response ==="
+            puts parsed_jwt_response
+            puts "=" * 31
+        end
 
         return data
     rescue StandardError => err

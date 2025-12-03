@@ -6,7 +6,7 @@ class Update_customers_default_payment_instrument
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PatchCustomerRequest.new
-        default_payment_instrument = CyberSource::Tmsv2customersDefaultPaymentInstrument.new
+        default_payment_instrument = CyberSource::Tmsv2tokenizeTokenInformationCustomerDefaultPaymentInstrument.new
         default_payment_instrument.id = "AB6A54B982A6FCB6E05341588E0A3935"
         request_obj.default_payment_instrument = default_payment_instrument
 

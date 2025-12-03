@@ -6,7 +6,7 @@ class Update_customers_default_shipping_address
     def run()
         customer_token_id = "AB695DA801DD1BB6E05341588E0A3BDC"
         request_obj = CyberSource::PatchCustomerRequest.new
-        default_shipping_address = CyberSource::Tmsv2customersDefaultShippingAddress.new
+        default_shipping_address = CyberSource::Tmsv2tokenizeTokenInformationCustomerDefaultShippingAddress.new
         default_shipping_address.id = "AB6A54B97C00FCB6E05341588E0A3935"
         request_obj.default_shipping_address = default_shipping_address
 

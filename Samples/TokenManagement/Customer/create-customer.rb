@@ -5,18 +5,18 @@ public
 class Create_customer
     def run()
         request_obj = CyberSource::PostCustomerRequest.new
-        buyer_information = CyberSource::Tmsv2customersBuyerInformation.new
+        buyer_information = CyberSource::Tmsv2tokenizeTokenInformationCustomerBuyerInformation.new
         buyer_information.merchant_customer_id = "Your customer identifier"
         buyer_information.email = "test@cybs.com"
         request_obj.buyer_information = buyer_information
 
-        client_reference_information = CyberSource::Tmsv2customersClientReferenceInformation.new
+        client_reference_information = CyberSource::Tmsv2tokenizeTokenInformationCustomerClientReferenceInformation.new
         client_reference_information.code = "TC50171_3"
         request_obj.client_reference_information = client_reference_information
 
 
         merchant_defined_information = []
-        merchant_defined_information1 = CyberSource::Tmsv2customersMerchantDefinedInformation.new
+        merchant_defined_information1 = CyberSource::Tmsv2tokenizeTokenInformationCustomerMerchantDefinedInformation.new
         merchant_defined_information1.name = "data1"
         merchant_defined_information1.value = "Your customer data"
         merchant_defined_information << merchant_defined_information1
