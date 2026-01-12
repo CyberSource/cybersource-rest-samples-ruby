@@ -5,8 +5,8 @@
         {
             "version": "0.0.80",
             "release_date": "2025-12-01",
-            "tag_name": "0.0.80",
-            "download_url": "https://github.com/CyberSource/cybersource-rest-client-ruby/archive/refs/tags/v0.0.81.zip"
+            "tag_name": "v0.0.80",
+            "download_url": "https://github.com/CyberSource/cybersource-rest-client-ruby/archive/refs/tags/v0.0.80.zip"
         }
     ],
     "repository": {
