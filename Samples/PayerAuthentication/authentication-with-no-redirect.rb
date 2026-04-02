@@ -5,7 +5,7 @@ public
 class Authentication_with_no_redirect
     def run()
         request_obj = CyberSource::CheckPayerAuthEnrollmentRequest.new
-        client_reference_information = CyberSource::Riskv1authenticationsetupsClientReferenceInformation.new
+        client_reference_information = CyberSource::Riskv1decisionsClientReferenceInformation.new
         client_reference_information.code = "cybs_test"
         partner = CyberSource::Riskv1decisionsClientReferenceInformationPartner.new
         partner.developer_id = "7891234"

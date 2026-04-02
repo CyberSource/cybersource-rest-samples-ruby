@@ -21,11 +21,11 @@ class NetworkTokenization
     # decoded_response = CyberSource::JWEUtility.decryptJWEResponse(encoded_payment_credentials_response, merchant_configuration)
 
     # Using the new method CyberSource::JWEUtility.decryptJWUsingPrivateKey(PrivateKey, String) instead
-    private_key = JOSE::JWK.from_pem_file merchant_configuration.pemFileDirectory
-    decoded_response = CyberSource::JWEUtility.decryptJWUsingPrivateKey(private_key, encoded_payment_credentials_response)
+    # private_key = JOSE::JWK.from_pem_file merchant_configuration.pemFileDirectory
+    # decoded_response = CyberSource::JWEUtility.decryptJWUsingPrivateKey(private_key, encoded_payment_credentials_response)
 
-    puts 'Decoded Response'
-    puts decoded_response
+    # puts 'Decoded Response'
+    puts encoded_payment_credentials_response
   end
 
   if __FILE__ == $0
