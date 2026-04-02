@@ -1,0 +1,24 @@
+{
+  "latest_version": "0.0.81",
+  "minimum_supported_version": "0.0.50",
+  "versions": [
+    {
+      "version": "0.0.81",
+      "release_date": "2026-01-04",
+      "tag_name": "v0.0.81",
+      "download_url": "https://github.com/CyberSource/cybersource-rest-client-ruby/archive/refs/tags/v0.0.81.zip"
+    },
+    {
+      "version": "0.0.80",
+      "release_date": "2025-12-01",
+      "tag_name": "v0.0.80",
+      "download_url": "https://github.com/CyberSource/cybersource-rest-client-ruby/archive/refs/tags/v0.0.80.zip"
+    }
+  ],
+  "repository": {
+    "owner": "CyberSource",
+    "repo": "cybersource-rest-client-ruby",
+    "url": "https://github.com/CyberSource/cybersource-rest-client-ruby"
+  },
+  "last_updated": "2026-01-12T05:08:15Z"
+}
