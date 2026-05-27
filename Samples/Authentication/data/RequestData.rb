@@ -1,3 +1,5 @@
+=begin
+# Commented out - SampleApiClient library has been removed
 require_relative '../../../lib/SampleApiClient/model/AggregatorInformation.rb'
 require_relative '../../../lib/SampleApiClient/model/AmountDetails.rb'
 require_relative '../../../lib/SampleApiClient/model/BillTo.rb'
@@ -107,3 +109,4 @@ class RequestData
     return JSON.generate(paymentsHash)
   end
 end
+=end

@@ -13,7 +13,7 @@ You can run each sample directly from the command line.
 
 ## Requirements
 
-* Ruby 2.5.0 or higher
+* Ruby 3.1.0 or higher
 * [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
 * [CyberSource API Keys](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
 
@@ -41,11 +41,11 @@ e.g.
     ruby Samples/Payments/Payments/simple-authorizationinternet.rb
 ```
 
-## Setting your own API credentials for an API request
+## Setting Your API Credentials
 
-Configure the following information in the data/Configuration.rb file:
-  
-* Http Signature 
+To set your API credentials for an API request, configure the following information in `data/Configuration.rb` file:
+
+* Http Signature (**Deprecated** — migrate to JWT with Shared Secret below)
 
 ```ruby
     merchantId                  = 'your_merchant_id'
@@ -53,42 +53,94 @@ Configure the following information in the data/Configuration.rb file:
     # HTTP Parameters
     merchantKeyId               = 'your_key_serial_number'
     merchantSecretKey           = 'your_key_shared_secret'
+    runEnvironment              = 'apitest.cybersource.com'
 ```
 
-* Jwt
+* Jwt (with P12 certificate)
 
 ```ruby
-    merchantId                  = 'your_merchant_id'
     authenticationType          = 'jwt'
-    # JWT Parameters
-    keysDirectory               = 'resource'
+    merchantId                  = 'your_merchant_id'
     keyAlias                    = 'your_merchant_id'
     keyPass                     = 'your_merchant_id'
     keyFilename                 = 'your_merchant_id'
+    keysDirectory               = 'resource'
+    useMetaKey                  = false
+    runEnvironment              = 'apitest.cybersource.com'
 ```
 
-* MetaKey Http
+* Jwt with Shared Secret (**Recommended migration path from Http Signature**)
 
-```ruby
-    authenticationType          = 'http_Signature'
-    merchantId                  = 'your_child_merchant_id'
-    merchantKeyId               = 'your_metakey_serial_number'
-    merchantSecretKey           = 'your_metakey_shared_secret'
-    portfolioId                 = 'your_portfolio_id'
-    useMetaKey                  = true
-```
+  Uses the **same** `merchantKeyId` and `merchantsecretKey` credentials as Http Signature, but authenticates via JWT. This enables MLE (Message Level Encryption) support for both request and response payloads, which Http Signature does not support.
 
-* MetaKey JWT
+  For detailed migration guide, configuration, and sample code, see the [JWT Shared Secret Auth samples](Samples/JwtSharedSecretAuth/README.md).
 
 ```ruby
     authenticationType          = 'jwt'
-    merchantId                  = 'your_child_merchant_id'
-    keyAlias                    = 'your_child_merchant_id'
-    keyPass                     = 'your_portfolio_id'
-    keyFilename                 = 'your_portfolio_id'
+    jwtKeyType                  = 'SHARED_SECRET'
+    merchantId                  = 'your_merchant_id'
+    merchantKeyId               = 'your_key_serial_number'
+    merchantSecretKey           = 'your_shared_secret'
+    runEnvironment              = 'apitest.cybersource.com'
+```
+
+* MetaKey Http (**Deprecated** — migrate to MetaKey JWT Shared Secret below)
+
+```ruby
+    authenticationType          = 'http_signature'
+    merchantId                  = 'your_transacting_merchant_id'
+    merchantKeyId               = 'your_metakey_portfolio_KeyId'
+    merchantSecretKey           = 'your_metakey_portfolio_shared_secret_key'
+    portfolioID                 = 'your_portfolio_id'
+    useMetaKey                  = true
+```
+
+* MetaKey JWT (P12)
+
+```ruby
+    authenticationType          = 'jwt'
+    merchantId                  = 'your_transacting_merchant_id'
+    keyAlias                    = 'your_portfolio_id'
+    keyPass                     = 'your_metakey_portfolio_p12File_password'
+    keyFilename                 = 'your_metakey_portfolio_p12FileName'
+    portfolioID                 = 'your_portfolio_id'
     keysDirectory               = 'resource'
     useMetaKey                  = true
 ```
+
+* MetaKey JWT with Shared Secret (**Recommended migration from MetaKey Http**)
+
+  Uses the same MetaKey credentials as MetaKey Http but authenticates via JWT, enabling MLE support.
+
+```ruby
+    authenticationType          = 'jwt'
+    jwtKeyType                  = 'SHARED_SECRET'
+    merchantId                  = 'your_transacting_merchant_id'
+    merchantKeyId               = 'your_metakey_portfolio_KeyId'
+    merchantSecretKey           = 'your_metakey_portfolio_shared_secret_key'
+    portfolioID                 = 'your_portfolio_id'
+    useMetaKey                  = true
+```
+
+* Response MLE with MetaKey
+
+  When Response MLE is enabled (`enableResponseMleGlobally: true`) and MetaKey is in use (`useMetaKey: true`), the Response MLE configuration must use the **portfolio's** response MLE key — not the transacting merchant's. Specifically:
+
+  - `responseMlePrivateKeyFilePath` (or `responseMlePrivateKey` object) must point to the **portfolio's** response MLE private key.
+  - `responseMleKID` — the KID value associated with the **portfolio's** response MLE certificate.
+    - **Optional** when `responseMlePrivateKeyFilePath` points to a CyberSource-generated P12 file (SDK auto-fetches from P12).
+    - **Required** when using PEM format files (`.pem`, `.key`, `.p8`) or when providing `responseMlePrivateKey` object directly.
+
+```ruby
+    enableResponseMleGlobally           = true
+    responseMlePrivateKeyFilePath       = 'resource/portfolio_response_mle_private_key.p12'
+    responseMlePrivateKeyFilePassword   = 'portfolio_private_key_password'
+    # responseMleKID is optional when using a CyberSource-generated P12 file (auto-fetched from P12)
+    # Required when using PEM files or responseMlePrivateKey object
+    # responseMleKID                    = 'your_portfolio_response_mle_kid'
+```
+
+  > **Important:** The response MLE private key (and KID, if applicable) must belong to the portfolio (parent account), since in MetaKey mode the portfolio is the transaction submitter and the response is encrypted using the portfolio's MLE certificate.
 
 ## Switching between the sandbox environment and the production environment
 

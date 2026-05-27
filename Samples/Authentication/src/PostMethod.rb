@@ -1,3 +1,5 @@
+=begin
+# Commented out - SampleApiClient library has been removed
 require 'cybersource_rest_client'
 require_relative '../../../lib/SampleApiClient/controller/APIController.rb'
 require_relative '.././data/RequestData.rb'
@@ -49,3 +51,4 @@ class SamplecodeForPost
   end
   SamplecodeForPost.new.main
 end
+=end

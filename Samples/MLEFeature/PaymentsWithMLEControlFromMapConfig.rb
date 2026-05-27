@@ -1,6 +1,16 @@
 require 'cybersource_rest_client'
 require_relative '../../data/ConfigurationWithMLE.rb'
 
+# Payment with MLE controlled exclusively via mapToControlMLEonAPI (global MLE disabled).
+#
+# Note: MLE also works with JWT using Shared Secret credentials
+# (jwtKeyType='SHARED_SECRET'), allowing merchants to migrate from HTTP Signature
+# and gain MLE support (both Request and Response MLE) using the same merchantKeyId
+# and merchantsecretKey — no P12 file needed.
+#
+# See Samples/JwtSharedSecretAuth/mle-payment-with-jwt-shared-secret.rb and
+# data/JwtSharedSecretConfiguration.rb merchantConfigPropWithJwtSharedSecretAndMLE() for an example.
+
 public
 class PaymentsWithMLEControlFromMapConfig
   def run(flag)

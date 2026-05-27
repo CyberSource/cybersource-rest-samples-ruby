@@ -1,5 +1,19 @@
 require 'cybersource_rest_client'
 
+# Default merchant configuration using HTTP Signature authentication.
+#
+# Note: If you are currently using HTTP Signature authentication and want to migrate
+# to JWT (required for MLE support), you can now use JWT with the same shared secret
+# credentials (merchantKeyId + merchantsecretKey) you already have — no P12 certificate
+# needed. HTTP Signature is being deprecated; JWT with Shared Secret is the recommended
+# migration path.
+#
+# See JwtSharedSecretConfiguration for JWT with Shared Secret configuration,
+# which supports both Request MLE and Response MLE.
+#
+# @see data/JwtSharedSecretConfiguration.rb#merchantConfigPropWithJwtSharedSecret
+# @see data/JwtSharedSecretConfiguration.rb#merchantConfigPropWithJwtSharedSecretAndMLE
+
 public
 class MerchantConfiguration
   def merchantConfigProp()
