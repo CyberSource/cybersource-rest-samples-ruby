@@ -1,3 +1,5 @@
+=begin
+# Commented out - SampleApiClient library has been removed
 require 'net/http'
 require 'cybersource_rest_client'
 require_relative '../../../lib/SampleApiClient/Masking/Masking.rb'
@@ -89,3 +91,4 @@ class PutGenerateHeaders
   end
   PutGenerateHeaders.new.main()
 end
+=end

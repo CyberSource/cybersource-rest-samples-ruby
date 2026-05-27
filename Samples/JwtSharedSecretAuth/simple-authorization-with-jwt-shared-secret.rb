@@ -1,18 +1,23 @@
 require 'cybersource_rest_client'
-require_relative '../../data/ConfigurationWithMLE.rb'
+require_relative '../../data/JwtSharedSecretConfiguration.rb'
 
-# Payment with MLE (Message Level Encryption) using JWT with P12 certificate.
+# Simple Authorization using JWT authentication with Shared Secret (HS256).
 #
-# Note: MLE also works with JWT using Shared Secret credentials
-# (jwtKeyType='SHARED_SECRET'), allowing merchants to migrate from HTTP Signature
-# and gain MLE support (both Request and Response MLE) using the same merchantKeyId
-# and merchantsecretKey — no P12 file needed.
+# This sample demonstrates a drop-in replacement for HTTP Signature authentication.
+# It uses the same merchantKeyId and merchantsecretKey credentials
+# you already use for HTTP Signature, but authenticates via JWT instead.
 #
-# See Samples/JwtSharedSecretAuth/mle-payment-with-jwt-shared-secret.rb and
-# data/JwtSharedSecretConfiguration.rb merchantConfigPropWithJwtSharedSecretAndMLE() for an example.
+# Migration from HTTP Signature:
+# HTTP Signature authentication is being deprecated. To migrate:
+# 1. Change authenticationType from 'http_signature' to 'jwt'
+# 2. Add jwtKeyType = 'SHARED_SECRET'
+# 3. Keep your existing merchantKeyId and merchantsecretKey as-is
+#
+# See data/JwtSharedSecretConfiguration.rb merchantConfigPropWithJwtSharedSecret() for the
+# full configuration.
 
 public
-class PaymentsWithMLE
+class Simple_authorization_with_jwt_shared_secret
     def run(flag)
         request_obj = CyberSource::CreatePaymentRequest.new
         client_reference_information = CyberSource::Ptsv2paymentsClientReferenceInformation.new
@@ -52,7 +57,8 @@ class PaymentsWithMLE
         order_information.bill_to = bill_to
         request_obj.order_information = order_information
 
-        config = MerchantConfiguration.merchantConfigPropWithoutMLEMAP
+        # Load JWT + Shared Secret configuration
+        config = JwtSharedSecretConfiguration.merchantConfigPropWithJwtSharedSecret()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::PaymentsApi.new(api_client, config)
 
@@ -72,6 +78,6 @@ class PaymentsWithMLE
     end
 
     if __FILE__ == $0
-        PaymentsWithMLE.new.run(false)
+        Simple_authorization_with_jwt_shared_secret.new.run(false)
     end
 end

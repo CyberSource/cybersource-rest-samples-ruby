@@ -11,7 +11,7 @@ class Payment_credentials_from_network_token
     token_id = '7010000000008573216'
     config = MerchantConfiguration.new.merchantConfigProp()
     api_client = CyberSource::ApiClient.new
-    api_instance = CyberSource::TokenApi.new(api_client, config)
+    api_instance = CyberSource::NetworkTokensApi.new(api_client, config)
     post_payment_credentials_request = CyberSource::PostPaymentCredentialsRequest.new
     data, headers, status_code = api_instance.post_token_payment_credentials(token_id, post_payment_credentials_request)
     puts data, status_code, headers
