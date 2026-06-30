@@ -15,11 +15,11 @@ class Merchant_boarding_bin_lookup
         organization_information.configurable = true
 
         # Set up business information
-        business_information = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformation.new
+        business_information = CyberSource::BoardingBusinessInformation.new
         business_information.name = "StuartWickedFastEatz"
 
         # Set up business address
-        address = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformationAddress.new
+        address = CyberSource::BoardingBusinessInformationAddress.new
         address.country = "US"
         address.address1 = "123456 SandMarket"
         address.locality = "ORMOND BEACH"
@@ -32,7 +32,7 @@ class Merchant_boarding_bin_lookup
         business_information.phone_number = "6574567813"
 
         # Set up business contact
-        business_contact = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact.new
+        business_contact = CyberSource::BoardingBusinessInformationBusinessContact.new
         business_contact.first_name = "Stuart"
         business_contact.last_name = "Stuart"
         business_contact.phone_number = "6574567813"

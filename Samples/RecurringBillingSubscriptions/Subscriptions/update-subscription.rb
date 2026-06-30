@@ -7,17 +7,13 @@ class Update_subscription
     def run()
         id = (JSON.parse(Create_subscription.new.run()[0]))['id']
         request_obj = CyberSource::UpdateSubscription.new
-        client_reference_information = CyberSource::Rbsv1subscriptionsClientReferenceInformation.new
+        client_reference_information = CyberSource::GetAllSubscriptionsResponseClientReferenceInformation.new
         client_reference_information.code = "APGHU"
-        partner = CyberSource::Rbsv1subscriptionsClientReferenceInformationPartner.new
-        partner.developer_id = "ABCD1234"
-        partner.solution_id = "GEF1234"
-        client_reference_information.partner = partner
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Rbsv1subscriptionsProcessingInformation.new
-        authorization_options = CyberSource::Rbsv1subscriptionsProcessingInformationAuthorizationOptions.new
-        initiator = CyberSource::Rbsv1subscriptionsProcessingInformationAuthorizationOptionsInitiator.new
+        authorization_options = CyberSource::RbsAuthorizationOptions.new
+        initiator = CyberSource::RbsAuthorizationOptionsInitiator.new
         initiator.type = "merchant"
         authorization_options.initiator = initiator
         processing_information.authorization_options = authorization_options
@@ -26,7 +22,7 @@ class Update_subscription
         subscription_information = CyberSource::Rbsv1subscriptionsidSubscriptionInformation.new
         subscription_information.plan_id = "424242442"
         subscription_information.name = "Gold subs"
-        subscription_information.start_date = "2024-06-15"
+        subscription_information.start_date = "2030-07-11"
         request_obj.subscription_information = subscription_information
 
         order_information = CyberSource::Rbsv1subscriptionsidOrderInformation.new

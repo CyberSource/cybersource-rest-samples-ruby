@@ -5,20 +5,14 @@ public
 class Create_subscription
     def run()
         request_obj = CyberSource::CreateSubscriptionRequest.new
-        client_reference_information = CyberSource::Rbsv1subscriptionsClientReferenceInformation.new
+        client_reference_information = CyberSource::GetAllSubscriptionsResponseClientReferenceInformation.new
         client_reference_information.code = "TC501713"
-        partner = CyberSource::Rbsv1subscriptionsClientReferenceInformationPartner.new
-        partner.developer_id = "ABCD1234"
-        partner.solution_id = "GEF1234"
-        client_reference_information.partner = partner
-        client_reference_information.application_name = "CYBS-SDK"
-        client_reference_information.application_version = "v1"
         request_obj.client_reference_information = client_reference_information
 
         processing_information = CyberSource::Rbsv1subscriptionsProcessingInformation.new
         processing_information.commerce_indicator = "recurring"
-        authorization_options = CyberSource::Rbsv1subscriptionsProcessingInformationAuthorizationOptions.new
-        initiator = CyberSource::Rbsv1subscriptionsProcessingInformationAuthorizationOptionsInitiator.new
+        authorization_options = CyberSource::RbsAuthorizationOptions.new
+        initiator = CyberSource::RbsAuthorizationOptionsInitiator.new
         initiator.type = "merchant"
         authorization_options.initiator = initiator
         processing_information.authorization_options = authorization_options
@@ -27,7 +21,7 @@ class Create_subscription
         subscription_information = CyberSource::Rbsv1subscriptionsSubscriptionInformation.new
         subscription_information.plan_id = "6868912495476705603955"
         subscription_information.name = "Subscription with PlanId"
-        subscription_information.start_date = "2025-06-11"
+        subscription_information.start_date = "2030-07-11"
         request_obj.subscription_information = subscription_information
 
         payment_information = CyberSource::Rbsv1subscriptionsPaymentInformation.new
