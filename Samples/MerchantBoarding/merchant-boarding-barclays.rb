@@ -12,10 +12,10 @@ class Merchant_boarding_barclays
         organization_information.type = "MERCHANT"
         organization_information.configurable = true
         
-        business_information = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformation.new
+        business_information = CyberSource::BoardingBusinessInformation.new
         business_information.name = "StuartWickedFastEatz"
         
-        address = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformationAddress.new
+        address = CyberSource::BoardingBusinessInformationAddress.new
         address.country = "US"
         address.address1 = "123456 SandMarket"
         address.locality = "ORMOND BEACH"
@@ -26,7 +26,7 @@ class Merchant_boarding_barclays
         business_information.website_url = "https://www.StuartWickedEats.com"
         business_information.phone_number = "6574567813"
         
-        business_contact = CyberSource::Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact.new
+        business_contact = CyberSource::BoardingBusinessInformationBusinessContact.new
         business_contact.first_name = "Stuart"
         business_contact.last_name = "Stuart"
         business_contact.phone_number = "6574567813"

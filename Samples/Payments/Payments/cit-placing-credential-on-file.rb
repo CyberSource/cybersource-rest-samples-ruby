@@ -12,10 +12,10 @@ class Cit_placing_credential_on_file
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         processing_information.commerce_indicator = "vbv"
-        authorization_options = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptions.new
+        authorization_options = CyberSource::ProcessingInfoAuthorizationOptions.new
         authorization_options.ignore_avs_result = false
         authorization_options.ignore_cv_result = false
-        initiator = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiator.new
+        initiator = CyberSource::ProcessingInfoAuthorizationOptionsInitiator.new
         initiator.credential_stored_on_file = true
         authorization_options.initiator = initiator
         processing_information.authorization_options = authorization_options

@@ -12,7 +12,7 @@ class Sale_using_emv_technology_with_contact_read_with_visa_platform_connect
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         processing_information.commerce_indicator = "retail"
-        authorization_options = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptions.new
+        authorization_options = CyberSource::ProcessingInfoAuthorizationOptions.new
         authorization_options.partial_auth_indicator = true
         authorization_options.ignore_avs_result = false
         authorization_options.ignore_cv_result = false

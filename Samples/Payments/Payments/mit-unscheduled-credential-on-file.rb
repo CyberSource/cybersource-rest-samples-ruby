@@ -12,13 +12,13 @@ class Mit_unscheduled_credential_on_file
         processing_information = CyberSource::Ptsv2paymentsProcessingInformation.new
         processing_information.capture = false
         processing_information.commerce_indicator = "internet"
-        authorization_options = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptions.new
+        authorization_options = CyberSource::ProcessingInfoAuthorizationOptions.new
         authorization_options.ignore_avs_result = false
         authorization_options.ignore_cv_result = false
-        initiator = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiator.new
+        initiator = CyberSource::ProcessingInfoAuthorizationOptionsInitiator.new
         initiator.type = "merchant"
         initiator.stored_credential_used = true
-        merchant_initiated_transaction = CyberSource::Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction.new
+        merchant_initiated_transaction = CyberSource::ProcessingInfoAuthorizationOptionsInitiatorMerchantInitiatedTransaction.new
         merchant_initiated_transaction.previous_transaction_id = "123456789012345"
         initiator.merchant_initiated_transaction = merchant_initiated_transaction
         authorization_options.initiator = initiator
