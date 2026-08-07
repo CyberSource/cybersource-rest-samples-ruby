@@ -9,7 +9,7 @@ public
 class SamplecodeForDelete
   # REQUEST TARGET
   # [Editable]
-  @@request_target = '/reporting/v2/reportSubscriptions/TRRReport?organizationId=testrest'
+  @@request_target = '/reporting/v2/reportSubscriptions/PaymentEventDetailReport_Daily_Classic?organizationId=testrest'
 
   # Request Type. [Non-Editable]
   @@request_type = 'DELETE'

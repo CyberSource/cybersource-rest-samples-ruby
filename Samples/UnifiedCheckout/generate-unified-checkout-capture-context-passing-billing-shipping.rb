@@ -58,7 +58,7 @@ class Generate_unified_checkout_capture_context
         amount_details.total_amount = "21.00"
         amount_details.currency = "USD"
         order_information.amount_details = amount_details
-        bill_to = CyberSource::Upv1capturecontextsOrderInformationBillTo.new
+        bill_to = CyberSource::Upv1capturecontextsDataOrderInformationBillTo.new
         bill_to.address1 = "277 Park Avenue"
         bill_to.address2 = "50th Floor"
         bill_to.address3 = "Desk NY-50110"
@@ -69,7 +69,7 @@ class Generate_unified_checkout_capture_context
         bill_to.district = "district"
         bill_to.locality = "New York"
         bill_to.postal_code = "10172"
-        company = CyberSource::Upv1capturecontextsOrderInformationBillToCompany.new
+        company = CyberSource::Upv1capturecontextsDataOrderInformationBillToCompany.new
         company.name = "Visa Inc"
         company.address1 = "900 Metro Center Blvd"
         company.address2 = "address2"
@@ -91,7 +91,7 @@ class Generate_unified_checkout_capture_context
         bill_to.phone_number = "1234567890"
         bill_to.phone_type = "phoneType"
         order_information.bill_to = bill_to
-        ship_to = CyberSource::Upv1capturecontextsOrderInformationShipTo.new
+        ship_to = CyberSource::Upv1capturecontextsDataOrderInformationShipTo.new
         ship_to.address1 = "CyberSource"
         ship_to.address2 = "Victoria House"
         ship_to.address3 = "15-17 Gloucester Street"

@@ -5,6 +5,7 @@ require 'json'
 require 'date'
 require 'net/http'
 require 'addressable/uri'
+require 'logger'
 require 'active_support'
 require 'time'
 
