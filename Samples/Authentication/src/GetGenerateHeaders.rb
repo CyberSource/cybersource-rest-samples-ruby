@@ -60,7 +60,7 @@ class GetGenerateHeaders
         logObj.logger.info("Date  : " + gmtDateTime)
         puts "Date  : " + gmtDateTime
 
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,false)
         logObj.logger.info("Host  : " + merchantConfigObj.requestHost)
         puts "Host  : " + merchantConfigObj.requestHost
 
@@ -68,7 +68,7 @@ class GetGenerateHeaders
         puts "Signature Header  : " + tempSig
       else
         #JWT Token
-        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime)
+        tempSig = Authorization.new.getToken(merchantConfigObj,gmtDateTime,false)
         puts "Authorization,Bearer  : " + tempSig
         logObj.logger.info("Authorization,Bearer  : " + tempSig)
       end
