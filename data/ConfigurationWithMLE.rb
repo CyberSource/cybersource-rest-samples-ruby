@@ -122,7 +122,7 @@ class MerchantConfiguration
     # Override merchant-specific settings for MLE testing
     configurationDictionary['merchantID'] = 'agentic_mid_091225001'
     configurationDictionary['keyAlias'] = 'agentic_mid_091225001'
-    configurationDictionary['keyPass'] = 'Changeit@123'
+    configurationDictionary['keyPass'] = 'Ap!C38tp12@'
     configurationDictionary['keyFilename'] = 'agentic_mid_091225001'
     
     # Set Request MLE Settings in Merchant Configuration [Refer MLE.md on cybersource-rest-client-ruby github repo]
@@ -131,8 +131,8 @@ class MerchantConfiguration
     # Set Response MLE Settings in Merchant Configuration [Refer MLE.md on cybersource-rest-client-ruby github repo]
     configurationDictionary['enableResponseMleGlobally'] = true # Enables response MLE globally for all APIs that support MLE responses
     configurationDictionary['responseMlePrivateKeyFilePath'] = 'resource/agentic_mid_091225001_new_generated_mle.p12' # Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8. Recommendation use encrypted private Key (password protection) for MLE response.
-    configurationDictionary['responseMlePrivateKeyFilePassword'] = 'Changeit@123' # Password for the private key file (required for .p12/.pfx files or encrypted private keys).
-    configurationDictionary['responseMleKID'] = '1764104507829324018353' # Optional since p12 is Cybs Generated.
+    configurationDictionary['responseMlePrivateKeyFilePassword'] = 'Ap!C38tp12@ML3' # Password for the private key file (required for .p12/.pfx files or encrypted private keys).
+    configurationDictionary['responseMleKID'] = '1764300612804157241592' # Optional since p12 is Cybs Generated.
     # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file. If not provided, the SDK will automatically fetch the Key ID from the P12 file. If provided, the SDK will use the user-provided value instead of the auto-fetched value.
     # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
 
@@ -145,7 +145,7 @@ class MerchantConfiguration
     # Override merchant-specific settings for MLE testing
     configurationDictionary['merchantID'] = 'agentic_mid_091225001'
     configurationDictionary['keyAlias'] = 'agentic_mid_091225001'
-    configurationDictionary['keyPass'] = 'Changeit@123'
+    configurationDictionary['keyPass'] = 'Ap!C38tp12@'
     configurationDictionary['keyFilename'] = 'agentic_mid_091225001'
     
     # Set Request MLE Settings in Merchant Configuration [Refer MLE.md on cybersource-rest-client-ruby github repo]
@@ -164,8 +164,8 @@ class MerchantConfiguration
     
     # since one of the API has Response MLE true, so below fields are required for Response MLE
     configurationDictionary['responseMlePrivateKeyFilePath'] = 'resource/agentic_mid_091225001_mle.p12' # Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8. Recommendation use encrypted private Key (password protection) for MLE response.
-    configurationDictionary['responseMlePrivateKeyFilePassword'] = 'Changeit@123' # Password for the private key file (required for .p12/.pfx files or encrypted private keys).
-    configurationDictionary['responseMleKID'] = '1757970970891045729358' # Optional since p12 is Cybs Generated.
+    configurationDictionary['responseMlePrivateKeyFilePassword'] = 'Ap!C38tp12@ML3' # Password for the private key file (required for .p12/.pfx files or encrypted private keys).
+    configurationDictionary['responseMleKID'] = '1764300612804157241592' # Optional since p12 is Cybs Generated.
     # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file. If not provided, the SDK will automatically fetch the Key ID from the P12 file. If provided, the SDK will use the user-provided value instead of the auto-fetched value.
     # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
 
