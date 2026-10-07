@@ -116,7 +116,7 @@ class Acp_api_example
         request_obj.consent_data = consent_data
         config = MerchantConfiguration.getMerchantDetailsWithRequestAndResponseMLE2()
         api_client = CyberSource::ApiClient.new
-        api_instance = CyberSource::AgentCapabilitiesApi.new(api_client, config)
+        api_instance = CyberSource::EnrollmentApi.new(api_client, config)
 
         data, status_code, headers = api_instance.enroll_card(request_obj)
 
