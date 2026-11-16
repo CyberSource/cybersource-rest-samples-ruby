@@ -25,6 +25,7 @@ class Get_details_on_single_webhook
     end
 
     if __FILE__ == $0
+        webhook_id = "INSERT ID VALUE"
         Get_details_on_single_webhook.new.run(webhook_id)
     end
 end

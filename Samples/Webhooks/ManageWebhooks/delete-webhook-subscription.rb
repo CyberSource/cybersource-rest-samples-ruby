@@ -25,6 +25,7 @@ class Delete_webhook_subscription
     end
 
     if __FILE__ == $0
+        webhook_id = "INSERT ID VALUE"
         Delete_webhook_subscription.new.run(webhook_id)
     end
 end

@@ -8,7 +8,7 @@ class Find_products_you_can_subscribe_to
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::CreateNewWebhooksApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.find_products_to_subscribe(organization_id, opts)
+        data, status_code, headers = api_instance.find_products_to_subscribe(organization_id)
 
         puts status_code, headers, data
 
@@ -25,6 +25,7 @@ class Find_products_you_can_subscribe_to
     end
 
     if __FILE__ == $0
+        organization_id = "INSERT ID VALUE"
         Find_products_you_can_subscribe_to.new.run(organization_id)
     end
 end

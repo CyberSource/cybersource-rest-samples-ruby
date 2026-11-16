@@ -18,13 +18,15 @@ class Store_oauth_credentials
         opts = {}
 
         opts[:'v_c_correlation_id'] = v_c_correlation_id
-        opts[:'create_webhook_request'] = request_obj
+        opts[:'v_c_sender_organization_id'] = v_c_sender_organization_id
+        opts[:'v_c_permissions'] = v_c_permissions
+        opts[:'save_sym_egress_key'] = request_obj
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::CreateNewWebhooksApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.save_sym_egress_key(v_c_sender_organization_id, v_c_permissions, opts)
+        data, status_code, headers = api_instance.save_sym_egress_key(opts)
 
         puts status_code, headers, data
 
@@ -41,6 +43,9 @@ class Store_oauth_credentials
     end
 
     if __FILE__ == $0
+        v_c_correlation_id = "INSERT ID VALUE"
+        v_c_sender_organization_id = "INSERT ID VALUE"
+        v_c_permissions = "INSERT ID VALUE"
         Store_oauth_credentials.new.run(v_c_correlation_id, v_c_sender_organization_id, v_c_permissions)
     end
 end

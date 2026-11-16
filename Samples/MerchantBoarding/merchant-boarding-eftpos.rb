@@ -44,9 +44,9 @@ class Merchant_boarding_eftpos
         subscription_information = CyberSource::PaymentsProductsCardProcessingSubscriptionInformation.new
 
         subscription_information.enabled = true
+        # PaymentsProductsCardProcessingSubscriptionInformationFeatures renamed to CardProessingFeatureSubscriptionItem in SDK 0.0.90
         features = {}
-
-        obj1 = CyberSource::PaymentsProductsCardProcessingSubscriptionInformationFeatures.new
+        obj1 = CyberSource::CardProessingFeatureSubscriptionItem.new
         obj1.enabled = true
         features["cardNotPresent"] = obj1
         obj1.enabled = false
@@ -70,7 +70,7 @@ class Merchant_boarding_eftpos
         obj5.acquirer = acquirer
 
         currencies = {}
-        obj6 = CyberSource::CardProcessingConfigCommonCurrencies1.new
+        obj6 = CyberSource::CurrencyUpdatedConfiguration.new
         obj6.enabled = true
         obj6.merchant_id = "12345612344"
         obj6.terminal_id = "12121212"
