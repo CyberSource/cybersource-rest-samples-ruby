@@ -4,25 +4,27 @@ require_relative '../../../data/Configuration.rb'
 public
 class Update_webhook
     def run(webhook_id)
-        request_obj = CyberSource::UpdateWebhookRequest.new
+        request_obj = CyberSource::UpdateWebhook.new
         request_obj.name = "My Sample Webhook"
         request_obj.description = "Update to my sample webhook"
         request_obj.organization_id = "<INSERT ORGANIZATION ID HERE>"
-        request_obj.product_id = "terminalManagement"
-
+        # product_id and event_types removed from UpdateWebhook in SDK 0.0.90, replaced by products array
+        product_item = CyberSource::Notificationsubscriptionsv2webhooksProducts.new
+        product_item.product_id = "terminalManagement"
         event_types =  []
         event_types << "terminalManagement.assignment.update"
         event_types << "terminalManagement.status.update"
-        request_obj.event_types = event_types
+        product_item.event_types = event_types
+        request_obj.products = [product_item]
         request_obj.webhook_url = "https://MyWebhookServer.com:8443:/simulateClient"
         request_obj.health_check_url = "https://MyWebhookServer.com:8443:/simulateClientHealthCheck"
-        request_obj.status = "INACTIVE"
-        notification_scope = CyberSource::Notificationsubscriptionsv1webhooksNotificationScope.new
-        notification_scope.scope = "SELF"
-        request_obj.notification_scope = notification_scope
+        # status removed from UpdateWebhook in SDK 0.0.90
+        # request_obj.status = "INACTIVE"
+        # Notificationsubscriptionsv1webhooksNotificationScope removed in SDK 0.0.90; notification_scope is now a String field
+        request_obj.notification_scope = "SELF"
         opts = {}
 
-        opts[:'update_webhook_request'] = request_obj
+        opts[:'update_webhook'] = request_obj
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
@@ -45,6 +47,7 @@ class Update_webhook
     end
 
     if __FILE__ == $0
+        webhook_id = "INSERT ID VALUE"
         Update_webhook.new.run(webhook_id)
     end
 end

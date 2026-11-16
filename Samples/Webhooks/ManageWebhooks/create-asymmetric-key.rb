@@ -17,12 +17,14 @@ class Create_asymmetric_key
 
         opts = {}
         opts[:"v_c_correlation_id"] = v_c_correlation_id
+        opts[:"v_c_sender_organization_id"] = v_c_sender_organization_id
+        opts[:"v_c_permissions"] = v_c_permissions
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::ManageWebhooksApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.save_asym_egress_key(v_c_sender_organization_id, v_c_permissions, request_obj, opts)
+        data, status_code, headers = api_instance.save_asym_egress_key(request_obj, opts)
 
         puts status_code, headers, data
 
@@ -39,6 +41,9 @@ class Create_asymmetric_key
     end
 
     if __FILE__ == $0
+        v_c_correlation_id = "INSERT ID VALUE"
+        v_c_sender_organization_id = "INSERT ID VALUE"
+        v_c_permissions = "INSERT ID VALUE"
         Create_asymmetric_key.new.run(v_c_correlation_id, v_c_sender_organization_id, v_c_permissions)
     end
 end

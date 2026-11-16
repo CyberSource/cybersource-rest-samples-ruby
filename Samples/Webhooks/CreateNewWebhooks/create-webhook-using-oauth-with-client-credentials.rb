@@ -4,19 +4,21 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_webhook_using_oauth_with_client_credentials
     def run()
-        request_obj = CyberSource::CreateWebhookRequest.new
+        request_obj = CyberSource::CreateWebhook.new
         request_obj.name = "My Custom Webhook"
         request_obj.description = "Sample Webhook from Developer Center"
         request_obj.organization_id = "<INSERT ORGANIZATION ID HERE>"
-        request_obj.product_id = "terminalManagement"
-
+        # product_id and event_types removed from CreateWebhook in SDK 0.0.90, replaced by products array
+        product_item = CyberSource::CreateWebhookRequestProductItem.new
+        product_item.product_id = "terminalManagement"
         event_types =  []
         event_types << "terminalManagement.assignment.update"
-        request_obj.event_types = event_types
+        product_item.event_types = event_types
+        request_obj.products = [product_item]
         request_obj.webhook_url = "https://MyWebhookServer.com:8443/simulateClient"
         request_obj.health_check_url = "https://MyWebhookServer.com:8443/simulateClientHealthCheck"
         request_obj.notification_scope = "SELF"
-        retry_policy = CyberSource::Notificationsubscriptionsv1webhooksRetryPolicy.new
+        retry_policy = CyberSource::Notificationsubscriptionsv2webhooksRetryPolicy.new
         retry_policy.algorithm = "ARITHMETIC"
         retry_policy.first_retry = 1
         retry_policy.interval = 1
@@ -26,18 +28,18 @@ class Create_webhook_using_oauth_with_client_credentials
         retry_policy.repeat_sequence_wait_time = 0
         request_obj.retry_policy = retry_policy
 
-        security_policy = CyberSource::Notificationsubscriptionsv1webhooksSecurityPolicy1.new
+        security_policy = CyberSource::Notificationsubscriptionsv2webhooksSecurityPolicy.new
         security_policy.security_type = "oAuth"
-        security_policy.proxy_type = "external"
-        config = CyberSource::Notificationsubscriptionsv1webhooksSecurityPolicy1Config.new
-        config.o_auth_token_expiry = "365"
-        config.o_auth_u_r_l = "https://MyWebhookServer.com:8443/oAuthToken"
+        # proxy_type removed from Notificationsubscriptionsv2webhooksSecurityPolicy in SDK 0.0.90
+        config = CyberSource::Notificationsubscriptionsv2webhooksSecurityPolicyConfig.new
+        # o_auth_token_expiry removed from Notificationsubscriptionsv2webhooksSecurityPolicyConfig in SDK 0.0.90
+        config.o_auth_url = "https://MyWebhookServer.com:8443/oAuthToken"
         config.o_auth_token_type = "Bearer"
         security_policy.config = config
         request_obj.security_policy = security_policy
         opts = {}
 
-        opts[:'create_webhook_request'] = request_obj
+        opts[:'create_webhook'] = request_obj
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new

@@ -19,9 +19,11 @@ class Create_webhook_symmetric_key
         opts = {}
 
         opts[:"v_c_correlation_id"] = v_c_correlation_id
+        opts[:"v_c_sender_organization_id"] = v_c_sender_organization_id
+        opts[:"v_c_permissions"] = v_c_permissions
         opts[:'save_sym_egress_key'] = request_obj
 
-        data, status_code, headers = api_instance.save_sym_egress_key(v_c_sender_organization_id, v_c_permissions, opts)
+        data, status_code, headers = api_instance.save_sym_egress_key(opts)
 
         puts status_code, headers, data
 
@@ -38,6 +40,9 @@ class Create_webhook_symmetric_key
     end
 
     if __FILE__ == $0
+        v_c_correlation_id = "INSERT ID VALUE"
+        v_c_sender_organization_id = "INSERT ID VALUE"
+        v_c_permissions = "INSERT ID VALUE"
         Create_webhook_symmetric_key.new.run(v_c_correlation_id, v_c_sender_organization_id, v_c_permissions)
     end
 end

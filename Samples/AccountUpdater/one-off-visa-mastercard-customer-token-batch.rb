@@ -4,7 +4,7 @@ require_relative '../../data/Configuration.rb'
 public
 class One_off_visa_mastercard_customer_token_batch
     def run()
-        request_obj = CyberSource::Body.new
+        request_obj = CyberSource::PostBatchRequest.new
         request_obj.type = "oneOff"
         included = CyberSource::Accountupdaterv1batchesIncluded.new
 

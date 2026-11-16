@@ -7,16 +7,17 @@ class Get_details_on_all_created_webhooks
 
         # QUERY PARAMETERS
         organization_id = "testrest"
-        product_id = "testProductId"
-        event_type = "testEventType"
 
-        opts = {}
+        opts = {
+            product_id: "testProductId",
+            event_type: "testEventType"
+        }
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new
         api_instance = CyberSource::ManageWebhooksApi.new(api_client, config)
 
-        data, status_code, headers = api_instance.get_webhook_subscriptions_by_org(organization_id, product_id, event_type, opts)
+        data, status_code, headers = api_instance.get_webhook_subscriptions_by_org(organization_id, opts)
 
         puts status_code, headers, data
 

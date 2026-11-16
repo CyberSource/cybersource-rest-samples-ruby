@@ -72,8 +72,9 @@ class Create_registration
         card_processing = CyberSource::PaymentsProductsCardProcessing.new
         subscription_information2 = CyberSource::PaymentsProductsCardProcessingSubscriptionInformation.new
         subscription_information2.enabled = true
+        # PaymentsProductsCardProcessingSubscriptionInformationFeatures renamed to CardProessingFeatureSubscriptionItem in SDK 0.0.90
         features = {}
-        features['cardNotPresent'] = CyberSource::PaymentsProductsCardProcessingSubscriptionInformationFeatures.new(enabled: true)
+        features['cardNotPresent'] = CyberSource::CardProessingFeatureSubscriptionItem.new(enabled: true)
         subscription_information2.features = features
         card_processing.subscription_information = subscription_information2
 

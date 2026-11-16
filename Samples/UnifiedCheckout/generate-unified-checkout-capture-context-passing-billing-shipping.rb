@@ -6,8 +6,6 @@ class Generate_unified_checkout_capture_context
     def run()
         request_obj = CyberSource::GenerateUnifiedCheckoutCaptureContextRequest.new
 
-        request_obj.client_version = "0.23"
-
         target_origins =  []
         target_origins << "https://yourCheckoutPage.com"
         request_obj.target_origins = target_origins

@@ -46,8 +46,9 @@ class Merchant_boarding_barclays
         subscription_information = CyberSource::PaymentsProductsCardProcessingSubscriptionInformation.new
         subscription_information.enabled = true
         
+        # PaymentsProductsCardProcessingSubscriptionInformationFeatures renamed to CardProessingFeatureSubscriptionItem in SDK 0.0.90
         features = {}
-        obj1 = CyberSource::PaymentsProductsCardProcessingSubscriptionInformationFeatures.new
+        obj1 = CyberSource::CardProessingFeatureSubscriptionItem.new
         obj1.enabled = true
         features["cardNotPresent"] = obj1
         features["cardPresent"] = obj1
@@ -66,7 +67,7 @@ class Merchant_boarding_barclays
         obj2.acquirer = acquirer
         
         currencies = {}
-        obj3 = CyberSource::CardProcessingConfigCommonCurrencies1.new
+        obj3 = CyberSource::CurrencyUpdatedConfiguration.new
         obj3.enabled = true
         obj3.enabled_card_present = false
         obj3.enabled_card_not_present = true

@@ -49,9 +49,9 @@ class Merchant_boarding_vpc
         subscription_information = CyberSource::PaymentsProductsCardProcessingSubscriptionInformation.new
 
         subscription_information.enabled = true
+        # PaymentsProductsCardProcessingSubscriptionInformationFeatures renamed to CardProessingFeatureSubscriptionItem in SDK 0.0.90
         features = {}
-
-        obj1 = CyberSource::PaymentsProductsCardProcessingSubscriptionInformationFeatures.new
+        obj1 = CyberSource::CardProessingFeatureSubscriptionItem.new
         obj1.enabled = true
         features["cardNotPresent"] = obj1
         features["cardPresent"] = obj1
@@ -95,7 +95,7 @@ class Merchant_boarding_vpc
         obj7.enabled = true
 
         currencies = {}
-        obj2 = CyberSource::CardProcessingConfigCommonCurrencies.new
+        obj2 = CyberSource::CurrencyConfiguration.new
         obj2.enabled = true
         obj2.enabled_card_present = false
         obj2.enabled_card_not_present = true

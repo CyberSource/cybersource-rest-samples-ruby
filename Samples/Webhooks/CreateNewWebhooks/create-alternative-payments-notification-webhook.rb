@@ -4,19 +4,21 @@ require_relative '../../../data/Configuration.rb'
 public
 class Create_alternative_payments_notification_webhook
     def run()
-        request_obj = CyberSource::CreateWebhookRequest.new
+        request_obj = CyberSource::CreateWebhook.new
         request_obj.name = "My Custom Webhook"
         request_obj.description = "Sample Webhook from Developer Center"
         request_obj.organization_id = "<INSERT ORGANIZATION ID HERE>"
-        request_obj.product_id = "alternativePaymentMethods"
-
+        # product_id and event_types removed from CreateWebhook in SDK 0.0.90, replaced by products array
+        product_item = CyberSource::CreateWebhookRequestProductItem.new
+        product_item.product_id = "alternativePaymentMethods"
         event_types =  []
         event_types << "payments.payments.updated"
-        request_obj.event_types = event_types
+        product_item.event_types = event_types
+        request_obj.products = [product_item]
         request_obj.webhook_url = "https://MyWebhookServer.com:8443/simulateClient"
         request_obj.health_check_url = "https://MyWebhookServer.com:8443/simulateClientHealthCheck"
         request_obj.notification_scope = "SELF"
-        retry_policy = CyberSource::Notificationsubscriptionsv1webhooksRetryPolicy.new
+        retry_policy = CyberSource::Notificationsubscriptionsv2webhooksRetryPolicy.new
         retry_policy.algorithm = "ARITHMETIC"
         retry_policy.first_retry = 1
         retry_policy.interval = 1
@@ -26,13 +28,13 @@ class Create_alternative_payments_notification_webhook
         retry_policy.repeat_sequence_wait_time = 0
         request_obj.retry_policy = retry_policy
 
-        security_policy = CyberSource::Notificationsubscriptionsv1webhooksSecurityPolicy1.new
+        security_policy = CyberSource::Notificationsubscriptionsv2webhooksSecurityPolicy.new
         security_policy.security_type = "KEY"
-        security_policy.proxy_type = "external"
+        # proxy_type removed from Notificationsubscriptionsv2webhooksSecurityPolicy in SDK 0.0.90
         request_obj.security_policy = security_policy
         opts = {}
 
-        opts[:'create_webhook_request'] = request_obj
+        opts[:'create_webhook'] = request_obj
 
         config = MerchantConfiguration.new.merchantConfigProp()
         api_client = CyberSource::ApiClient.new

@@ -44,9 +44,9 @@ class Merchant_boarding_fdi_global
         subscription_information = CyberSource::PaymentsProductsCardProcessingSubscriptionInformation.new
 
         subscription_information.enabled = true
+        # PaymentsProductsCardProcessingSubscriptionInformationFeatures renamed to CardProessingFeatureSubscriptionItem in SDK 0.0.90
         features = {}
-
-        obj1 = CyberSource::PaymentsProductsCardProcessingSubscriptionInformationFeatures.new
+        obj1 = CyberSource::CardProessingFeatureSubscriptionItem.new
         obj1.enabled = true
         features["cardNotPresent"] = obj1
         features["cardPresent"] = obj1
@@ -71,7 +71,7 @@ class Merchant_boarding_fdi_global
 
         currencies = {}
 
-        obj6 = CyberSource::CardProcessingConfigCommonCurrencies1.new
+        obj6 = CyberSource::CurrencyUpdatedConfiguration.new
         obj6.enabled = true
         obj6.enabled_card_present = false
         obj6.enabled_card_not_present = true
@@ -96,7 +96,7 @@ class Merchant_boarding_fdi_global
         payment_types["DINERS_CLUB"] = obj7
         payment_types["CUP"] = obj7
         currencies2 = {}
-        ob1 = CyberSource::CardProcessingConfigCommonCurrencies.new
+        ob1 = CyberSource::CurrencyConfiguration.new
         ob1.enabled = true
         ob1.terminal_id = "pint123"
         ob1.merchant_id = "pinm123"
